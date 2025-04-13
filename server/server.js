@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Sample API endpoint
 app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from The Thabiso!' });
+  res.json({ message: 'Hello World, this is the team from wits!' });
 });
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
