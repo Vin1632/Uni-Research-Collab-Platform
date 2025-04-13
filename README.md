@@ -1,11 +1,23 @@
-# test_web_app
-## Clone the repo
+# University Research Collaboration Platform
+
+## Overview
+This project aims to provide a web-based solution for managing community sports facilities, allowing users to book slots, report maintenance
+issues, and receive relevant notifications.
+
+## Note to DevOPs
+
+### Clone the repo
 ``` git clone ```
 
-## Run the SCript set_up.sh
+### Grant executable Permission for script files
+```chmod +x *.sh ```
 
+### Run the Script set_up.sh
 ``` ./set_up.sh ```
 
-## To run the application
+### Run the web application Locally (Prod)
 
 ``` ./run.sh ```
+
+## Link to the Web App
+Click [here](https://uni-research-collab-fffwfkcnbdd5b9ct.southafricanorth-01.azurewebsites.net/)
