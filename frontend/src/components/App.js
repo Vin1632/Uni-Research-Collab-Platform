@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./ProtectedRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
 
