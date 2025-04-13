@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css';
 import { FiFilter } from 'react-icons/fi';
@@ -27,6 +27,7 @@ export default function Home() {
   const filteredProposals = filterCategory === "All"
     ? proposals
     : proposals.filter((p) => p.category === filterCategory);
+
 
   return (
     <div className="dashboard-wrapper">
