@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth"; // authentication 
+import { getAuth, GoogleAuthProvider, OAuthProvider } from "firebase/auth"; // authentication 
 import { getStorage } from "firebase/storage"; //Storing files inside firebase
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,4 +21,8 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app)
 const auth = getAuth(app);
 
-export {storage, auth};
+//prov
+const googleProvider = new GoogleAuthProvider();
+const microsoftProvider = new OAuthProvider('microsoft.com');
+
+export {storage,googleProvider,microsoftProvider, auth};

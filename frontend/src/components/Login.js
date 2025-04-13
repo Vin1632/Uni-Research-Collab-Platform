@@ -1,58 +1,111 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import GoogleButton from "react-google-button";
+import { useUserAuth } from "../contexts/AuthContext";
+import { Container, Row, Col } from "react-bootstrap";
 
-export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+const Login = () => {
 
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { logIn, googleSignIn } = useUserAuth();
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
     try {
-      setError("")
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      navigate("/");
-    } catch {
-      setError("Failed to log in")
-    }
+      await logIn(email, password);
+        //navigate to dashboard
+        navigate('/home');
 
-    setLoading(false)
-  }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await googleSignIn();
+      const userEmail = user.user.email;
+      setEmail(userEmail);
+      /* ------------------- */
+      const fetchData = async () => {
+        try {
+            //navigate to dashboard
+            navigate('/home');
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+
+      fetchData();
+    
+
+      /* ------------------------------------- */
+     
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Log In
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
+      <Container>
+        <Row>
+          <Col className="box2">
+            <div className="p-4 box">
+              <h2 className="mb-3">Login</h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="email"
+                    placeholder="Email address"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+
+                <div className="d-grid gap-2">
+                  <Button variant="primary" type="submit">
+                    Log In
+                  </Button>
+                </div>
+              </Form>
+              <hr />
+              <div>
+                <GoogleButton
+                  className="g-btn"
+                  type="dark"
+                  onClick={handleGoogleSignIn}
+                />
+              </div>
+              <div className="p-4 box mt-3 text-center">
+                Don't have an account? <Link to="/signup">Sign up</Link>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </>
-  )
-}
+  );
+};
+
+export default Login;
