@@ -4,7 +4,7 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "../styles/login.css";
 
 
@@ -61,9 +61,7 @@ const Login = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col className="box2">
-            <div className="p-4 box">
+      <div className="p-4 box">
               <h2 className="mb-3">Login</h2>
               {error && <Alert variant="danger">{error}</Alert>}
 
@@ -100,8 +98,6 @@ const Login = () => {
                 Don't have an account? <Link to="/signup">Sign up</Link>
               </div>
             </div>
-          </Col>
-        </Row>
       </Container>
     </>
   );
