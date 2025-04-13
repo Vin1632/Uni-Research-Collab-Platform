@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-import { useUserAuth } from "../contexts/AuthContext";
+import { useUserAuth } from "../context/UserAuthContext";
 import { Container, Row, Col } from "react-bootstrap";
-
+import "../styles/login.css";
 
 const Login = () => {
 
@@ -15,6 +15,14 @@ const Login = () => {
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
+    const { user } = useUserAuth();
+
+    useEffect(() => {
+    if (user) {
+        navigate("/home");
+    }
+    }, [user]);
+
 
 
   const handleSubmit = async (e) => {
@@ -22,9 +30,21 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-        //navigate to dashboard
-        navigate('/home');
 
+      /* ------------------- */
+      const fetchData = async () => {
+        try {
+          
+
+          navigate('/home');
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } 
+      };
+    
+      fetchData();
+
+      /* ------------------------------------- */
     } catch (err) {
       setError(err.message);
     }
@@ -39,18 +59,15 @@ const Login = () => {
       /* ------------------- */
       const fetchData = async () => {
         try {
-            //navigate to dashboard
-            navigate('/home');
 
+          navigate('/home');
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       };
-
-      fetchData();
     
+      fetchData();
 
-      /* ------------------------------------- */
      
     } catch (error) {
       console.log(error.message);
@@ -63,7 +80,7 @@ const Login = () => {
         <Row>
           <Col className="box2">
             <div className="p-4 box">
-              <h2 className="mb-3">Login</h2>
+              <h2 className="mb-3">Funding Management Login</h2>
               {error && <Alert variant="danger">{error}</Alert>}
 
               <Form onSubmit={handleSubmit}>
