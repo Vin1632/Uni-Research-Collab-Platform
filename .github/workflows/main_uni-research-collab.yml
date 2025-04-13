@@ -72,4 +72,11 @@ jobs:
           app-name: 'Uni-Research-Collab'
           slot-name: 'Production'
           package: .
+      
+      #upload codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Vin1632/Uni-Research-Collab-Platform
           
