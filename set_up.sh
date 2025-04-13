@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "[INFO]:: Installing Dependecies ......... "
-cd fronend/
+cd frontend/
 npm install
 cd ../server
 npm install

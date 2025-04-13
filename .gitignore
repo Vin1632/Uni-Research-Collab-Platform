@@ -21,3 +21,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Build folders
+/frontend/build
+/server/build
+
+# Editor settings
+.vscode/
+.idea/
+
+# OS-specific junk
+Thumbs.db
