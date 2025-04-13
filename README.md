@@ -12,7 +12,7 @@ issues, and receive relevant notifications.
 ### Grant executable Permission for script files
 ```chmod +x *.sh ```
 
-### Run the Script set_up.sh
+### Set-up the project
 ``` ./set_up.sh ```
 
 ### Run the web application Locally (Prod)
