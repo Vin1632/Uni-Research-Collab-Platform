@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-import { useUserAuth } from "../contexts/AuthContext";
+import { useUserAuth } from "../context/UserAuthContext";
 import { Container, Row, Col } from "react-bootstrap";
+import "../styles/login.css";
 
 
 const Login = () => {
@@ -83,11 +84,9 @@ const Login = () => {
                   />
                 </Form.Group>
 
-                <div className="d-grid gap-2">
-                  <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit">
                     Log In
                   </Button>
-                </div>
               </Form>
               <hr />
               <div>
