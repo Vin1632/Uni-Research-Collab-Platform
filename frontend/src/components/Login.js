@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
 
+// FontAwesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
       await logIn(email, password);
-        //navigate to dashboard
-        navigate('/home');
-
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
@@ -37,69 +34,62 @@ const Login = () => {
       const user = await googleSignIn();
       const userEmail = user.user.email;
       setEmail(userEmail);
-      /* ------------------- */
-      const fetchData = async () => {
-        try {
-            //navigate to dashboard
-            navigate('/home');
-
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-
-      fetchData();
-    
-
-      /* ------------------------------------- */
-     
+      navigate("/home");
     } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <>
-      <Container>
-      <div className="p-4 box">
-              <h2 className="mb-3">Login</h2>
-              {error && <Alert variant="danger">{error}</Alert>}
+    <Container>
+      <Row>
+        <Col className="box2">
+          <div className="wrapper">
+            <h1>Login</h1>
+            {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="email"
-                    placeholder="Email address"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                    Log In
-                  </Button>
-              </Form>
-              <hr />
-              <div>
-                <GoogleButton
-                  className="g-btn"
-                  type="dark"
-                  onClick={handleGoogleSignIn}
+            <Form onSubmit={handleSubmit}>
+              <div className="input-box">
+                <Form.Control
+                  type="email"
+                  placeholder="Email address"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+                <i><FontAwesomeIcon icon={faEnvelope} /></i>
               </div>
-              <div className="p-4 box mt-3 text-center">
+
+              <div className="input-box">
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <i><FontAwesomeIcon icon={faLock} /></i>
+              </div>
+
+              <div className="remember-forgot">
+                <label>
+                  <input type="checkbox" /> Remember me
+                </label>
+                <a href="#">Forgot Password?</a>
+              </div>
+
+              <button className="btn" type="submit">
+                Log In
+              </button>
+            </Form>
+
+            <GoogleButton className="g-btn" type="dark" onClick={handleGoogleSignIn} />
+
+            <div className="register-link">
+              <p>
                 Don't have an account? <Link to="/signup">Sign up</Link>
-              </div>
+              </p>
             </div>
-      </Container>
-    </>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
