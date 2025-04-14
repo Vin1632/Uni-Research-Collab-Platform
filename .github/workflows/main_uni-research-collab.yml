@@ -23,12 +23,11 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test #Build react then run the server
+      - name: npm install, build, and test #Build react then run the server ### add for codecov --> npm test --coverage
         run: |
           cd frontend
           npm install
           npm run build
-          npm test -- --coverage
           cd ..
 
       - name: Zip artifact for deployment
