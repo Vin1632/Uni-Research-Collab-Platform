@@ -1,32 +1,19 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import {  Alert } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
 
-// FontAwesome imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await logIn(email, password);
-      navigate("/home");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
@@ -34,6 +21,8 @@ const Login = () => {
       const user = await googleSignIn();
       const userEmail = user.user.email;
       setEmail(userEmail);
+      Login = userEmail;
+      
       navigate("/home");
     } catch (error) {
       console.log(error.message);
@@ -54,7 +43,7 @@ const Login = () => {
                 Don't have an account? 
               </p>
             </div>
-            
+
             <GoogleButton className="g-btn" type="dark" onClick={handleGoogleSignIn} />
 
             
