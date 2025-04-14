@@ -48,44 +48,16 @@ const Login = () => {
             <h1>Login</h1>
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <Form onSubmit={handleSubmit}>
-              <div className="input-box">
-                <Form.Control
-                  type="email"
-                  placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <i><FontAwesomeIcon icon={faEnvelope} /></i>
-              </div>
-
-              <div className="input-box">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <i><FontAwesomeIcon icon={faLock} /></i>
-              </div>
-
-              <div className="remember-forgot">
-                <label>
-                  <input type="checkbox" /> Remember me
-                </label>
-                {/*<a href="#">Forgot Password?</a> */}
-              </div>
-
-              <button className="btn" type="submit">
-                Log In
-              </button>
-            </Form>
-
-            <GoogleButton className="g-btn" type="dark" onClick={handleGoogleSignIn} />
 
             <div className="register-link">
               <p>
-                Don't have an account? <Link to="/signup">Sign up</Link>
+                Don't have an account? 
               </p>
             </div>
+            
+            <GoogleButton className="g-btn" type="dark" onClick={handleGoogleSignIn} />
+
+            
           </div>
         </Col>
       </Row>
