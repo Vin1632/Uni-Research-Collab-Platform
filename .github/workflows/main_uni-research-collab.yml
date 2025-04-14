@@ -28,6 +28,7 @@ jobs:
           cd frontend
           npm install
           npm run build
+          npm test -- --coverage
           cd ..
 
       - name: Zip artifact for deployment
@@ -79,4 +80,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Vin1632/Uni-Research-Collab-Platform
-          
+          directory: frontend/coverage
+          files: frontend/coverage/cobertura-coverage.xml
