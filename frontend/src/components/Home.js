@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css';
 import { FiFilter } from 'react-icons/fi';
 
-import aiHealthcareImage from './images/aihealthcarenew.jpg'; 
-import blockchaineducationImage from './images/blockchaineducation.jpg'; 
-import climatechangeImage from './images/climatechange.jpg'; 
-import sustainenergyImage from './images/sustainenergy.jpg'; 
-import neurotechImage from './images/neurotech.jpg';
-import dataprivacyImage from './images/dataprivacy.jpg';
-import logo from './images/logo.jpg'; 
+import aiHealthcareImage from '../images/aihealthcarenew.jpg'; 
+import blockchaineducationImage from '../images/blockchaineducation.jpg'; 
+import climatechangeImage from '../images/climatechange.jpg'; 
+import sustainenergyImage from '../images/sustainenergy.jpg'; 
+import neurotechImage from '../images/neurotech.jpg';
+import dataprivacyImage from '../images/dataprivacy.jpg';
+import logo from '../images/logo.jpg'; 
 
 const proposals = [
   { id: 1, title: "AI in Healthcare", category: "Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans." },
