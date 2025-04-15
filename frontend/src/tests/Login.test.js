@@ -4,7 +4,6 @@ import Login from '../components/Login';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserAuthContextProvider } from '../context/UserAuthContext';
 
-// Mocking the necessary functions
 jest.mock('../context/UserAuthContext', () => ({
   useUserAuth: () => ({
     logIn: jest.fn().mockResolvedValueOnce(),
@@ -51,7 +50,7 @@ describe('Login Component', () => {
     fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
     fireEvent.click(screen.getByText('Log In'));
 
-    await screen.findByText('Log In'); // Ensures the form submits
+    await screen.findByText('Log In'); 
 
     expect(logIn).toHaveBeenCalledWith('testuser@example.com', 'password');
   });
