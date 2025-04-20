@@ -1,0 +1,129 @@
+/* Container for the form */
+div {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Add Proposal Banner */
+.add-proposal-banner {
+    background: linear-gradient(to right, #d6f0ff, #e6f7fb); /* Light blue gradient like the dashboard */
+    color: #005ba1;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    border-top: 2px solid #007bff; /* Blue top border */
+    border-bottom: 2px solid #007bff; /* Blue bottom border */
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Heading Style */
+h1 {
+    text-align: center;
+    color: #005ba1;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Label Styling */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #003e7e;
+}
+
+/* Input and Textarea Styling */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cce4f6;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Textarea specific styling */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Button Group Container */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Submit and Invite Buttons Shared Styling */
+button {
+    background-color: #0077b6;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    max-width: 200px;
+}
+
+button:hover {
+    background-color: #005ba1;
+}
+
+/* Invite Button Specific Styling (optional if you want it to stand out) */
+.invite-button {
+    background-color: #00b4d8;
+}
+
+.invite-button:hover {
+    background-color: #0096c7;
+}
+
+/* Error handling */
+input:invalid,
+textarea:invalid {
+    border-color: red;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #005ba1;
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    div {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

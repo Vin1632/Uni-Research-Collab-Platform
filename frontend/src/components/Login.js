@@ -35,7 +35,7 @@ const Login = () => {
       const user = await googleSignIn();
       const userEmail = user.user.email;
       setEmail(userEmail);
-      navigate("/home");
+      navigate("/Dashboard");
       await logIn(email, password);
       setPassword("Hello");
     } catch (error) {

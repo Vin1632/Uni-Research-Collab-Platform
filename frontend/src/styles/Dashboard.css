@@ -4,95 +4,100 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #e6f7fb; /* light cyan background like logo backdrop */
+  background: #e6f7fb;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Banner at the top */
+/* Banner with logo, menu, title and icons */
 .dashboard-banner {
   background: linear-gradient(to right, #d6f0ff, #e6f7fb);
   color: #005ba1;
-  text-align: center;
-  padding: 20px 0;
+  padding: 20px;
   font-size: 2.5em;
   font-weight: bold;
   border-top: 2px solid #007bff;
   border-bottom: 2px solid #007bff;
-  width: 100%;
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  position: relative;
   gap: 15px;
+}
+
+/* Burger menu */
+.menu-container {
+  position: relative;
+}
+
+.menu-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #003e7e;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  font-size: 1rem;
+}
+
+.menu-dropdown div {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #003e7e;
+}
+
+.menu-dropdown div:hover {
+  background-color: #eaf4ff;
 }
 
 .dashboard-logo {
   height: 55px;
-vertical-align: middle;
-border-radius: 10px;
+  border-radius: 10px;
 }
 
-/* Container for the proposal tiles */
-.dashboard-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 30px;
-  gap: 20px;
-  background-color: #f9f9f9;
-}
-
-/* Individual proposal tile */
-.proposal-card {
-  width: 300px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
+/* Title centered in the banner */
+.dashboard-title {
+  flex-grow: 1;
   text-align: center;
-  background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
-  transition: transform 0.2s ease;
-  overflow: hidden;
-  border: 1px solid #cce4f6;
 }
 
-.proposal-card:hover {
-  transform: translateY(-5px);
+/* Icons on the right of the banner */
+.icon-group {
+  display: flex;
+  gap: 20px;
+  font-size: 1.4rem;
+  color: #0077b6;
 }
 
-/* Image in the card */
-.proposal-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-/* Proposal title */
-.proposal-title {
-  font-size: 1.2em;
-  margin: 10px 0;
-  font-weight: 600;
+.icon-group .dashboard-icon:hover {
   color: #003e7e;
 }
 
-/* Short summary */
-.proposal-summary {
-  font-size: 0.95em;
-  color: #555;
+/* Top bar with filter and add buttons */
+.dashboard-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 30px 10px;
+  position: relative;
 }
 
 .filter-container {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  cursor: pointer;
+  position: relative;
 }
 
 .filter-icon {
-  font-size: 1.5rem;
-  color: #003e7e;
+  font-size: 1.6rem;
+  color: #0077b6;
+  cursor: pointer;
 }
 
 .filter-dropdown {
@@ -116,4 +121,60 @@ border-radius: 10px;
 
 .filter-dropdown div:hover {
   background-color: #eaf4ff;
+}
+
+.add-button-container .add-icon {
+  font-size: 1.8rem;
+  color: #0077b6;
+  cursor: pointer;
+}
+
+.add-button-container .add-icon:hover {
+  color: #003e7e;
+}
+
+/* Proposal cards grid */
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+  gap: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Proposal card styling */
+.proposal-card {
+  width: 300px;
+  cursor: pointer;
+  border: 1px solid #cce4f6;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+
+.proposal-card:hover {
+  transform: translateY(-5px);
+}
+
+.proposal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.proposal-title {
+  font-size: 1.2em;
+  margin: 10px 0;
+  font-weight: 600;
+  color: #003e7e;
+}
+
+.proposal-summary {
+  font-size: 0.95em;
+  color: #555;
 }
