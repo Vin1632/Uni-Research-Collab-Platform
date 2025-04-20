@@ -11,9 +11,9 @@ const ChooseRole = () => {
     
     // Redirect to the corresponding page based on role
     if (role === 'researcher') {
-      navigate('/researcher-dashboard');
+      navigate('/researcher-signup');
     } else if (role === 'reviewer') {
-      navigate('/reviewer-dashboard');
+      navigate('/reviewer-signup');
     }
   };
 
