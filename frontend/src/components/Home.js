@@ -59,7 +59,6 @@ export default function Dashboard() {
             <button  aria-label="More" onClick={() => setShowDropdown(!showDropdown)}>
               <MdMoreVert
                 size={30}
-                
                 role="button"
               />
             </button>
@@ -78,23 +77,51 @@ export default function Dashboard() {
 
       <main className="dashboard-container">
 
-        {filteredProposals.map((proposal) => (
-          <section
-            key={proposal.id}
+      <section
+            
             className="proposal-card"
-            onClick={() => navigate(`/proposal/${proposal.id}`)}
+            onClick={() => navigate(`/proposal/`)}
             role="button"
             tabIndex={0}
-            aria-label={`Open proposal: ${proposal.title}`}
+            aria-label={`Create Project`}
           >
-            <proposal.icon size={70}/>
+            <IoIosAddCircleOutline size={70}/>
             <article className="proposal-details">
-              <h3 className="proposal-title">{proposal.title}</h3>
-              <p className="proposal-summary">{proposal.summary}</p>
+              <h3 className="proposal-title">Create Project</h3>
+              <p className="proposal-summary">Exploring machine learning techniques to improve patient diagnostics and treatment.</p>
             </article>
           </section>
-        ))}
 
+          <section
+            
+            className="proposal-card"
+            onClick={() => navigate(`/proposal/`)}
+            role="button"
+            tabIndex={0}
+            aria-label={`Reportrs`}
+          >
+            <IoIosArchive size={70}/>
+            <article className="proposal-details">
+              <h3 className="proposal-title">Reports</h3>
+              <p className="proposal-summary">Innovative solutions to store and distribute renewable energy effectively</p>
+            </article>
+          </section>
+
+
+          <section
+            
+            className="proposal-card"
+            onClick={() => navigate(`/proposal/`)}
+            role="button"
+            tabIndex={0}
+            aria-label={`Reccommendations`}
+          >
+            <IoMdOpen size={70}/>
+            <article className="proposal-details">
+              <h3 className="proposal-title">Reccommendation</h3>
+              <p className="proposal-summary">Secure certification and transparent academic records using blockchain technology.</p>
+            </article>
+          </section>
         
       </main>
     </div>
