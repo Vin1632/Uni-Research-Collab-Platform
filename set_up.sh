@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "[INFO]:: Installing Dependecies ......... "
+echo "[INFO]: Installing Dependecies ......... "
 cd frontend/
 npm install
 cd ../server
