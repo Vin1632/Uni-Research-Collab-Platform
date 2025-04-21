@@ -8,7 +8,9 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom"; //for navigation
+import { useNavigate } from "react-router-dom";
+// import { doc, getDoc } from "firebase/firestore";
+// import { firestore } from "../firebase";
 
 const userAuthContext = createContext();
 
@@ -18,22 +20,13 @@ export function UserAuthContextProvider({ children }) {
   const [roleSelected, setRoleSelected] = useState(false);
   const navigate = useNavigate();
 
-  function logIn(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
-
-  function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
-  }
-
-  function logOut() {
-    return signOut(auth);
-  }
-
-  function googleSignIn() {
-    const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
-  }
+  const logIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
+  const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+  const logOut = () => signOut(auth);
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
@@ -41,23 +34,23 @@ export function UserAuthContextProvider({ children }) {
 
       if (currentuser) {
         try {
-          // Simulated fetch from backend 
-          const data = {
-            role: null,         // e.g., 'researcher' or 'reviewer'
-            isAdmin: false,     // true if user is an admin
-          };
+          // 🔽 Simulated role check from localStorage (replace with backend call later)
+          const role = localStorage.getItem("role");
+          const isAdminSim = false; // Simulated admin status
 
-          // Real implementation might look like this:
+          // 🔽 Real Firestore logic you can use later:
           /*
           const docRef = doc(firestore, "users", currentuser.uid);
           const docSnap = await getDoc(docRef);
           const data = docSnap.exists() ? docSnap.data() : {};
+          const role = data.role;
+          const isAdminSim = data.isAdmin || false;
           */
 
-          setIsAdmin(data.isAdmin);
-          setRoleSelected(!!data.role);
+          setIsAdmin(isAdminSim);
+          setRoleSelected(!!role);
 
-          if (!data.isAdmin && !data.role) {
+          if (!isAdminSim && !role) {
             navigate("/choose-role");
           }
         } catch (err) {
