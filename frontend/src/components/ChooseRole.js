@@ -1,44 +1,37 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const ChooseRole = () => {
+  const { user } = useUserAuth();
   const navigate = useNavigate();
 
-  const handleRoleSelection = (role) => {
-    // Save role locally (simulate backend write)
-    localStorage.setItem('role', role);
-
-    // Delay slightly to ensure localStorage is updated before navigating (just in case)
-    setTimeout(() => {
-      if (role === 'researcher') {
-        navigate('/researcher-signup');
-      } else if (role === 'reviewer') {
-        navigate('/reviewer-signup');
+  const handleRoleSelection = async (role) => {
+    try {
+      // Simulated backend save
+      if (role === "researcher") {
+        navigate("/researcher-signup");
+      } else {
+        navigate("/reviewer-signup");
       }
-    }, 0);
+    } catch (error) {
+      console.error("Error selecting role:", error);
+    }
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="mb-4">
-        <Col>
-          <h2>Please select your role</h2>
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col>
-          <Button variant="primary" onClick={() => handleRoleSelection('researcher')}>
-            Researcher
-          </Button>
-        </Col>
-        <Col>
-          <Button variant="secondary" onClick={() => handleRoleSelection('reviewer')}>
-            Reviewer
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <main className="page-wrapper">
+      <section className="glass-box text-center">
+        <h2>Choose Your Role</h2>
+        <Button variant="primary" className="btn-primary mb-3" onClick={() => handleRoleSelection("researcher")}>
+          Researcher
+        </Button>
+        <Button variant="secondary" className="btn-secondary" onClick={() => handleRoleSelection("reviewer")}>
+          Reviewer
+        </Button>
+      </section>
+    </main>
   );
 };
 
