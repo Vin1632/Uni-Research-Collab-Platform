@@ -19,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
     if (user) {
-        navigate("/home");
+        navigate("/Dashboard");
     }
     }, [user]);
 
@@ -36,7 +36,7 @@ const Login = () => {
         try {
           
 
-          navigate('/home');
+          navigate('/Dashboard');
         } catch (error) {
           console.error('Error fetching data:', error);
         } 
@@ -60,7 +60,7 @@ const Login = () => {
       const fetchData = async () => {
         try {
 
-          navigate('/home');
+          navigate('/Dashboard');
         } catch (error) {
           console.error('Error fetching data:', error);
         }
