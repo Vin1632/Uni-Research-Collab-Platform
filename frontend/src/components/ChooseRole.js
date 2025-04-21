@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const ChooseRole = () => {
-  const { setRole } = useUserAuth(); // Use setRole from context
+  const { setRole } = useUserAuth(); 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +15,7 @@ const ChooseRole = () => {
 
     try {
       setIsLoading(true);
-      setRole(role); // Save role in context and localStorage
+      setRole(role); 
       if (role === "researcher") {
         navigate("/researcher-signup");
       } else {

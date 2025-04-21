@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Badge } from "react-bootstrap";
-import "../styles/ResearcherSignup.css";
 import { useNavigate } from "react-router-dom";
-
+import '../styles/ResearchersignUp.css';
 const ResearcherSignup = () => {
   const [form, setForm] = useState({
     fullName: "",
@@ -60,7 +59,7 @@ const ResearcherSignup = () => {
       researchInterests: [...form.researchInterests, trimmed],
       researchInterestInput: "",
     });
-    setErrors({ ...errors, researchInterests: null }); // Clear error
+    setErrors({ ...errors, researchInterests: null }); 
   };
 
   const handleRemoveInterest = (tag) => {
@@ -81,7 +80,7 @@ const ResearcherSignup = () => {
         console.log("Submitting:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
         setTimeout(() => {
-          navigate("/home"); // Navigate to home after successful submission
+          navigate("/home");
         }, 2000);
       } catch (error) {
         console.error("Submission error:", error);
@@ -95,9 +94,7 @@ const ResearcherSignup = () => {
   return (
     <section
       className="form-container"
-      style={{
-        backgroundImage: "url('C:/Users/2595626/Desktop/Uni-Research-Collab-Platform/frontend/src/assets/bg.jpg')",
-      }}
+      
     >
       <Form onSubmit={handleSubmit}>
         <h3>Researcher Details</h3>
