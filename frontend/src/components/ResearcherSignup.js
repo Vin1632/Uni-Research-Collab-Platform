@@ -102,98 +102,112 @@ const ResearcherSignup = () => {
       <Form onSubmit={handleSubmit}>
         <h3>Researcher Details</h3>
 
-        <Form.Control
-          className="box"
-          type="text"
-          name="fullName"
-          placeholder="Full Name"
-          value={form.fullName}
-          onChange={handleChange}
-          isInvalid={!!errors.fullName}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.fullName}
-        </Form.Control.Feedback>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            value={form.fullName}
+            onChange={handleChange}
+            isInvalid={!!errors.fullName}
+          />
+          <Form.Control.Feedback type="invalid" className="text-danger">
+            {errors.fullName}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Control
-          className="box"
-          type="text"
-          name="institution"
-          placeholder="Institution Name"
-          value={form.institution}
-          onChange={handleChange}
-          isInvalid={!!errors.institution}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.institution}
-        </Form.Control.Feedback>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            name="institution"
+            placeholder="Institution Name"
+            value={form.institution}
+            onChange={handleChange}
+            isInvalid={!!errors.institution}
+          />
+          <Form.Control.Feedback type="invalid" className="text-danger">
+            {errors.institution}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Control
-          className="box"
-          type="text"
-          name="careerField"
-          placeholder="Career Field"
-          value={form.careerField}
-          onChange={handleChange}
-          isInvalid={!!errors.careerField}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.careerField}
-        </Form.Control.Feedback>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            name="careerField"
+            placeholder="Career Field"
+            value={form.careerField}
+            onChange={handleChange}
+            isInvalid={!!errors.careerField}
+          />
+          <Form.Control.Feedback type="invalid" className="text-danger">
+            {errors.careerField}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Control
-          className="box"
-          type="text"
-          name="qualifications"
-          placeholder="Qualifications"
-          value={form.qualifications}
-          onChange={handleChange}
-          isInvalid={!!errors.qualifications}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.qualifications}
-        </Form.Control.Feedback>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            name="qualifications"
+            placeholder="Qualifications"
+            value={form.qualifications}
+            onChange={handleChange}
+            isInvalid={!!errors.qualifications}
+          />
+          <Form.Control.Feedback type="invalid" className="text-danger">
+            {errors.qualifications}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Control
-          className="box"
-          type="text"
-          name="careerPath"
-          placeholder="Career Path"
-          value={form.careerPath}
-          onChange={handleChange}
-          isInvalid={!!errors.careerPath}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.careerPath}
-        </Form.Control.Feedback>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            name="careerPath"
+            placeholder="Career Path"
+            value={form.careerPath}
+            onChange={handleChange}
+            isInvalid={!!errors.careerPath}
+          />
+          <Form.Control.Feedback type="invalid" className="text-danger">
+            {errors.careerPath}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Control
-          className="box"
-          type="text"
-          placeholder="Add Research Interest"
-          value={form.researchInterestInput}
-          onChange={(e) =>
-            setForm({ ...form, researchInterestInput: e.target.value })
-          }
-        />
-        <Button className="btn" onClick={handleAddInterest}>
-          Add Interest
-        </Button>
+        <Form.Group>
+          <Form.Control
+            className="box"
+            type="text"
+            placeholder="Add Research Interest"
+            value={form.researchInterestInput}
+            onChange={(e) =>
+              setForm({ ...form, researchInterestInput: e.target.value })
+            }
+          />
+          <Button className="btn mt-2" onClick={handleAddInterest}>
+            Add Interest
+          </Button>
+        </Form.Group>
 
         {form.researchInterests.length === 0 ? (
           <Form.Text className="text-muted">No interests added yet.</Form.Text>
         ) : (
-          form.researchInterests.map((interest, idx) => (
-            <Badge key={idx} bg="primary" className="m-1">
-              {interest}{" "}
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => handleRemoveInterest(interest)}
-              >
-                ✕
-              </span>
-            </Badge>
-          ))
+          <section className="interests-container mt-3">
+            {form.researchInterests.map((interest, idx) => (
+              <Badge key={idx} bg="info" className="m-1 p-2">
+                {interest}{" "}
+                <span
+                  style={{ cursor: "pointer", color: "red", fontWeight: "bold" }}
+                  onClick={() => handleRemoveInterest(interest)}
+                >
+                  ✕
+                </span>
+              </Badge>
+            ))}
+          </section>
         )}
 
         {errors.researchInterests && (
@@ -202,7 +216,7 @@ const ResearcherSignup = () => {
           </Form.Text>
         )}
 
-        <Button type="submit" className="btn" disabled={isSubmitting}>
+        <Button type="submit" className="btn mt-3" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
 

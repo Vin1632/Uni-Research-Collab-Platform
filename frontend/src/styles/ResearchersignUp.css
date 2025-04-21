@@ -9,6 +9,8 @@
    --white: #fff;
    --light-bg: #f4f4f4;
    --box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+   --badge-bg: #dff9fb;
+   --badge-text: #130f40;
 }
 
 * {
@@ -117,6 +119,52 @@
    font-size: 13px;
 }
 
+/* ===== ERROR MESSAGES ===== */
+.form-container form .text-danger {
+   color: var(--red);
+   font-size: 14px;
+   margin-top: 5px;
+   text-align: left;
+}
+
+/* ===== RESEARCH INTERESTS ===== */
+.interests-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   justify-content: center;
+   margin-top: 15px;
+}
+
+.interests-container .badge {
+   background-color: var(--badge-bg);
+   color: var(--badge-text);
+   font-size: 14px;
+   padding: 8px 12px;
+   border-radius: 20px;
+   display: inline-flex;
+   align-items: center;
+   gap: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.interests-container .badge:hover {
+   background-color: var(--blue);
+   color: var(--white);
+}
+
+.interests-container .badge span {
+   color: var(--red);
+   font-weight: bold;
+   cursor: pointer;
+   transition: color 0.3s ease;
+}
+
+.interests-container .badge span:hover {
+   color: var(--dark-red);
+}
+
 /* Responsive tweaks */
 @media (max-width: 600px) {
    .form-container form {
@@ -129,5 +177,10 @@
 
    .form-container form .btn {
       font-size: 16px;
+   }
+
+   .interests-container .badge {
+      font-size: 12px;
+      padding: 6px 10px;
    }
 }
