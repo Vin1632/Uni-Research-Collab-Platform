@@ -80,7 +80,7 @@ const ResearcherSignup = () => {
         console.log("Submitting:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
         setTimeout(() => {
-          navigate("/home");
+          navigate("/home"); //Navigate to the home
         }, 2000);
       } catch (error) {
         console.error("Submission error:", error);
