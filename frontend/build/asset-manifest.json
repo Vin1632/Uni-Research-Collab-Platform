@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c86af20c.css",
-    "main.js": "/static/js/main.9dbdc86a.js",
+    "main.css": "/static/css/main.aaee0971.css",
+    "main.js": "/static/js/main.99883b89.js",
     "static/media/neurotech.jpg": "/static/media/neurotech.724d9588a309c9495068.jpg",
     "static/media/blockchaineducation.jpg": "/static/media/blockchaineducation.48f6c255afe5265bb149.jpg",
     "static/media/bg.jpg": "/static/media/bg.d3f323102c015094ceba.jpg",
@@ -11,11 +11,11 @@
     "static/media/aihealthcarenew.jpg": "/static/media/aihealthcarenew.5c5ec16610c2a46c2ed6.jpg",
     "static/media/dataprivacy.jpg": "/static/media/dataprivacy.f66e983d138e787d4a23.jpg",
     "index.html": "/index.html",
-    "main.c86af20c.css.map": "/static/css/main.c86af20c.css.map",
-    "main.9dbdc86a.js.map": "/static/js/main.9dbdc86a.js.map"
+    "main.aaee0971.css.map": "/static/css/main.aaee0971.css.map",
+    "main.99883b89.js.map": "/static/js/main.99883b89.js.map"
   },
   "entrypoints": [
-    "static/css/main.c86af20c.css",
-    "static/js/main.9dbdc86a.js"
+    "static/css/main.aaee0971.css",
+    "static/js/main.99883b89.js"
   ]
 }

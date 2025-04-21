@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import ChooseRole from "./components/ChooseRole";
+import ResearcherSignup from "./components/ResearcherSignup";
+import ReviewerSignup from "./components/ReviewerSignup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 
@@ -24,6 +27,10 @@ function App() {
               />
               <Route path="/" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/choose-role" element={<ChooseRole />} />
+              <Route path="/researcher-signup" element={<ResearcherSignup />} />
+              <Route path="/reviewer-signup" element={<ReviewerSignup />} />
+
              
             </Routes>
           </UserAuthContextProvider>
