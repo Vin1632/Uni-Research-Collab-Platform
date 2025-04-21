@@ -10,6 +10,8 @@ const ChooseRole = () => {
   const handleRoleSelection = async (role) => {
     try {
       // Simulated backend save
+      // Save role to localStorage (temporary until backend is used)
+      localStorage.setItem("role", role);
       if (role === "researcher") {
         navigate("/researcher-signup");
       } else {

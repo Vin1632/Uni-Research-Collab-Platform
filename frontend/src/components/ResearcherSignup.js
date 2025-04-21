@@ -4,10 +4,8 @@ import {
   Button,
   Alert,
   Badge,
-  Container,
-  Row,
-  Col,
 } from "react-bootstrap";
+import "../styles/ResearcherSignup.css";
 
 const ResearcherSignup = () => {
   const [form, setForm] = useState({
@@ -25,7 +23,6 @@ const ResearcherSignup = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!form.fullName.trim()) newErrors.fullName = "Full name is required.";
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
     if (!form.careerField.trim()) newErrors.careerField = "Career field is required.";
@@ -33,7 +30,6 @@ const ResearcherSignup = () => {
     if (!form.careerPath.trim()) newErrors.careerPath = "Career path is required.";
     if (form.researchInterests.length === 0)
       newErrors.researchInterests = "At least one research interest is required.";
-
     return newErrors;
   };
 
@@ -68,15 +64,6 @@ const ResearcherSignup = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         console.log("Submitting:", form);
-
-        // 🔻 Uncomment and use this when backend is ready
-        /*
-        await setDoc(doc(firestore, "users", user.uid), {
-          ...form,
-          role: "researcher",
-        });
-        */
-
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
       } catch (error) {
         console.error("Submission error:", error);
@@ -86,163 +73,121 @@ const ResearcherSignup = () => {
   };
 
   return (
-    <Container className="mt-4">
-      <Row className="mb-4">
-        <Col>
-          <h3>Researcher Details</h3>
-        </Col>
-      </Row>
-
+    <section
+      className="form-container"
+      style={{
+        backgroundImage: "url('C:/Users/2595626/Desktop/Uni-Research-Collab-Platform/frontend/src/assets/bg.jpg')",
+      }}
+    >
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="fullName"
-                value={form.fullName}
-                onChange={handleChange}
-                isInvalid={!!errors.fullName}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.fullName}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+        <h3>Researcher Details</h3>
 
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Institution Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="institution"
-                value={form.institution}
-                onChange={handleChange}
-                isInvalid={!!errors.institution}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.institution}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
+        <Form.Control
+          className="box"
+          type="text"
+          name="fullName"
+          placeholder="Full Name"
+          value={form.fullName}
+          onChange={handleChange}
+          isInvalid={!!errors.fullName}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.fullName}
+        </Form.Control.Feedback>
 
-        <Row>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Career Field</Form.Label>
-              <Form.Control
-                type="text"
-                name="careerField"
-                value={form.careerField}
-                onChange={handleChange}
-                isInvalid={!!errors.careerField}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.careerField}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+        <Form.Control
+          className="box"
+          type="text"
+          name="institution"
+          placeholder="Institution Name"
+          value={form.institution}
+          onChange={handleChange}
+          isInvalid={!!errors.institution}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.institution}
+        </Form.Control.Feedback>
 
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Qualifications</Form.Label>
-              <Form.Control
-                type="text"
-                name="qualifications"
-                value={form.qualifications}
-                onChange={handleChange}
-                isInvalid={!!errors.qualifications}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.qualifications}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
+        <Form.Control
+          className="box"
+          type="text"
+          name="careerField"
+          placeholder="Career Field"
+          value={form.careerField}
+          onChange={handleChange}
+          isInvalid={!!errors.careerField}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.careerField}
+        </Form.Control.Feedback>
 
-        <Row>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Career Path</Form.Label>
-              <Form.Control
-                type="text"
-                name="careerPath"
-                value={form.careerPath}
-                onChange={handleChange}
-                isInvalid={!!errors.careerPath}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.careerPath}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+        <Form.Control
+          className="box"
+          type="text"
+          name="qualifications"
+          placeholder="Qualifications"
+          value={form.qualifications}
+          onChange={handleChange}
+          isInvalid={!!errors.qualifications}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.qualifications}
+        </Form.Control.Feedback>
 
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>Research Interests</Form.Label>
-              <Row className="g-2">
-                <Col xs={8}>
-                  <Form.Control
-                    type="text"
-                    value={form.researchInterestInput}
-                    onChange={(e) =>
-                      setForm({ ...form, researchInterestInput: e.target.value })
-                    }
-                    placeholder="Type an interest"
-                  />
-                </Col>
-                <Col xs={4}>
-                  <Button variant="secondary" onClick={handleAddInterest}>
-                    Add
-                  </Button>
-                </Col>
-              </Row>
+        <Form.Control
+          className="box"
+          type="text"
+          name="careerPath"
+          placeholder="Career Path"
+          value={form.careerPath}
+          onChange={handleChange}
+          isInvalid={!!errors.careerPath}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.careerPath}
+        </Form.Control.Feedback>
 
-              <Row className="mt-2">
-                <Col>
-                  {form.researchInterests.map((interest, idx) => (
-                    <Badge
-                      bg="info"
-                      key={idx}
-                      className="me-2 mb-2"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleRemoveInterest(interest)}
-                    >
-                      {interest} ✕
-                    </Badge>
-                  ))}
-                  {errors.researchInterests && (
-                    <Form.Text className="text-danger">
-                      {errors.researchInterests}
-                    </Form.Text>
-                  )}
-                </Col>
-              </Row>
-            </Form.Group>
-          </Col>
-        </Row>
+        <Form.Control
+          className="box"
+          type="text"
+          placeholder="Add Research Interest"
+          value={form.researchInterestInput}
+          onChange={(e) =>
+            setForm({ ...form, researchInterestInput: e.target.value })
+          }
+        />
+        <Button className="btn" onClick={handleAddInterest}>
+          Add Interest
+        </Button>
 
-        <Row className="mt-3">
-          <Col>
-            <Button type="submit" variant="primary">
-              Submit
-            </Button>
-          </Col>
-        </Row>
+        {form.researchInterests.map((interest, idx) => (
+          <p key={idx}>
+            <span onClick={() => handleRemoveInterest(interest)}>
+              {interest} ✕
+            </span>
+          </p>
+        ))}
+
+        {errors.researchInterests && (
+          <Form.Text className="text-danger">
+            {errors.researchInterests}
+          </Form.Text>
+        )}
+
+        <Button type="submit" className="btn">
+          Submit
+        </Button>
+
+        {submitStatus && (
+          <Alert
+            variant={submitStatus.success ? "success" : "danger"}
+            className="mt-3"
+          >
+            {submitStatus.message}
+          </Alert>
+        )}
       </Form>
-
-      {submitStatus && (
-        <Row className="mt-4">
-          <Col>
-            <Alert variant={submitStatus.success ? "success" : "danger"}>
-              {submitStatus.message}
-            </Alert>
-          </Col>
-        </Row>
-      )}
-    </Container>
+    </section>
   );
 };
 

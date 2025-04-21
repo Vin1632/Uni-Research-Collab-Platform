@@ -34,11 +34,11 @@ export function UserAuthContextProvider({ children }) {
 
       if (currentuser) {
         try {
-          // 🔽 Simulated role check from localStorage (replace with backend call later)
+          // Simulated role check from localStorage (replace with backend call later)
           const role = localStorage.getItem("role");
           const isAdminSim = false; // Simulated admin status
 
-          // 🔽 Real Firestore logic you can use later:
+          // Real logic you can use later:
           /*
           const docRef = doc(firestore, "users", currentuser.uid);
           const docSnap = await getDoc(docRef);
