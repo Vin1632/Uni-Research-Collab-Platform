@@ -1,67 +1,102 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css';
-import { FiFilter } from 'react-icons/fi';
+import { FiMenu, FiBell, FiMessageCircle } from 'react-icons/fi';
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosArchive } from "react-icons/io";
+import { IoMdOpen } from "react-icons/io";
+import { MdMoreVert } from 'react-icons/md';
 
-import aiHealthcareImage from '../images/aihealthcarenew.jpg'; 
-import blockchaineducationImage from '../images/blockchaineducation.jpg'; 
-import climatechangeImage from '../images/climatechange.jpg'; 
-import sustainenergyImage from '../images/sustainenergy.jpg'; 
-import neurotechImage from '../images/neurotech.jpg';
-import dataprivacyImage from '../images/dataprivacy.jpg';
 import logo from '../images/logo.jpg'; 
 
+
+
 const proposals = [
-  { id: 1, title: "AI in Healthcare", category: "Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans." },
-  { id: 2, title: "Sustainable Energy Research", category: "Environment", image: sustainenergyImage, summary: "Innovative solutions to store and distribute renewable energy effectively." },
-  { id: 3, title: "Blockchain in Education", category: "Technology", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology." },
-  { id: 4, title: "Climate Change Impact", category: "Environment", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture." },
-  { id: 5, title: "Genomic Data Privacy", category: "Healthcare", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects." },
-  { id: 6, title: "Neurotechnology & Learning", category: "Technology", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention." }
+  { id: 1, title: "Create Projects", category: "Create", icon: IoIosAddCircleOutline, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment." },
+  { id: 2, title: "Reports", category: "Reports", icon: IoIosArchive , summary: "Innovative solutions to store and distribute renewable energy effectively." },
+  { id: 3, title: "Recommendation Projects", category: "Recommendations", icon: IoMdOpen, summary: "Secure certification and transparent academic records using blockchain technology." },
 ];
+
+
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [filterCategory, setFilterCategory] = useState("All");
   const [showDropdown, setShowDropdown] = useState(false);
 
+ 
   const filteredProposals = filterCategory === "All"
     ? proposals
     : proposals.filter((p) => p.category === filterCategory);
 
+
   return (
     <div className="dashboard-wrapper">
-      <div className="dashboard-banner">
-      <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
-        Dashboard
-        <div className="filter-container">
-          <FiFilter className="filter-icon" onClick={() => setShowDropdown(!showDropdown)} />
-          {showDropdown && (
-            <div className="filter-dropdown">
-              <div onClick={() => setFilterCategory("All")}>All</div>
-              <div onClick={() => setFilterCategory("Technology")}>Technology</div>
-              <div onClick={() => setFilterCategory("Environment")}>Environment</div>
-              <div onClick={() => setFilterCategory("Healthcare")}>Healthcare</div>
-            </div>
-          )}
-        </div>
-      </div>
+      <header className="dashboard-banner">
 
-      <div className="dashboard-container">
+        <section>
+          <button  aria-label="Toggle sidebar" onClick={() => setShowDropdown(!showDropdown)}>
+              <FiMenu size={30} />
+            </button>
+            {showDropdown && (
+              <ul className="filter-dropdown">
+                <li onClick={() => navigate('/')}>Profile</li>
+                <li onClick={() => navigate('/')}>Update</li>
+                <li onClick={() => navigate('/')}>Milestone Tracking</li>
+                <li onClick={() => navigate('/')}>Log-Out</li>
+              </ul>
+            )}  
+        </section>  
+        <section>
+          <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
+          <h3> My Research Hub</h3>
+        </section>
+        <section >
+          <nav className="filter-container" aria-label="Category filter">
+          <button   aria-label="Messages"><FiMessageCircle size={30} /></button>
+            <button   aria-label="Notifications"><FiBell size={30} /></button>
+            <button  aria-label="More" onClick={() => setShowDropdown(!showDropdown)}>
+              <MdMoreVert
+                size={30}
+                
+                role="button"
+              />
+            </button>
+            {showDropdown && (
+              <ul className="filter-dropdown">
+                <li onClick={() => setFilterCategory("All")}>All</li>
+                <li onClick={() => setFilterCategory("Recommendations")}>Recommendations</li>
+                <li onClick={() => setFilterCategory("Reports")}>Reports</li>
+                <li onClick={() => setFilterCategory("Create")}>Create</li>
+              </ul>
+            )}
+          </nav>
+          
+        </section>
+      </header>
+
+      <main className="dashboard-container">
+
         {filteredProposals.map((proposal) => (
-          <div
+          <section
             key={proposal.id}
             className="proposal-card"
             onClick={() => navigate(`/proposal/${proposal.id}`)}
+            role="button"
+            tabIndex={0}
+            aria-label={`Open proposal: ${proposal.title}`}
           >
-            <img src={proposal.image} alt={proposal.title} className="proposal-image" />
-            <div className="proposal-details">
+            <proposal.icon size={70}/>
+            <article className="proposal-details">
               <h3 className="proposal-title">{proposal.title}</h3>
               <p className="proposal-summary">{proposal.summary}</p>
-            </div>
-          </div>
+            </article>
+          </section>
         ))}
-      </div>
+
+        
+      </main>
     </div>
   );
 }

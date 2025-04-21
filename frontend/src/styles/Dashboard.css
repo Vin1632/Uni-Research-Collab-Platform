@@ -1,53 +1,98 @@
 /* Dashboard.css */
 
 .dashboard-wrapper {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background: #e6f7fb; /* light cyan background like logo backdrop */
+  width: 100%;
+  background: #e6f7fb;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Banner at the top */
+
+
+
+/* Header */
 .dashboard-banner {
   background: linear-gradient(to right, #d6f0ff, #e6f7fb);
   color: #005ba1;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 2.5em;
+  padding: 20px;
+  font-size: 1.2em;
   font-weight: bold;
   border-top: 2px solid #007bff;
   border-bottom: 2px solid #007bff;
   width: 100%;
   position: relative;
   z-index: 1;
+
+  /* Flex row layout */
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  gap: 20px; /* optional spacing between items */
+  text-align: initial; /* remove center alignment */
 }
+
 
 .dashboard-logo {
   height: 55px;
-vertical-align: middle;
-border-radius: 10px;
+  vertical-align: middle;
+  border-radius: 10px;
+  margin-right: 10px;
 }
 
-/* Container for the proposal tiles */
+.dashboard-banner img,
+.dashboard-banner span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Filter */
+.filter-container {
+
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  
+}
+
+
+.filter-dropdown {
+  position: absolute;
+  right: 2;
+  top: 100px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.filter-dropdown div {
+  padding: 50px 16px;
+  font-size: 5px;
+  cursor: pointer;
+  color: #003e7e;
+}
+
+.filter-dropdown div:hover {
+  background-color: #eaf4ff;
+}
+
+/* Main content */
 .dashboard-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 30px;
-  gap: 20px;
-  background-color: #f9f9f9;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-/* Individual proposal tile */
+/* Proposal tile */
 .proposal-card {
-  width: 300px;
+  flex: 1 1 300px;
+  max-width: 400px;
+  min-width: 300px;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 1px solid #cce4f6;
   border-radius: 8px;
   padding: 10px;
   text-align: center;
@@ -55,14 +100,14 @@ border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
   transition: transform 0.2s ease;
   overflow: hidden;
-  border: 1px solid #cce4f6;
+  scroll-snap-align: start;
 }
 
 .proposal-card:hover {
   transform: translateY(-5px);
 }
 
-/* Image in the card */
+/* Proposal image */
 .proposal-image {
   width: 100%;
   height: auto;
@@ -77,43 +122,35 @@ border-radius: 10px;
   color: #003e7e;
 }
 
-/* Short summary */
+/* Summary text */
 .proposal-summary {
   font-size: 0.95em;
   color: #555;
 }
 
-.filter-container {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  cursor: pointer;
+/* Optional: scrollbar styling */
+.dashboard-container::-webkit-scrollbar {
+  height: 10px;
 }
 
-.filter-icon {
-  font-size: 1.5rem;
-  color: #003e7e;
-}
-
-.filter-dropdown {
-  position: absolute;
-  right: 0;
-  top: 35px;
-  background-color: white;
-  border: 1px solid #ccc;
+.dashboard-container::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 6px;
-  padding: 8px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 2;
 }
 
-.filter-dropdown div {
-  padding: 8px 16px;
-  font-size: 18px;
-  cursor: pointer;
-  color: #003e7e;
+.dashboard-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-.filter-dropdown div:hover {
-  background-color: #eaf4ff;
+.Reports, .Recommendations, .createProjects
+{
+  border: 2px solid red;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column; /* Change flex direction to column on smaller screens */
+    align-items: center; /* Optionally center items horizontally */
+  }
 }
