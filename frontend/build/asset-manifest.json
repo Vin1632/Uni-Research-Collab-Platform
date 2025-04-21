@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.8da8422f.css",
-    "main.js": "/static/js/main.2a881903.js",
+    "main.js": "/static/js/main.57282917.js",
     "static/media/neurotech.jpg": "/static/media/neurotech.724d9588a309c9495068.jpg",
     "static/media/blockchaineducation.jpg": "/static/media/blockchaineducation.48f6c255afe5265bb149.jpg",
     "static/media/bg.jpg": "/static/media/bg.d3f323102c015094ceba.jpg",
@@ -12,10 +12,10 @@
     "static/media/dataprivacy.jpg": "/static/media/dataprivacy.f66e983d138e787d4a23.jpg",
     "index.html": "/index.html",
     "main.8da8422f.css.map": "/static/css/main.8da8422f.css.map",
-    "main.2a881903.js.map": "/static/js/main.2a881903.js.map"
+    "main.57282917.js.map": "/static/js/main.57282917.js.map"
   },
   "entrypoints": [
     "static/css/main.8da8422f.css",
-    "static/js/main.2a881903.js"
+    "static/js/main.57282917.js"
   ]
 }

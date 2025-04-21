@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Button,
-  Alert,
-  Badge,
-} from "react-bootstrap";
+import { Form, Button, Alert, Badge } from "react-bootstrap";
 import "../styles/ResearcherSignup.css";
+import { useNavigate } from "react-router-dom";
 
 const ResearcherSignup = () => {
   const [form, setForm] = useState({
@@ -20,16 +16,27 @@ const ResearcherSignup = () => {
 
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.fullName.trim()) newErrors.fullName = "Full name is required.";
+    if (!form.fullName.trim()) {
+      newErrors.fullName = "Full name is required.";
+    } else if (!/^[a-zA-Z\s-]+$/.test(form.fullName)) {
+      newErrors.fullName = "Full name must only contain letters, spaces, or hyphens.";
+    }
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
     if (!form.careerField.trim()) newErrors.careerField = "Career field is required.";
     if (!form.qualifications.trim()) newErrors.qualifications = "Qualifications are required.";
+    if (form.qualifications.length < 10) {
+      newErrors.qualifications = "Qualifications must be at least 10 characters long.";
+    }
     if (!form.careerPath.trim()) newErrors.careerPath = "Career path is required.";
-    if (form.researchInterests.length === 0)
+    if (form.researchInterests.length === 0) {
       newErrors.researchInterests = "At least one research interest is required.";
+    }
     return newErrors;
   };
 
@@ -40,13 +47,20 @@ const ResearcherSignup = () => {
   const handleAddInterest = (e) => {
     e.preventDefault();
     const trimmed = form.researchInterestInput.trim();
-    if (trimmed && !form.researchInterests.includes(trimmed)) {
-      setForm({
-        ...form,
-        researchInterests: [...form.researchInterests, trimmed],
-        researchInterestInput: "",
-      });
+    if (!trimmed) {
+      setErrors({ ...errors, researchInterests: "Research interest cannot be empty." });
+      return;
     }
+    if (form.researchInterests.includes(trimmed)) {
+      setErrors({ ...errors, researchInterests: "This interest is already added." });
+      return;
+    }
+    setForm({
+      ...form,
+      researchInterests: [...form.researchInterests, trimmed],
+      researchInterestInput: "",
+    });
+    setErrors({ ...errors, researchInterests: null }); // Clear error
   };
 
   const handleRemoveInterest = (tag) => {
@@ -62,12 +76,18 @@ const ResearcherSignup = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+      setIsSubmitting(true);
       try {
         console.log("Submitting:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
+        setTimeout(() => {
+          navigate("/home"); // Navigate to home after successful submission
+        }, 2000);
       } catch (error) {
         console.error("Submission error:", error);
         setSubmitStatus({ success: false, message: "Failed to submit. Please try again." });
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -160,13 +180,21 @@ const ResearcherSignup = () => {
           Add Interest
         </Button>
 
-        {form.researchInterests.map((interest, idx) => (
-          <p key={idx}>
-            <span onClick={() => handleRemoveInterest(interest)}>
-              {interest} ✕
-            </span>
-          </p>
-        ))}
+        {form.researchInterests.length === 0 ? (
+          <Form.Text className="text-muted">No interests added yet.</Form.Text>
+        ) : (
+          form.researchInterests.map((interest, idx) => (
+            <Badge key={idx} bg="primary" className="m-1">
+              {interest}{" "}
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => handleRemoveInterest(interest)}
+              >
+                ✕
+              </span>
+            </Badge>
+          ))
+        )}
 
         {errors.researchInterests && (
           <Form.Text className="text-danger">
@@ -174,8 +202,8 @@ const ResearcherSignup = () => {
           </Form.Text>
         )}
 
-        <Button type="submit" className="btn">
-          Submit
+        <Button type="submit" className="btn" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
 
         {submitStatus && (
