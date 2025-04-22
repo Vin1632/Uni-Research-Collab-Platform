@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Badge } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { login_service } from "../services/login_service"
 import '../styles/ResearchersignUp.css';
 const ResearcherSignup = () => {
   const [form, setForm] = useState({
@@ -17,6 +18,8 @@ const ResearcherSignup = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const location = useLocation();
+  const email = location.state?.email;
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -82,6 +85,7 @@ const ResearcherSignup = () => {
         setTimeout(() => {
           navigate("/home"); //Navigate to the home
         }, 2000);
+        login_service(form.fullName, email, "researcher", form.institution, form.qualifications, JSON.stringify(form.researchInterests));
       } catch (error) {
         console.error("Submission error:", error);
         setSubmitStatus({ success: false, message: "Failed to submit. Please try again." });

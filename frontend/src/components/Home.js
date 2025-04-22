@@ -80,7 +80,7 @@ export default function Dashboard() {
       <section
             
             className="proposal-card"
-            onClick={() => navigate(`/proposal/`)}
+            onClick={() => navigate(`/add-proposal`)}
             role="button"
             tabIndex={0}
             aria-label={`Create Project`}

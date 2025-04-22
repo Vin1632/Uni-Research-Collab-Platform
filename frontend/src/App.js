@@ -7,6 +7,7 @@ import ResearcherSignup from "./pages/ResearcherSignup";
 import ReviewerSignup from "./pages/ReviewerSignup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
+import AddProposals  from "./pages/AddProposal";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/choose-role" element={<ChooseRole />} />
               <Route path="/researcher-signup" element={<ResearcherSignup />} />
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
+              <Route path="/add-proposal" element={<AddProposals />} />
 
             </Routes>
           </UserAuthContextProvider>

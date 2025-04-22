@@ -1,10 +1,11 @@
-
+const Users = require('./Routes/Users_Routes');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require("path");
 dotenv.config();
 
+const recom_projects = require('./Routes/recom_projects_routes');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -18,6 +19,11 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+//Routes
+app.use('/users', Users);
+app.use('/recommendations', recom_projects)
+
 
 // All other routes should return the index.html page
 app.get('*', (req, res) => {

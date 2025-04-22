@@ -1,25 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const ChooseRole = () => {
-  const { setRole } = useUserAuth(); 
+  const { setRole, user } = useUserAuth();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const email = user?.email;
+
+  useEffect(() => {
+    if (!email) {
+      navigate("/"); 
+    }
+  }, [email, navigate]);
+
+
   const handleRoleSelection = async (role) => {
     const confirm = window.confirm(`Are you sure you want to select the ${role} role?`);
     if (!confirm) return;
-
     try {
       setIsLoading(true);
       setRole(role); 
       if (role === "researcher") {
-        navigate("/researcher-signup");
+        navigate("/researcher-signup", { state: { email: email } });
       } else {
-        navigate("/reviewer-signup");
+        navigate("/reviewer-signup", { state: { email: email } });
       }
     } catch (error) {
       console.error("Error selecting role:", error);
@@ -31,6 +39,7 @@ const ChooseRole = () => {
 
   return (
     <main className="page-wrapper">
+      
       <section className="glass-box text-center">
         <h2>Choose Your Role</h2>
         {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}

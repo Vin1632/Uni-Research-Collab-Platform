@@ -4,12 +4,15 @@ CREATE TABLE Users (
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     role varchar(100),
+    institution varchar(255),
+    qualification varchar(255),
+    interests TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- PROJECTS
 CREATE TABLE Projects (
-    project_id AUTO_INCREMENT PRIMARY KEY,
+    project_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -20,7 +23,7 @@ CREATE TABLE Projects (
 
 -- COLLABORATORS
 CREATE TABLE Collaborators (
-    collaborator_id AUTO_INCREMENT PRIMARY KEY,
+    collaborator_id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
     role VARCHAR(100), -- e.g., 'Research Assistant', 'Co-PI'
@@ -30,7 +33,7 @@ CREATE TABLE Collaborators (
 
 -- PROJECT DATA
 CREATE TABLE ProjectData (
-    data_id AUTO_INCREMENT PRIMARY KEY,
+    data_id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     title VARCHAR(255),
     content TEXT, -- or could be a JSON, file URL, etc.
@@ -40,7 +43,7 @@ CREATE TABLE ProjectData (
 
 -- TAGS (Classification System)
 CREATE TABLE Tags (
-    tag_id AUTO_INCREMENT PRIMARY KEY,
+    tag_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL
 );
 
