@@ -3,7 +3,6 @@ const router = express.Router();
 const { get_recom_proj } = require('../controllers/recommendation_projects');
 
 //get all Projects Data
-
 router.get('/recom-projects', async (req, res) => {
     
     try {
