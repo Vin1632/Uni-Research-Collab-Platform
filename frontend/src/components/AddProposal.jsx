@@ -39,15 +39,15 @@ const AddProposals = () => {
   };
 
   return (
-    <div>
-      <div className="add-proposal-banner">
+    <>
+      <header className="add-proposal-banner">
         Add Proposal
-      </div>
+      </header>
 
-      <div className="proposal-form">
+      <section className="proposal-form">
         <h1>Enter Proposal Details</h1>
         <form onSubmit={handleSubmit}>
-          <div>
+          <fieldset>
             <label htmlFor="title">Proposal Title:</label>
             <input
               type="text"
@@ -57,8 +57,9 @@ const AddProposals = () => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="summary">Short Summary:</label>
             <textarea
               id="summary"
@@ -67,8 +68,9 @@ const AddProposals = () => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="requirements">Research Requirements:</label>
             <textarea
               id="requirements"
@@ -77,8 +79,9 @@ const AddProposals = () => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="fundingNeeded">Funding Needed:</label>
             <input
               type="number"
@@ -88,8 +91,9 @@ const AddProposals = () => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="fundingSource">Funding Source:</label>
             <select
               id="fundingSource"
@@ -105,8 +109,9 @@ const AddProposals = () => {
                 </option>
               ))}
             </select>
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="completionStatus">Project Completion Status (%):</label>
             <input
               type="number"
@@ -118,8 +123,9 @@ const AddProposals = () => {
               min="0"
               max="100"
             />
-          </div>
-          <div>
+          </fieldset>
+
+          <fieldset>
             <label htmlFor="image">Upload Proposal Image:</label>
             <input
               type="file"
@@ -128,18 +134,17 @@ const AddProposals = () => {
               onChange={handleImageUpload}
               accept="image/*"
             />
-          </div>
+          </fieldset>
 
-          {/* Button Container */}
-          <div className="button-group">
+          <section className="button-group">
             <button type="submit">Submit Proposal</button>
             <button type="button" className="invite-button" onClick={handleInviteCollaborators}>
               Invite Collaborators
             </button>
-          </div>
+          </section>
         </form>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
