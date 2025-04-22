@@ -34,8 +34,6 @@ async function get_User_By_Email(emailObj) {
       const [result] = await pool.query(
         "SELECT email FROM Users WHERE email = ?", [email]
       );
-      console.log("database result");
-      console.log(result);
       return result;
       
     } catch (error) {

@@ -21,12 +21,12 @@ const Login = () => {
       const userEmail = user.user.email;
   
       const data = await get_Users(userEmail);
-      console.log(data);
       
-      if (data.exists) {
+      if (data[0].email === userEmail) {
         navigate("/home");
       } else {
         navigate("/choose-role", { state: { email: userEmail } });
+        
       }
   
     } catch (error) {
