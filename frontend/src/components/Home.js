@@ -8,7 +8,7 @@ import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
 import logo from '../images/logo.jpg';
-import { FaFilter, FaPlusCircle, FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoIosArchive } from "react-icons/io";
 import { IoMdOpen } from "react-icons/io";
