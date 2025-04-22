@@ -37,7 +37,13 @@ h1 {
     font-weight: bold;
 }
 
-
+/* Label Styling */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #003e7e;
+}
 
 /* Input and Textarea Styling */
 input[type="text"],
@@ -67,7 +73,7 @@ textarea {
     margin-top: 20px;
 }
 
-/* Submit and Invite Buttons Shared Styling
+/* Submit and Invite Buttons Shared Styling */
 button {
     background-color: #0077b6;
     color: white;
@@ -79,32 +85,32 @@ button {
     font-weight: bold;
     width: 100%;
     max-width: 200px;
-} */
+}
 
-/* button:hover {
+button:hover {
     background-color: #005ba1;
-} */
+}
 
 /* Invite Button Specific Styling (optional if you want it to stand out) */
-/* .invite-button {
+.invite-button {
     background-color: #00b4d8;
-} */
+}
 
-/* .invite-button:hover {
+.invite-button:hover {
     background-color: #0096c7;
-} */
+}
 
 /* Error handling */
-/* input:invalid,
+input:invalid,
 textarea:invalid {
     border-color: red;
-} */
+}
 
-/* input:focus,
+input:focus,
 textarea:focus {
     border-color: #005ba1;
     outline: none;
-} */
+}
 
 /* Responsive Design */
 @media (max-width: 600px) {

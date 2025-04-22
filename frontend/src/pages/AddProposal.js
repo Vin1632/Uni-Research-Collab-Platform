@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import '../styles/AddProposal.css';
+import '../styles/AddProposal.css';
 
 const AddProposals = () => {
   const [proposal, setProposal] = useState({
@@ -39,108 +39,98 @@ const AddProposals = () => {
   };
 
   return (
-    <main>
-      <header className="add-proposal-banner">
-        <h1>Add Proposal</h1>
-      </header>
+    <div>
+      <div className="add-proposal-banner">
+        Add Proposal
+      </div>
 
-      <section className="proposal-form">
-        <h2>Enter Proposal Details</h2>
+      <div className="proposal-form">
+        <h1>Enter Proposal Details</h1>
         <form onSubmit={handleSubmit}>
-          <fieldset>
-            <legend>Proposal Information</legend>
+          <div>
+            <label htmlFor="title">Proposal Title:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={proposal.title}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="summary">Short Summary:</label>
+            <textarea
+              id="summary"
+              name="summary"
+              value={proposal.summary}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="requirements">Research Requirements:</label>
+            <textarea
+              id="requirements"
+              name="requirements"
+              value={proposal.requirements}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="fundingNeeded">Funding Needed:</label>
+            <input
+              type="number"
+              id="fundingNeeded"
+              name="fundingNeeded"
+              value={proposal.fundingNeeded}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="fundingSource">Funding Source:</label>
+            <select
+              id="fundingSource"
+              name="fundingSource"
+              value={proposal.fundingSource}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select a Funding Source</option>
+              {fundingSources.map((source) => (
+                <option key={source} value={source}>
+                  {source}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="completionStatus">Project Completion Status (%):</label>
+            <input
+              type="number"
+              id="completionStatus"
+              name="completionStatus"
+              value={proposal.completionStatus}
+              onChange={handleInputChange}
+              required
+              min="0"
+              max="100"
+            />
+          </div>
+          <div>
+            <label htmlFor="image">Upload Proposal Image:</label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleImageUpload}
+              accept="image/*"
+            />
+          </div>
 
-            <div>
-              <label htmlFor="title">Proposal Title:</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={proposal.title}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="summary">Short Summary:</label>
-              <textarea
-                id="summary"
-                name="summary"
-                value={proposal.summary}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="requirements">Research Requirements:</label>
-              <textarea
-                id="requirements"
-                name="requirements"
-                value={proposal.requirements}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="fundingNeeded">Funding Needed:</label>
-              <input
-                type="number"
-                id="fundingNeeded"
-                name="fundingNeeded"
-                value={proposal.fundingNeeded}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="fundingSource">Funding Source:</label>
-              <select
-                id="fundingSource"
-                name="fundingSource"
-                value={proposal.fundingSource}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Select a Funding Source</option>
-                {fundingSources.map((source) => (
-                  <option key={source} value={source}>
-                    {source}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="completionStatus">Project Completion Status (%):</label>
-              <input
-                type="number"
-                id="completionStatus"
-                name="completionStatus"
-                value={proposal.completionStatus}
-                onChange={handleInputChange}
-                required
-                min="0"
-                max="100"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="image">Upload Proposal Image:</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageUpload}
-                accept="image/*"
-              />
-            </div>
-
-          </fieldset>
-
+          {/* Button Container */}
           <div className="button-group">
             <button type="submit">Submit Proposal</button>
             <button type="button" className="invite-button" onClick={handleInviteCollaborators}>
@@ -148,8 +138,8 @@ const AddProposals = () => {
             </button>
           </div>
         </form>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
