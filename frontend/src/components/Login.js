@@ -21,8 +21,8 @@ const Login = () => {
       const userEmail = user.user.email;
   
       const data = await get_Users(userEmail);
-      
-      if (data.email === userEmail) {
+      console.log(data);
+      if (data[0].email === userEmail) {
         navigate("/home");
       } else {
         navigate("/choose-role", { state: { email: userEmail } });

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../styles/ReviewerSignUp.css";
 import { useNavigate } from "react-router-dom";
+import { login_service } from "../services/login_service";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const ResearchInterests = ({ interests, onAdd, onRemove, error, inputValue, onInputChange }) => (
   <section className="input-row full-width">
@@ -63,6 +65,7 @@ const ReviewerSignup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+  const {user } = useUserAuth();
 
   const validateForm = () => {
     const newErrors = {};
@@ -106,13 +109,14 @@ const ReviewerSignup = () => {
     e.preventDefault();
     const validationErrors = validateForm();
     setErrors(validationErrors);
-
+    const email = user?.email;
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitting(true);
       try {
         console.log("Submitting reviewer form:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
-        navigate("/home"); // Navigate immediately
+        navigate("/recommendations");
+        await login_service(form.fullName, email, "reviewer", form.institution, JSON.stringify(form.researchInterests));
       } catch (error) {
         setSubmitStatus({ success: false, message: "Failed to submit. Please try again." });
       } finally {
