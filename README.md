@@ -7,7 +7,7 @@ issues, and receive relevant notifications.
 ## Note to DevOPs
 
 ### Clone the repo
-``` git clone ```
+``` git clone  https://github.com/Vin1632/Uni-Research-Collab-Platform.git ```
 
 ### Grant executable Permission for script files
 ```chmod +x *.sh ```
