@@ -33,11 +33,9 @@ const proposals = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
+
   const [showMenu, setShowMenu] = useState(false);
 
-  const filteredProposals = selectedCategory
-    ? proposals.filter(p => p.category === selectedCategory)
-    : proposals;
 
   return (
     <main className="dashboard-wrapper">
@@ -62,7 +60,7 @@ export default function Dashboard() {
       </header>
 
       <section className="dashboard-container">
-        {filteredProposals.map(proposal => (
+        {proposals.map(proposal => (
           <article
             key={proposal.id}
             className="proposal-card"
