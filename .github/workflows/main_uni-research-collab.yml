@@ -29,6 +29,7 @@ jobs:
           npm install
           npm run build
           cd ..
+          cd server
 
       - name: Zip artifact for deployment
         run: zip -r release.zip . -x "*.git*" "node_modules/*" "frontend/node_modules/*"
