@@ -7,7 +7,7 @@ dotenv.config();
 
 const project_routes = require('./Routes/Projects_Routes');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 // Middleware
 app.use(cors());

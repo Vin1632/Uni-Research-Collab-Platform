@@ -22,7 +22,7 @@ const Login = () => {
   
       const data = await get_Users(userEmail);
       
-      if (data[0].email === userEmail) {
+      if (data.email === userEmail) {
         navigate("/home");
       } else {
         navigate("/choose-role", { state: { email: userEmail } });
