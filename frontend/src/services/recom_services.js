@@ -1,7 +1,7 @@
-export async function get_recom_projects() {
+export async function get_recom_projects(id) {
 
     try {
-        const response =  fetch('/recommendations/recom-projects', {
+        const response = await  fetch(`/projects/recom-projects/${id}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export async function get_recom_projects() {
         
     } catch (error) {
         console.error("Failed to fetch", error);
-        throw new Error("Failes to get the error");
+        throw new Error("Failed to get the error");
     
     }
     

@@ -8,6 +8,7 @@ import ReviewerSignup from "./pages/ReviewerSignup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import AddProposals  from "./pages/AddProposal";
+import Recommendations from "./pages/recommendations"
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
               <Route path="/researcher-signup" element={<ResearcherSignup />} />
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
               <Route path="/add-proposal" element={<AddProposals />} />
+              <Route path="/recommedations" element={<Recommendations />} />
+
 
             </Routes>
           </UserAuthContextProvider>

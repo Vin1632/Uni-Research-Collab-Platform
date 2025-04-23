@@ -18,7 +18,6 @@ router.post('/login', async (req, res) => {
     try {
         const { name, email, role, institution, qualification, interests } = req.body;
         await insert_Users(name, email, role, institution, qualification, interests);
-        
         res.status(200).json({ message: 'User Added Successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to add a User' });
