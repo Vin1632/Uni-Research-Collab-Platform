@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css';
-import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
-
 import aiHealthcareImage from '../images/aihealthcarenew.jpg';
 import blockchaineducationImage from '../images/blockchaineducation.jpg';
 import climatechangeImage from '../images/climatechange.jpg';
@@ -10,40 +8,21 @@ import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
 import logo from '../images/logo.jpg';
+import { FaFilter, FaPlusCircle, FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
-import { get_project_data } from '../services/proposal_service';
+const proposals = [
+  { id: 1, title: "AI in Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans.", category: "healthcare" },
+  { id: 2, title: "Sustainable Energy Research", image: sustainenergyImage, summary: "Innovative solutions to store and distribute renewable energy effectively.", category: "environment" },
+  { id: 3, title: "Blockchain in Education", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology.", category: "technology" },
+  { id: 4, title: "Climate Change Impact", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture.", category: "environment" },
+  { id: 5, title: "Genomic Data Privacy", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects.", category: "healthcare" },
+  { id: 6, title: "Neurotechnology & Learning", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention.", category: "technology" }
+];
 
 export default function Dashboard() {
   const navigate = useNavigate();
-
   const [showMenu, setShowMenu] = useState(false);
-  const [proposals, setProposal] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const Project = async () => {
-      try {
-        const project_dat = await get_project_data(2);
-        console.log(project_dat[0]);
-        setProposal(project_dat[0]);
-      } catch (err) {
-        console.error("Failed to fetch project data", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    Project();
-  }, []);
-
-  const categoryToImage = {
-    healthcare: aiHealthcareImage,
-    environment: climatechangeImage,
-    technology: blockchaineducationImage,
-    neurotech: neurotechImage,
-    privacy: dataprivacyImage,
-    energy: sustainenergyImage
-  };
 
   return (
     <main className="dashboard-wrapper">
@@ -69,28 +48,17 @@ export default function Dashboard() {
       </header>
 
       <section className="dashboard-container">
-        {loading ? (
-          <p>Loading proposals...</p>
-        ) : (
-          proposals.map((proposal) => {
-            const image =
-              categoryToImage[proposal.category?.toLowerCase()] || aiHealthcareImage;
-
-            return (
-              <article
-                key={proposal.project_id || proposal.id}
-                className="proposal-card"
-                onClick={() => navigate(`/proposal/${proposal.project_id || proposal.id}`)}
-              >
-                <img src={image} alt='Project visual' className="proposal-image" />
-                <h3 className="proposal-title">{proposal.title}</h3>
-                <p className="proposal-summary">
-                  {proposal.summary || proposal.description}
-                </p>
-              </article>
-            );
-          })
-        )}
+        {proposals.map(proposal => (
+          <article
+            key={proposal.id}
+            className="proposal-card"
+            onClick={() => navigate(`/proposal/${proposal.id}`)}
+          >
+            <img src={proposal.image} alt={proposal.title} className="proposal-image" />
+            <h3 className="proposal-title">{proposal.title}</h3>
+            <p className="proposal-summary">{proposal.summary}</p>
+          </article>
+        ))}
       </section>
     </main>
   );

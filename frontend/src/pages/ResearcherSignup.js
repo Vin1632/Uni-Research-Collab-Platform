@@ -83,7 +83,7 @@ const ResearcherSignup = () => {
         console.log("Submitting:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
         setTimeout(() => {
-          navigate("/home"); //Navigate to the home
+          navigate("/home", { state: { role: "researcher" }}); //Navigate to the home
         }, 2000);
         login_service(form.fullName, email, "researcher", form.institution, form.qualifications, JSON.stringify(form.researchInterests));
       } catch (error) {

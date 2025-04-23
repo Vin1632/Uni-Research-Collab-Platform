@@ -31,7 +31,7 @@ function App() {
               <Route path="/researcher-signup" element={<ResearcherSignup />} />
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
               <Route path="/add-proposal" element={<AddProposals />} />
-              <Route path="/recommedations" element={<Recommendations />} />
+              <Route path="/recommendations" element={<Recommendations />} />
 
 
             </Routes>

@@ -19,10 +19,10 @@ const Login = () => {
     try {
       const user = await googleSignIn();
       const userEmail = user.user.email;
-  
+      
       const data = await get_Users(userEmail);
       console.log(data);
-      if (data[0].email === userEmail) {
+      if (data.length > 0 && data[0].email === userEmail) {
         navigate("/home");
       } else {
         navigate("/choose-role", { state: { email: userEmail } });
