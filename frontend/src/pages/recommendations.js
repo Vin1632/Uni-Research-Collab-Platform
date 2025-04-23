@@ -8,7 +8,7 @@ import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
 import logo from '../images/logo.jpg';
-import { FaFilter, FaPlusCircle, FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
 const proposals = [
   { id: 1, title: "AI in Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans.", category: "healthcare" },
@@ -33,8 +33,6 @@ const proposals = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   const filteredProposals = selectedCategory
