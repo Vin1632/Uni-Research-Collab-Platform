@@ -21,6 +21,7 @@ export default function Dashboard() {
         <nav className="menu-container">
           <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
           <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
+            <li onClick={() => navigate("/home")}>Home</li>
             <li onClick={() => navigate("/profile")}>Profile</li>
             <li onClick={() => navigate("/funding")}>Funding</li>
             <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>

@@ -32,7 +32,7 @@ async function get_User_By_Email(emailObj) {
     try {
       const email = emailObj.email;
       const [result] = await pool.query(
-        "SELECT email FROM Users WHERE email = ?", [email]
+        "SELECT email, user_id FROM Users WHERE email = ?", [email]
       );
       return result;
       

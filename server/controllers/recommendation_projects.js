@@ -3,7 +3,7 @@ const pool = require('../db');
 //gets all the project the user--hasnt created.
 async function get_recom_proj(id) {
     try {
-        const result = pool.query("SELECT * FROM projects WHERE user_id  != ?", [id]);
+        const result = await pool.query("SELECT * FROM projects WHERE user_id  != ?", [id]);
         return result;
     } catch (error) {
         console.error('Failed to get projects', error);
@@ -14,7 +14,7 @@ async function get_recom_proj(id) {
 async function get_project_data(id) {
 
     try {
-        const result = pool.query("SELECT * FROM projectdata where project_id = ? ", [id]);
+        const result = await pool.query("SELECT * FROM projectdata where project_id = ? ", [id]);
         return result
         
     } catch (error) {

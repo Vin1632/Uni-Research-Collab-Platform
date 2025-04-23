@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
-const {insert_proposals, insert_projectData} = require('../controllers/proposals');
+const {insert_proposals, get_project_id, insert_projectData} = require('../controllers/proposals');
 
 //get all Projects Data
 router.get('/recom-projects/:id', async (req, res) => {
@@ -30,11 +30,11 @@ router.get('/projectdata/:id', async (req, res) => {
 //insert projects
 router.post('/project', async (req, res) => {
     try {
-        const {user_id, title, descripton, link_image} = req.body;
-        const data = await insert_proposals(user_id, title, descripton, link_image);
+        const {user_id, title, description, link_image} = req.body;
+        const data = await insert_proposals(user_id, title, description, link_image);
         res.status(200).json(data);
     } catch (error) {
-        res.status(500).json({error : "Failes to post project"});
+        res.status(500).json({message : "Failed to post project"});
     }
 });
 
@@ -45,7 +45,19 @@ router.post('/projectdata', async (req, res) => {
         const data = await insert_projectData(project_id, title, requirements, link_image, funding, funding_source);
         res.status(200).json(data);
     } catch (error) {
-        res.status(500).json({error : "Failed to post project data"});
+        res.status(500).json({message : "Failed to post project data"});
     }
 });
+
+//get project_id
+router.get('/project_id/:id', async (req, res) => {
+    try {
+        const user_id = req.params.id;
+        const data = await  get_project_id(user_id);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({message : "Failed to get ProjectID "});
+    }
+    
+})
 module.exports = router;

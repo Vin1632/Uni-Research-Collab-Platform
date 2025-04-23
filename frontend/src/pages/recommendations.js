@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css';
+import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+
 import aiHealthcareImage from '../images/aihealthcarenew.jpg';
 import blockchaineducationImage from '../images/blockchaineducation.jpg';
 import climatechangeImage from '../images/climatechange.jpg';
@@ -8,34 +10,40 @@ import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
 import logo from '../images/logo.jpg';
-import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
-const proposals = [
-  { id: 1, title: "AI in Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans.", category: "healthcare" },
-  { id: 2, title: "Sustainable Energy Research", image: sustainenergyImage, summary: "Innovative solutions to store and distribute renewable energy effectively.", category: "environment" },
-  { id: 3, title: "Blockchain in Education", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology.", category: "technology" },
-  { id: 4, title: "Climate Change Impact", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture.", category: "environment" },
-  { id: 5, title: "Genomic Data Privacy", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects.", category: "healthcare" },
-  { id: 6, title: "Neurotechnology & Learning", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention.", category: "technology" },
-  { id: 7, title: "Blockchain in Education", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology.", category: "technology" },
-  { id: 8, title: "Climate Change Impact", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture.", category: "environment" },
-  { id: 9, title: "Genomic Data Privacy", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects.", category: "healthcare" },
-  { id: 10, title: "Neurotechnology & Learning", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention.", category: "technology" },
-  { id: 11, title: "Blockchain in Education", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology.", category: "technology" },
-  { id: 12, title: "Climate Change Impact", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture.", category: "environment" },
-  { id: 13, title: "Genomic Data Privacy", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects.", category: "healthcare" },
-  { id: 14, title: "Neurotechnology & Learning", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention.", category: "technology" },
-  { id: 15, title: "Blockchain in Education", image: blockchaineducationImage, summary: "Secure certification and transparent academic records using blockchain technology.", category: "technology" },
-  { id: 16, title: "Climate Change Impact", image: climatechangeImage, summary: "Studying the effects of climate change on urban infrastructure and agriculture.", category: "environment" },
-  { id: 17, title: "Genomic Data Privacy", image: dataprivacyImage, summary: "Balancing data accessibility and privacy in large-scale genomic research projects.", category: "healthcare" },
-  { id: 18, title: "Neurotechnology & Learning", image: neurotechImage, summary: "Using brain-computer interfaces to enhance learning and memory retention.", category: "technology" }
-];
+import { get_project_data } from '../services/proposal_service';
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
   const [showMenu, setShowMenu] = useState(false);
+  const [proposals, setProposal] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const Project = async () => {
+      try {
+        const project_dat = await get_project_data(2);
+        console.log(project_dat[0]);
+        setProposal(project_dat[0]);
+      } catch (err) {
+        console.error("Failed to fetch project data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    Project();
+  }, []);
+
+  const categoryToImage = {
+    healthcare: aiHealthcareImage,
+    environment: climatechangeImage,
+    technology: blockchaineducationImage,
+    neurotech: neurotechImage,
+    privacy: dataprivacyImage,
+    energy: sustainenergyImage
+  };
 
   return (
     <main className="dashboard-wrapper">
@@ -43,6 +51,7 @@ export default function Dashboard() {
         <nav className="menu-container">
           <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
           <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
+          <li onClick={() => navigate("/home")}>Home</li>
             <li onClick={() => navigate("/profile")}>Profile</li>
             <li onClick={() => navigate("/funding")}>Funding</li>
             <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
@@ -60,17 +69,28 @@ export default function Dashboard() {
       </header>
 
       <section className="dashboard-container">
-        {proposals.map(proposal => (
-          <article
-            key={proposal.id}
-            className="proposal-card"
-            onClick={() => navigate(`/proposal/${proposal.id}`)}
-          >
-            <img src={proposal.image} alt={proposal.title} className="proposal-image" />
-            <h3 className="proposal-title">{proposal.title}</h3>
-            <p className="proposal-summary">{proposal.summary}</p>
-          </article>
-        ))}
+        {loading ? (
+          <p>Loading proposals...</p>
+        ) : (
+          proposals.map((proposal) => {
+            const image =
+              categoryToImage[proposal.category?.toLowerCase()] || aiHealthcareImage;
+
+            return (
+              <article
+                key={proposal.project_id || proposal.id}
+                className="proposal-card"
+                onClick={() => navigate(`/proposal/${proposal.project_id || proposal.id}`)}
+              >
+                <img src={image} alt='Project visual' className="proposal-image" />
+                <h3 className="proposal-title">{proposal.title}</h3>
+                <p className="proposal-summary">
+                  {proposal.summary || proposal.description}
+                </p>
+              </article>
+            );
+          })
+        )}
       </section>
     </main>
   );
