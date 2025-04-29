@@ -9,6 +9,9 @@ import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
 const AddProposals = () => {
   const navigate = useNavigate();
+  const { user } = useUserAuth();
+  const [showMenu, setShowMenu] = useState(false);
+
   const [proposal, setProposal] = useState({
     title: '',
     summary: '',
@@ -18,8 +21,7 @@ const AddProposals = () => {
     completionStatus: '',
     image: null,
   });
-  const {user } = useUserAuth();
-  const [showMenu, setShowMenu] = useState(false);
+
   const fundingSources = ['Government Grant', 'Private Sector', 'University Fund', 'Crowdfunding'];
 
   const handleInputChange = (e) => {
@@ -37,32 +39,27 @@ const AddProposals = () => {
     }));
   };
 
-
-  const handleSubmit = async (e) =>  {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    /*  image link_image are NUll*/
+    /*  image link_image are NUll */
     const email = user?.email;
     const result = await get_Users(email);
     const user_id = result[0].user_id;
-    const result_1 =  await proposal_service(user_id, proposal.title, proposal.summary, '');
+    const result_1 = await proposal_service(user_id, proposal.title, proposal.summary, '');
     
-    if(result_1[0].affectedRows === 1)
-    {
+    if (result_1[0].affectedRows === 1) {
       navigate('/home');
 
       /* Insert the project data 
-        First get the project_id using user_id, of the newly created project then insert it into the database
-        */
+         First get the project_id using user_id, of the newly created project then insert it into the database
+      */
       const projectID = await get_project_id(user_id);
       console.log("projectID", projectID[0][0].project_id);
-      /* HARDCODED: the project_id 2 
-          link_image is empty
-      
-      */
 
-      //insert into project data
-      await insert_projectData(2, proposal.title , proposal.requirements, '', proposal.fundingNeeded, proposal.fundingSource)
-      
+      /* HARDCODED: the project_id 2 
+         link_image is empty
+      */
+      await insert_projectData(2, proposal.title, proposal.requirements, '', proposal.fundingNeeded, proposal.fundingSource);
     }
     console.log(proposal);
   };
@@ -77,7 +74,7 @@ const AddProposals = () => {
         <nav className="menu-container">
           <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
           <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
-          <li onClick={() => navigate("/home")}>Home</li>
+            <li onClick={() => navigate("/home")}>Home</li>
             <li onClick={() => navigate("/profile")}>Profile</li>
             <li onClick={() => navigate("/funding")}>Funding</li>
             <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
@@ -85,8 +82,10 @@ const AddProposals = () => {
           </menu>
         </nav>
 
-        <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
-        <h1 className="dashboard-title">My Research Hub</h1>
+        <div className="logo-title">
+          <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
+          <h1 className="dashboard-title">My Research Hub</h1>
+        </div>
 
         <aside className="icon-group">
           <FaEnvelope className="dashboard-icon" title="Messages" />
@@ -140,6 +139,7 @@ const AddProposals = () => {
               value={proposal.fundingNeeded}
               onChange={handleInputChange}
               required
+              min="0"
             />
           </fieldset>
 

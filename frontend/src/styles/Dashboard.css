@@ -1,24 +1,24 @@
 .dashboard-wrapper {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: #e6f7fb;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #dbf3f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .dashboard-banner {
-  background: linear-gradient(to right, #d6f0ff, #e6f7fb);
-  color: #005ba1;
-  padding: 20px;
-  font-size: 2.5em;
-  font-weight: bold;
-  border-top: 2px solid #007bff;
-  border-bottom: 2px solid #007bff;
+  background-color: #fff;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .menu-container {
@@ -66,6 +66,7 @@
 }
 
 .dashboard-title {
+  color: #0077b6;
   flex-grow: 1;
   text-align: center;
 }
@@ -146,7 +147,7 @@
   justify-content: center;
   padding: 30px;
   gap: 20px;
-  background-color: #f9f9f9;
+  background-color: #dbf3f8;
 }
 
 .proposal-card {
@@ -172,13 +173,14 @@
 }
 
 .proposal-title {
-  font-size: 1.2em;
-  margin: 10px 0;
+  margin-top: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #003e7e;
 }
 
 .proposal-summary {
-  font-size: 0.95em;
+  font-size: 0.95rem;
   color: #555;
+  margin-top: 0.5rem;
 }

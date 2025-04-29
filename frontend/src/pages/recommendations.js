@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header"; // ⬅️ Import your Header here
 import '../styles/Dashboard.css';
 import aiHealthcareImage from '../images/aihealthcarenew.jpg';
 import blockchaineducationImage from '../images/blockchaineducation.jpg';
@@ -7,8 +8,6 @@ import climatechangeImage from '../images/climatechange.jpg';
 import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
-import logo from '../images/logo.jpg';
-import { FaFilter, FaPlusCircle, FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
 const proposals = [
   { id: 1, title: "AI in Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans.", category: "healthcare" },
@@ -21,31 +20,10 @@ const proposals = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [showMenu, setShowMenu] = useState(false);
-
 
   return (
     <main className="dashboard-wrapper">
-      <header className="dashboard-banner">
-        <nav className="menu-container">
-          <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
-          <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
-          <li onClick={() => navigate("/home")}>Home</li>
-            <li onClick={() => navigate("/profile")}>Profile</li>
-            <li onClick={() => navigate("/funding")}>Funding</li>
-            <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
-            <li onClick={() => navigate("/logout")}>Log Out</li>
-          </menu>
-        </nav>
-
-        <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
-        <h1 className="dashboard-title">My Research Hub</h1>
-
-        <aside className="icon-group">
-          <FaEnvelope className="dashboard-icon" title="Messages" />
-          <FaBell className="dashboard-icon" title="Notifications" />
-        </aside>
-      </header>
+      <Header /> {/* ⬅️ Use your reusable Header component */}
 
       <section className="dashboard-container">
         {proposals.map(proposal => (
