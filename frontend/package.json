@@ -11,6 +11,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.5",
+    "dotenv": "^16.5.0",
     "firebase": "^11.6.0",
     "long": "^4.0.0",
     "react": "^19.0.0",

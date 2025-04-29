@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 import logo from '../images/logo.jpg';
 import { useUserAuth } from "../context/UserAuthContext"; 
-
+import {get_Users}  from "../services/login_service";
 const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const { logOut } = useUserAuth(); 
+  const { logOut, user } = useUserAuth(); 
+  const [Role, setRole] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -18,6 +19,29 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const result = await get_Users(user.email);
+        setRole(result[0].role); 
+      } catch (error) {
+        console.error("Failed to get User_Role", error);
+      }
+    };
+  
+    if (user?.email) {
+      fetchUserRole();
+    }
+ 
+  }, [user]);
+
+  //Log/Use Role after the "Role" is set
+  useEffect(() => {
+    if (Role) {
+      console.log("User--Role, ", Role);
+    }
+  }, [Role]);
+
   return (
     <header className="dashboard-banner">
       <nav className="menu-container">
@@ -27,7 +51,7 @@ const Header = () => {
           <li onClick={() => navigate("/profile")}>Profile</li>
           <li onClick={() => navigate("/funding")}>Funding</li>
           <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
-          <li onClick={handleLogout}>Log Out</li> 
+          <li onClick={handleLogout}>Log Out</li>
         </menu>
       </nav>
 
