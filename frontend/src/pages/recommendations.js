@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header"; // ⬅️ Import your Header here
+import Header from "../components/Header";
 import '../styles/Dashboard.css';
 import aiHealthcareImage from '../images/aihealthcarenew.jpg';
 import blockchaineducationImage from '../images/blockchaineducation.jpg';
@@ -8,8 +8,7 @@ import climatechangeImage from '../images/climatechange.jpg';
 import sustainenergyImage from '../images/sustainenergy.jpg';
 import neurotechImage from '../images/neurotech.jpg';
 import dataprivacyImage from '../images/dataprivacy.jpg';
-import logo from '../images/logo.jpg';
-import {FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+
 
 const proposals = [
   { id: 1, title: "AI in Healthcare", image: aiHealthcareImage, summary: "Exploring machine learning techniques to improve patient diagnostics and treatment plans.", category: "healthcare" },
