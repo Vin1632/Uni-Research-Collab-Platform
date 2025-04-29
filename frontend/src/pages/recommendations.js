@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import '../styles/Dashboard.css';
@@ -24,7 +24,7 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-wrapper">
-      <Header /> {/* ⬅️ Use your reusable Header component */}
+      <Header />
 
       <section className="dashboard-container">
         {proposals.map(proposal => (
