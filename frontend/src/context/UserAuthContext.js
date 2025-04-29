@@ -45,7 +45,7 @@ export function UserAuthContextProvider({ children }) {
       value={{
         user,
         role,
-        setRole, // ✅ Provide setRole
+        setRole, 
         logIn,
         signUp,
         logOut,

@@ -1,12 +1,22 @@
-// src/components/Header.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 import logo from '../images/logo.jpg';
+import { useUserAuth } from "../context/UserAuthContext"; 
 
 const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const { logOut } = useUserAuth(); 
+
+  const handleLogout = async () => {
+    try {
+      await logOut(); 
+      navigate("/");  
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <header className="dashboard-banner">
@@ -17,7 +27,7 @@ const Header = () => {
           <li onClick={() => navigate("/profile")}>Profile</li>
           <li onClick={() => navigate("/funding")}>Funding</li>
           <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
-          <li onClick={() => navigate("/logout")}>Log Out</li>
+          <li onClick={handleLogout}>Log Out</li> 
         </menu>
       </nav>
 

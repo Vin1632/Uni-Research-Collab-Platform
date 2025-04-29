@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from './Header'; // << Import your new header
+import Header from './Header'; 
 import { IoIosAddCircleOutline, IoIosArchive } from "react-icons/io";
 import { IoMdOpen } from "react-icons/io";
 import '../styles/Dashboard.css';
@@ -10,10 +10,9 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-wrapper">
-      <Header /> {/* << Insert it here */}
+      <Header /> 
 
       <section className="dashboard-container">
-        {/* Your clickable cards */}
         <section
           className="proposal-card"
           onClick={() => navigate(`/add-proposal`)}
