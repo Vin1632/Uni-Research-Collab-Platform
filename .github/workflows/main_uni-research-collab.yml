@@ -20,23 +20,19 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Install, build, and test frontend with coverage (continue on error)
+      - name: Install, build, and test frontend with coverage
         run: |
           cd frontend
           npm install
           npm run build
-          npm test -- --coverage --coverageReporters=cobertura || echo "Frontend tests failed, continuing..."
+          npm test -- --coverage --coverageReporters=cobertura
           cd ..
-        continue-on-error: true
-
-      - name: Install and test server with coverage (continue on error)
+      - name: Install and test server with coverage
         run: |
           cd server
           npm install
-          npm test -- --coverage --coverageReporters=cobertura || echo "Server tests failed, continuing..."
+          npm test -- --coverage --coverageReporters=cobertura
           cd ..
-        continue-on-error: true
-
       - name: Zip artifact for deployment
         run: zip -r release.zip . -x "*.git*" "node_modules/*" "frontend/node_modules/*" "server/node_modules/*"
 
@@ -55,7 +51,6 @@ jobs:
           files: cobertura-coverage.xml
           flags: frontend
           name: frontend-coverage
-        continue-on-error: true
 
       - name: Upload server coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -66,7 +61,6 @@ jobs:
           files: cobertura-coverage.xml
           flags: server
           name: server-coverage
-        continue-on-error: true
 
   deploy:
     runs-on: ubuntu-latest
