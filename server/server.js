@@ -1,4 +1,6 @@
 const Users = require('./Routes/Users_Routes');
+const inviteRoutes = require('./Routes/Invite_Routes');
+
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 //Routes
 app.use('/users', Users);
 app.use('/projects', project_routes)
+app.use('/api', inviteRoutes);
+
 
 
 // All other routes should return the index.html page

@@ -11,6 +11,9 @@ const AddProposals = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState('');
+
 
   const [proposal, setProposal] = useState({
     title: '',
@@ -65,8 +68,37 @@ const AddProposals = () => {
   };
 
   const handleInviteCollaborators = () => {
-    alert("Invite Collaborators clicked!");
+    //alert("Invite Collaborators clicked!");
+    setShowInviteModal(true);
   };
+
+  const sendInvite = async () => {
+    try {
+      const response = await fetch('/api/send-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          toEmail: inviteEmail,
+          fromUser: user?.email,
+          projectTitle: proposal.title
+        }),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert('Invitation sent!');
+      } else {
+        alert('Failed to send invite: ' + result.message);
+      }
+  
+      setShowInviteModal(false);
+      setInviteEmail('');
+    } catch (error) {
+      console.error('Error sending invite:', error);
+      alert('Something went wrong.');
+    }
+  };
+  
 
   return (
     <>
@@ -194,6 +226,25 @@ const AddProposals = () => {
           </section>
         </form>
       </section>
+      {showInviteModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Invite a Collaborator</h2>
+      <input
+        type="email"
+        placeholder="Enter collaborator's email"
+        value={inviteEmail}
+        onChange={(e) => setInviteEmail(e.target.value)}
+        required
+      />
+      <div className="modal-buttons">
+        <button onClick={sendInvite}>Send Invitation</button>
+        <button onClick={() => setShowInviteModal(false)}>Cancel</button>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
 };
