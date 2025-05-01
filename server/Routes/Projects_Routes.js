@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
-const {insert_proposals, get_project_id, insert_projectData} = require('../controllers/proposals');
+const {insert_proposals, insert_projectData} = require('../controllers/proposals');
 
 //get all Projects Data
 router.get('/recom-projects/:id', async (req, res) => {
@@ -20,7 +20,7 @@ router.get('/recom-projects/:id', async (req, res) => {
 router.get('/projectdata/:id', async (req, res) => {
 
     try {
-        const data = await get_project_data(req.params.id)
+        const data = await get_project_data(req.params.id);
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json({error : "failed to fetch projects Data"})

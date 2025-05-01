@@ -86,3 +86,27 @@ export async function get_project_data(id) {
     
     }
 }
+
+export async function get_each_project_data(id) {
+  try {
+      const response = await  fetch(`/projects/projectdata/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+      });
+
+      if(!response.ok)
+      {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'failed to fetch Projects data');
+      }
+
+      return await response.json();
+      
+  } catch (error) {
+      console.error("Failed to fetch", error);
+      throw new Error("Failed to get Projects Data");
+  
+  }
+}

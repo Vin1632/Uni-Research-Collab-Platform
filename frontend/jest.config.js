@@ -3,4 +3,5 @@ module.exports = {
   coverageDirectory: "coverage",
   coverageReporters: ["cobertura", "text"],
   testEnvironment: "jsdom",
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };
