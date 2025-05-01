@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import '../styles/Dashboard.css';
 import { FaImage } from "react-icons/fa"; 
