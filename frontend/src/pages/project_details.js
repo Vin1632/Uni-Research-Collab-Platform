@@ -6,10 +6,8 @@ import { FaImage } from "react-icons/fa";
 
 import { get_each_project_data } from "../services/proposal_service";
 export default function ProjectDetails() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   //use the location to get the variable passed
+  const location = useLocation();
   const project_id = location.state?.project_id;
 
   const [ProjectData, setProjectData] = useState([]);
@@ -51,7 +49,7 @@ function ProposalCard({ proposal }) {
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
 
   return (
-    <article className="proposal-card">
+    <article className="project-details-card">
       {isImageValid ? (
         <img
           src={proposal.link_image}
