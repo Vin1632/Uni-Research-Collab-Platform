@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/AddProposal.css';
 import { useUserAuth } from "../context/UserAuthContext";
-import { proposal_service, get_project_id, insert_projectData } from "../services/proposal_service";
+import { proposal_service, insert_projectData } from "../services/proposal_service";
 import { get_Users } from '../services/login_service';
 import { useNavigate } from "react-router-dom";
 import logo from '../images/logo.jpg';
@@ -53,8 +53,8 @@ const AddProposals = () => {
       /* Insert the project data 
          First get the project_id using user_id, of the newly created project then insert it into the database
       */
-      const projectID = await get_project_id(user_id);
-      console.log("projectID", projectID[0][0].project_id);
+      // const projectID = await get_project_id(user_id);
+      // console.log("projectID", projectID[0][0].project_id);
 
       /* HARDCODED: the project_id 2 
          link_image is empty

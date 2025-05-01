@@ -35,7 +35,7 @@ export default function Dashboard() {
           <ProposalCard
             key={proposal.project_id}
             proposal={proposal}
-            onClick={() => navigate(`/proposal/${proposal.project_id}`)}
+            onClick={() => navigate(`/project_details/`, {state : {project_id : proposal.project_id}})}
           />
         ))}
       </section>

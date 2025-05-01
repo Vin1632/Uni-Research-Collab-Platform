@@ -27,29 +27,7 @@ export async function proposal_service(id, title, description, link_image) {
       }
 }
 
-export async function get_project_id(id) {
-    try {
-        const response = await  fetch(`/projects/project_id/${id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-        });
 
-        if(!response.ok)
-        {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'failed to fetch project_id');
-        }
-
-        return await response.json();
-        
-    } catch (error) {
-        console.error("Failed to fetch", error);
-        throw new Error("Failed to get the project_id");
-    
-    }
-}
 
 export async function insert_projectData(project_id, title, requirements, link_image, funding, funding_source) {
     try {
@@ -104,4 +82,28 @@ export async function get_project_data(id) {
         throw new Error("Failed to get the project data");
     
     }
+}
+
+export async function get_each_project_data(id) {
+  try {
+      const response = await  fetch(`/projects/projectdata/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+      });
+
+      if(!response.ok)
+      {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'failed to fetch Projects data');
+      }
+
+      return await response.json();
+      
+  } catch (error) {
+      console.error("Failed to fetch", error);
+      throw new Error("Failed to get Projects Data");
+  
+  }
 }

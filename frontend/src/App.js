@@ -11,7 +11,8 @@ import ReviewerSignup from "./pages/ReviewerSignup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import AddProposals  from "./pages/AddProposal";
-import Recommendations from "./pages/recommendations"
+import Recommendations from "./pages/recommendations";
+import ProjectDetails from './pages/project_details.js';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/choose-role" element={<ChooseRole />} />
               <Route path="/researcher-signup" element={<ResearcherSignup />} />
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
+              <Route path="/project_details" element={<ProjectDetails />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>
