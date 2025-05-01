@@ -4,7 +4,7 @@ import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 import logo from '../images/logo.jpg';
 import { useUserAuth } from "../context/UserAuthContext"; 
 import {get_Users}  from "../services/login_service";
-const Header = () => {
+const Header = ({ onUser_IdLoaded }) => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const { logOut, user } = useUserAuth(); 
@@ -23,7 +23,12 @@ const Header = () => {
     const fetchUserRole = async () => {
       try {
         const result = await get_Users(user.email);
-        setRole(result[0].role); 
+        setRole(result[0].role);
+
+        if (onUser_IdLoaded) {
+          onUser_IdLoaded(result[0].user_id);
+        }
+
       } catch (error) {
         console.error("Failed to get User_Role", error);
       }
@@ -33,7 +38,7 @@ const Header = () => {
       fetchUserRole();
     }
  
-  }, [user]);
+  }, [user, onUser_IdLoaded]);
 
   //Log/Use Role after the "Role" is set
   useEffect(() => {
