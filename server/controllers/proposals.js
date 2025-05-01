@@ -1,20 +1,33 @@
 const pool = require('../db');
 
-async function insert_proposals(user_id, title, description, link_image) {
+async function insert_proposals(user_id, title, description, link_image, start_date, end_date) {
+   
     try {
-        const result = await pool.query("INSERT INTO Projects(user_id, title, description, link_image) VALUES (?, ?, ?, ?)", [user_id,title, description, link_image])
-        return result;
+        const [result] = await pool.query(
+            `INSERT INTO Projects(user_id, title, description, link_image, start_date, end_date)
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [user_id, title, description, link_image || null, start_date, end_date]
+        );
+
+        console.log("Insert result:", result);
+
+        if (result.affectedRows > 0) {
+            const [rows] = await pool.query("SELECT LAST_INSERT_ID() as project_id");
+            return rows; 
+        } else {
+            throw new Error('Insert failed: No rows affected.');
+        }
     } catch (error) {
         console.error("failed to insert into Project table in the database", error);
-        throw new Error(error);
+        throw error;
     }
-    
 }
 
-async function insert_projectData(project_id, title, requirements, link_image, funding, funding_source) {
+
+async function insert_projectData(project_id, title, requirements, link_image, funds, funding_source, start_date, end_date) {
     try {
-        const result = await pool.query("INSERT INTO ProjectData(project_id, title, requirements, link_image, funding, funding_source) VALUES (?, ?, ?, ?, ?, ?)", 
-            [project_id,title, requirements, link_image, funding, funding_source ]);
+        const result = await pool.query("INSERT INTO ProjectData(project_id, title, requirements, link_image, funds, funding_source, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+            [project_id,title, requirements, link_image, funds, funding_source, start_date, end_date ]);
         return result;
 
     } catch (error) {
@@ -23,16 +36,5 @@ async function insert_projectData(project_id, title, requirements, link_image, f
     }
 }
 
-async function get_project_id(user_id) {
 
-    try {
-        const result = await pool.query("SELECT project_id FROM Projects WHERE user_id = ?", [user_id]);
-        return result;
-    } catch (error) {
-        console.error("failed to Fetch project_Id from database", error);
-        throw new Error(error);
-    }
-    
-}
-
-module.exports = {insert_proposals, insert_projectData, get_project_id}
+module.exports = {insert_proposals, insert_projectData}

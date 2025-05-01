@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/AddProposal.css';
 import { useUserAuth } from "../context/UserAuthContext";
-import { proposal_service, get_project_id, insert_projectData } from "../services/proposal_service";
+import { proposal_service, insert_projectData } from "../services/proposal_service";
 import { get_Users } from '../services/login_service';
 import { useNavigate } from "react-router-dom";
 import logo from '../images/logo.jpg';
@@ -9,8 +9,18 @@ import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 
 const AddProposals = () => {
   const navigate = useNavigate();
-  const { user } = useUserAuth();
+  const {logOut,  user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
+
+  //logging Out
+  const handleLogout = async () => {
+    try {
+      await logOut(); 
+      navigate("/");  
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   const [proposal, setProposal] = useState({
     title: '',
@@ -20,6 +30,8 @@ const AddProposals = () => {
     fundingSource: '',
     completionStatus: '',
     image: null,
+    start_date : '',
+    end_date : ''
   });
 
   const fundingSources = ['Government Grant', 'Private Sector', 'University Fund', 'Crowdfunding'];
@@ -45,23 +57,15 @@ const AddProposals = () => {
     const email = user?.email;
     const result = await get_Users(email);
     const user_id = result[0].user_id;
-    const result_1 = await proposal_service(user_id, proposal.title, proposal.summary, '');
+    //API call to Insert Proposal
+    const result_1 = await proposal_service(user_id, proposal.title, proposal.summary, '', proposal.start_date, proposal.end_date);
     
-    if (result_1[0].affectedRows === 1) {
+    if (result_1[0].project_id) {
       navigate('/home');
-
-      /* Insert the project data 
-         First get the project_id using user_id, of the newly created project then insert it into the database
-      */
-      const projectID = await get_project_id(user_id);
-      console.log("projectID", projectID[0][0].project_id);
-
-      /* HARDCODED: the project_id 2 
-         link_image is empty
-      */
-      await insert_projectData(2, proposal.title, proposal.requirements, '', proposal.fundingNeeded, proposal.fundingSource);
+      //API call to insert Project Data
+      await insert_projectData(result_1[0].project_id, proposal.title, proposal.requirements, '', proposal.fundingNeeded, proposal.fundingSource, proposal.start_date, proposal.end_date);
     }
-    console.log(proposal);
+    
   };
 
   const handleInviteCollaborators = () => {
@@ -78,7 +82,7 @@ const AddProposals = () => {
             <li onClick={() => navigate("/profile")}>Profile</li>
             <li onClick={() => navigate("/funding")}>Funding</li>
             <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
-            <li onClick={() => navigate("/logout")}>Log Out</li>
+            <li onClick={handleLogout}>Log Out</li>
           </menu>
         </nav>
 
@@ -116,6 +120,7 @@ const AddProposals = () => {
               value={proposal.summary}
               onChange={handleInputChange}
               required
+              maxLength={350}
             />
           </fieldset>
 
@@ -174,6 +179,31 @@ const AddProposals = () => {
               max="100"
             />
           </fieldset>
+
+          <fieldset>
+            <legend>Project Timeline</legend>
+
+            <label htmlFor="start_date">Start Date:</label>
+            <input
+              type="date"
+              id="start_date"
+              name="start_date"
+              value={proposal.start_date}
+              onChange={handleInputChange}
+              required
+            />
+
+            <label htmlFor="end_date">End Date:</label>
+            <input
+              type="date"
+              id="end_date"
+              name="end_date"
+              value={proposal.end_date}
+              onChange={handleInputChange}
+              required
+            />
+          </fieldset>
+
 
           <fieldset>
             <label htmlFor="image">Upload Proposal Image:</label>

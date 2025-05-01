@@ -22,8 +22,8 @@ export default function Dashboard() {
         >
           <IoIosAddCircleOutline size={70} />
           <article className="proposal-details">
-            <h3 className="proposal-title">Create Project</h3>
-            <p className="proposal-summary">Exploring machine learning techniques to improve patient diagnostics and treatment.</p>
+            <h3 className="proposal-title">Create Proposal</h3>
+            <p className="proposal-summary"> Advance knowledge, challenge convention, and shape the future—submit a proposal that reflects your intellectual curiosity and scholarly ambition.</p>
           </article>
         </section>
 
@@ -37,7 +37,7 @@ export default function Dashboard() {
           <IoIosArchive size={70} />
           <article className="proposal-details">
             <h3 className="proposal-title">Reports</h3>
-            <p className="proposal-summary">Innovative solutions to store and distribute renewable energy effectively</p>
+            <p className="proposal-summary">Gain insights, track your impact, and refine your research—explore detailed reports that illuminate the trajectory of your proposal.</p>
           </article>
         </section>
 
@@ -51,7 +51,7 @@ export default function Dashboard() {
           <IoMdOpen size={70} />
           <article className="proposal-details">
             <h3 className="proposal-title">Recommendations</h3>
-            <p className="proposal-summary">Secure certification and transparent academic records using blockchain technology.</p>
+            <p className="proposal-summary">Discover ongoing research, offer your expertise, and collaborate across disciplines—your contribution could be the key to advancing breakthrough ideas.</p>
           </article>
         </section>
       </section>
