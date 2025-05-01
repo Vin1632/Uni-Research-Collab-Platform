@@ -9,8 +9,6 @@ async function insert_proposals(user_id, title, description, link_image, start_d
             [user_id, title, description, link_image || null, start_date, end_date]
         );
 
-        console.log("Insert result:", result);
-
         if (result.affectedRows > 0) {
             const [rows] = await pool.query("SELECT LAST_INSERT_ID() as project_id");
             return rows; 
