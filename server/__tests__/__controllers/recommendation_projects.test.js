@@ -2,7 +2,7 @@ const db = require('../../db');
 const { get_recom_proj, get_project_data } = require('../../controllers/recommendation_projects');
 
 // Mock db
-jest.mock('../db', () => ({
+jest.mock('../../db', () => ({
     query: jest.fn()
 }));
 
