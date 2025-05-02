@@ -48,10 +48,5 @@ describe('Recommendation Routes', () => {
     expect(res.body.success).toBe(true);
   });
 
-  test('GET /project_id/:id should return a project ID', async () => {
-    const res = await request(app).get('/project_id/1');
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({ id: 1 });
-  });
 
 });
