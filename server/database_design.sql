@@ -18,17 +18,17 @@ CREATE TABLE Projects (
     description TEXT,
     start_date DATE,
     end_date DATE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    link_image TEXT
 );
 
 -- COLLABORATORS
 CREATE TABLE Collaborators (
-    collaborator_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    collaborator_id INT REFERENCES Users(user_id)  ON DELETE CASCADE, 
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
-    role VARCHAR(100), -- e.g., 'Research Assistant', 'Co-PI'
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(project_id, user_id)
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- PROJECT DATA
@@ -36,9 +36,13 @@ CREATE TABLE ProjectData (
     data_id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     title VARCHAR(255),
-    content TEXT, -- or could be a JSON, file URL, etc.
-    data_type VARCHAR(50), -- e.g., 'note', 'dataset', 'reference'
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    link_image TEXT,
+    data_type VARCHAR(50), 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    funds DOUBLE(13,4),
+    funds_spent DOUBLE(13,4), 
+    start_date DATE,
+    end_date DATE
 );
 
 -- TAGS (Classification System)
