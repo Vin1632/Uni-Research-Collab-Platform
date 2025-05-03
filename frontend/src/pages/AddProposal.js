@@ -12,7 +12,8 @@ const AddProposals = () => {
   const { user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [inviteEmail, setInviteEmail] = useState('');
+  const [senderEmail, setSenderEmail] = useState(user?.email || '');
+  const [recipientEmail, setRecipientEmail] = useState('');
 
 
   const [proposal, setProposal] = useState({
@@ -78,8 +79,8 @@ const AddProposals = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          toEmail: inviteEmail,
-          fromUser: user?.email,
+          toEmail: recipientEmail,
+          fromUser: senderEmail,
           projectTitle: proposal.title
         }),
       });
@@ -92,7 +93,8 @@ const AddProposals = () => {
       }
   
       setShowInviteModal(false);
-      setInviteEmail('');
+      setRecipientEmail('');
+      setSenderEmail(user?.email || '');
     } catch (error) {
       console.error('Error sending invite:', error);
       alert('Something went wrong.');
@@ -226,15 +228,23 @@ const AddProposals = () => {
           </section>
         </form>
       </section>
+      
       {showInviteModal && (
   <div className="modal-overlay">
     <div className="modal">
       <h2>Invite a Collaborator</h2>
       <input
         type="email"
-        placeholder="Enter collaborator's email"
-        value={inviteEmail}
-        onChange={(e) => setInviteEmail(e.target.value)}
+        placeholder="Your email address"
+        value={senderEmail}
+        onChange={(e) => setSenderEmail(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Collaborator's email address"
+        value={recipientEmail}
+        onChange={(e) => setRecipientEmail(e.target.value)}
         required
       />
       <div className="modal-buttons">
@@ -244,6 +254,7 @@ const AddProposals = () => {
     </div>
   </div>
 )}
+
 
     </>
   );
