@@ -12,7 +12,20 @@ router.post('/user', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch data (User)' });
     }
 });
-
+// GET endpoint to fetch user by email from URL param
+router.get('/user-by-email/:email', async (req, res) => {
+    try {
+      const email = req.params.email;
+      const data = await get_User_By_Email({ email });
+      if (!data.length) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.status(200).json(data[0]);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch user by email' });
+    }
+  });
+  
 // POST endpoint to add a new  User
 router.post('/login', async (req, res) => {
     try {
@@ -23,5 +36,6 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Failed to add a User' });
     }
 });
+
 
 module.exports = router;

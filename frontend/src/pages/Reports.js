@@ -1,58 +1,74 @@
-// src/pages/Reports.js
-import React, { useEffect, useState, useContext } from 'react';
-import { useUserAuth } from '../context/UserAuthContext';
-import { get_project_data } from '../services/proposal_service';
+import React, { useEffect, useState } from "react";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Reports = () => {
-  const { user } = useUserAuth(); // Get the user from context
+  const { user } = useUserAuth();
+  const [userData, setUserData] = useState(null);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
-
-    const fetchData = async () => {
+    const fetchUserDataAndProjects = async () => {
       try {
-        const data = await get_project_data(user.id); // reuse your existing API call
-        setProjects(data);
+        if (!user?.email) return;
+
+        // Fetch the full user record by email
+        const res = await fetch(`/users/user-by-email/${encodeURIComponent(user.email)}`);
+        if (!res.ok) throw new Error("Failed to fetch user data");
+        const data = await res.json();
+        setUserData(data);
+
+        // Fetch that user's projects
+        const projectRes = await fetch(`/projects/user-projects/${data.user_id}`);
+        if (!projectRes.ok) throw new Error("Failed to fetch user projects");
+        const projectData = await projectRes.json();
+        setProjects(projectData);
       } catch (error) {
-        console.error('Error fetching user projects:', error);
+        console.error("Failed to load reports:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [user]);
-
-  if (loading) return <p>Loading...</p>;
+    fetchUserDataAndProjects();
+  }, [user?.email]);
 
   return (
-    <main className="p-4">
-      <header>
-        <h1 className="text-2xl font-bold mb-4">Your Proposals</h1>
+    <main className="reports-page">
+      <header className="reports-header">
+        <h1>Reports</h1>
+        <p className="subtitle">
+          Gain insights, track your impact, and refine your research—explore
+          detailed reports that illuminate the trajectory of your proposals.
+        </p>
       </header>
-      {projects.length === 0 ? (
-        <section>
-          <p>No proposals found.</p>
-        </section>
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : projects.length === 0 ? (
+        <p>No proposals found.</p>
       ) : (
-        <section>
-          <ul className="space-y-3">
-            {projects.map((project) => (
-              <li key={project.project_id} className="p-4 border rounded shadow-sm" role="article">
-                <header>
-                  <h2 className="font-semibold">{project.title}</h2>
-                </header>
-                <p>{project.description}</p>
-                <footer>
-                  <small className="text-gray-500">
-                    {project.start_date} — {project.end_date}
-                  </small>
-                </footer>
-              </li>
-            ))}
-          </ul>
+        <section className="project-list">
+          {projects.map((proj) => (
+            <article key={proj.project_id} className="project-card">
+              <header>
+                <h2>{proj.title}</h2>
+              </header>
+              <section className="project-details">
+                <p>
+                  <strong>Description:</strong> {proj.description}
+                </p>
+                <p>
+                  <strong>Start:</strong>{" "}
+                  {new Date(proj.start_date).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>End:</strong>{" "}
+                  {new Date(proj.end_date).toLocaleDateString()}
+                </p>
+              </section>
+            </article>
+          ))}
         </section>
       )}
     </main>
