@@ -28,6 +28,7 @@ CREATE TABLE Collaborators (
     collaborator_id INT REFERENCES Users(user_id)  ON DELETE CASCADE, 
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
+    invitation VARCHAR(100) NOT NULL DEFAULT 'No_Res',
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
