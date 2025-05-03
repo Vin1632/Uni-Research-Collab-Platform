@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import ChooseRole from "./pages/ChooseRole";
 import Profile from './components/Profile.js';
+import Reports from './pages/Reports';
 import Funding from './components/Funding.js';
 import Milestones from './components/Milestones.js';
 import ResearcherSignup from "./pages/ResearcherSignup";
@@ -25,6 +26,7 @@ function App() {
              <Route element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/reports" element={<Reports />} />
               <Route path="/funding" element={<Funding />} />
               <Route path="/milestones" element={<Milestones />} />
               <Route path="/add-proposal" element={<AddProposals />} />
