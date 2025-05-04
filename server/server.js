@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //Routes
 app.use('/users', Users);
-app.use('/projects', project_routes)
+app.use('/projects', project_routes);
 
 
 // All other routes should return the index.html page

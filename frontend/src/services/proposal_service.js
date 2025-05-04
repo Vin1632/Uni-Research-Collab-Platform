@@ -1,3 +1,7 @@
+
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from '../firebase'; 
+
 export async function proposal_service(id, title, description, link_image, start_date, end_date) {
     try {
         const response = await fetch('/projects/project', { 
@@ -110,3 +114,47 @@ export async function get_each_project_data(id) {
   
   }
 }
+
+
+export async function get_image_url(image) {
+
+  if (!image) {
+    console.log("No image provided.");
+    return "";
+  }
+
+  try {
+    const storageRef = ref(storage, `files/${image.name}`);
+    const metadata = {
+      contentType: image.type,
+    };
+
+    const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+
+    const downloadURL = await new Promise((resolve, reject) => {
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          //console.log(`Upload is ${progress.toFixed(2)}% done`);
+        },
+        (error) => {
+          console.error("Upload error:", error);
+          reject(error);
+        },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          resolve(url);
+        }
+      );
+    });
+
+    return downloadURL;
+
+  } catch (error) {
+    console.error("Upload failed:", error);
+    return "";
+  }
+}
+
+

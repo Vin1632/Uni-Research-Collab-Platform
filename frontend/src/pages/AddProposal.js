@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/AddProposal.css';
 import { useUserAuth } from "../context/UserAuthContext";
-import { proposal_service, insert_projectData } from "../services/proposal_service";
+import { proposal_service, insert_projectData, get_image_url } from "../services/proposal_service";
 import { get_Users } from '../services/login_service';
 import { useNavigate } from "react-router-dom";
 import logo from '../images/logo.jpg';
@@ -11,6 +11,7 @@ const AddProposals = () => {
   const navigate = useNavigate();
   const {logOut,  user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //logging Out
   const handleLogout = async () => {
@@ -53,20 +54,45 @@ const AddProposals = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    /*  image link_image are NUll */
-    const email = user?.email;
-    const result = await get_Users(email);
-    const user_id = result[0].user_id;
-    //API call to Insert Proposal
-    const result_1 = await proposal_service(user_id, proposal.title, proposal.summary, '', proposal.start_date, proposal.end_date);
-    
-    if (result_1[0].project_id) {
-      navigate('/home');
-      //API call to insert Project Data
-      await insert_projectData(result_1[0].project_id, proposal.title, proposal.requirements, '', proposal.fundingNeeded, proposal.fundingSource, proposal.start_date, proposal.end_date);
+    setLoading(true); 
+  
+    try {
+      const email = user?.email;
+      const result = await get_Users(email);
+      const user_id = result[0].user_id;
+      const image_link = await get_image_url(proposal.image);
+  
+      const result_1 = await proposal_service(
+        user_id,
+        proposal.title,
+        proposal.summary,
+        image_link,
+        proposal.start_date,
+        proposal.end_date
+      );
+  
+      if (result_1[0].project_id) {
+        alert("Submitted Successfully!");
+        navigate('/home');
+        await insert_projectData(
+          result_1[0].project_id,
+          proposal.title,
+          proposal.requirements,
+          image_link,
+          proposal.fundingNeeded,
+          proposal.fundingSource,
+          proposal.start_date,
+          proposal.end_date
+        );
+        
+      }
+    } catch (error) {
+      console.error("Proposal submission failed:", error);
+    } finally {
+      setLoading(false); 
     }
-    
   };
+  
 
   const handleInviteCollaborators = () => {
     alert("Invite Collaborators clicked!");
@@ -215,6 +241,21 @@ const AddProposals = () => {
               accept="image/*"
             />
           </fieldset>
+          {loading && (
+              <div className="loading-overlay">
+                <svg className="spinner" viewBox="0 0 50 50">
+                  <circle
+                    className="path"
+                    cx="25"
+                    cy="25"
+                    r="20"
+                    fill="none"
+                    strokeWidth="5"
+                  />
+                </svg>
+              </div>
+            )}
+
 
           <section className="button-group">
             <button type="submit">Submit Proposal</button>
