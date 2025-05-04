@@ -34,5 +34,29 @@ async function insert_projectData(project_id, title, requirements, link_image, f
     }
 }
 
+async function get_user_projects(userId) {
+    const [rows] = await pool.query(
+        `SELECT p.project_id, p.title,  p.description,  p.start_date, p.end_date, p.created_at,  pd.funds,  pd.funds_spent     
+         FROM Projects p
+         LEFT JOIN ProjectData pd ON pd.project_id = p.project_id
+         WHERE p.user_id = ?
+         ORDER BY p.created_at DESC`, 
+        [userId]
+    );
+    return rows;
+}
 
-module.exports = {insert_proposals, insert_projectData}
+
+async function get_project_data(projectId) {
+    const [rows] = await pool.query(
+        `SELECT project_id, title, requirements, link_image, funds, funds_spent, funding_source, start_date, end_date 
+         FROM ProjectData 
+         WHERE project_id = ?`,
+        [projectId]
+    );
+    return rows;
+}
+
+
+
+module.exports = {insert_proposals, insert_projectData, get_user_projects, get_project_data};

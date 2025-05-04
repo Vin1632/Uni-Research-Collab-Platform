@@ -12,13 +12,11 @@ const Reports = () => {
       try {
         if (!user?.email) return;
 
-        // Fetch the full user record by email
         const res = await fetch(`/users/user-by-email/${encodeURIComponent(user.email)}`);
         if (!res.ok) throw new Error("Failed to fetch user data");
         const data = await res.json();
         setUserData(data);
 
-        // Fetch that user's projects
         const projectRes = await fetch(`/projects/user-projects/${data.user_id}`);
         if (!projectRes.ok) throw new Error("Failed to fetch user projects");
         const projectData = await projectRes.json();
@@ -49,26 +47,36 @@ const Reports = () => {
         <p>No proposals found.</p>
       ) : (
         <section className="project-list">
-          {projects.map((proj) => (
-            <article key={proj.project_id} className="project-card">
-              <header>
-                <h2>{proj.title}</h2>
-              </header>
-              <section className="project-details">
-                <p>
-                  <strong>Description:</strong> {proj.description}
-                </p>
-                <p>
-                  <strong>Start:</strong>{" "}
-                  {new Date(proj.start_date).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>End:</strong>{" "}
-                  {new Date(proj.end_date).toLocaleDateString()}
-                </p>
+          {projects.map((proj) => {
+            const fundsValid = proj.funds !== null && proj.funds !== undefined;
+            const spentValid = proj.funds_spent !== null && proj.funds_spent !== undefined;
+
+            return (
+              <section key={proj.project_id} className="project-card">
+                <header>
+                  <h2>{proj.title}</h2>
+                </header>
+                <section className="project-details">
+                  <p><strong>Description:</strong> {proj.description}</p>
+                  <p><strong>Start:</strong> {new Date(proj.start_date).toLocaleDateString()}</p>
+                  <p><strong>End:</strong> {new Date(proj.end_date).toLocaleDateString()}</p>
+
+                  <p><strong>Funds Allocated:</strong> {fundsValid ? `R${proj.funds}` : 'N/A'}</p>
+                  <p><strong>Funds Spent:</strong> {spentValid ? `R${proj.funds_spent}` : 'N/A'}</p>
+
+                  {fundsValid && spentValid && proj.funds > 0 && (
+                    <meter
+                      value={proj.funds_spent}
+                      max={proj.funds}
+                      style={{ width: "100%", height: "1rem" }}
+                    >
+                      {Math.round((proj.funds_spent / proj.funds) * 100)}%
+                    </meter>
+                  )}
+                </section>
               </section>
-            </article>
-          ))}
+            );
+          })}
         </section>
       )}
     </main>
