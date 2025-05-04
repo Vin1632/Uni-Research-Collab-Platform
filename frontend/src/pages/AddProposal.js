@@ -23,6 +23,7 @@ const AddProposals = () => {
     }
   };
 
+  //proposal information initially null
   const [proposal, setProposal] = useState({
     title: '',
     summary: '',
@@ -52,6 +53,7 @@ const AddProposals = () => {
     }));
   };
 
+  //Wgen submit button clicked
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); 
@@ -70,7 +72,8 @@ const AddProposals = () => {
         proposal.start_date,
         proposal.end_date
       );
-  
+      
+      //When proposal successfuly inserted then projectData follows
       if (result_1[0].project_id) {
         alert("Submitted Successfully!");
         navigate('/home');
