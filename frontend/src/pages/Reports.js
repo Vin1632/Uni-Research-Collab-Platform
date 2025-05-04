@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUserAuth } from "../context/UserAuthContext";
+import "../styles/Dashboard.css"; // Reuse Dashboard.css for consistent styling
 
 const Reports = () => {
   const { user } = useUserAuth();
@@ -32,35 +33,30 @@ const Reports = () => {
   }, [user?.email]);
 
   return (
-    <main className="reports-page">
-      <header className="reports-header">
-        <h1>Reports</h1>
-        <p className="subtitle">
-          Gain insights, track your impact, and refine your research—explore
-          detailed reports that illuminate the trajectory of your proposals.
-        </p>
+    <main className="dashboard-wrapper">
+      <header className="dashboard-banner">
+        <h1 className="dashboard-title">Reports</h1>
       </header>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="reports-loading">Loading...</p>
       ) : projects.length === 0 ? (
-        <p>No proposals found.</p>
+        <p className="reports-empty">No proposals found.</p>
       ) : (
-        <section className="project-list">
+        <section className="dashboard-container">
           {projects.map((proj) => {
             const fundsValid = proj.funds !== null && proj.funds !== undefined;
             const spentValid = proj.funds_spent !== null && proj.funds_spent !== undefined;
 
             return (
-              <section key={proj.project_id} className="project-card">
+              <section key={proj.project_id} className="proposal-card">
                 <header>
-                  <h2>{proj.title}</h2>
+                  <h2 className="proposal-title">{proj.title}</h2>
                 </header>
-                <section className="project-details">
+                <section className="proposal-details">
                   <p><strong>Description:</strong> {proj.description}</p>
                   <p><strong>Start:</strong> {new Date(proj.start_date).toLocaleDateString()}</p>
                   <p><strong>End:</strong> {new Date(proj.end_date).toLocaleDateString()}</p>
-
                   <p><strong>Funds Allocated:</strong> {fundsValid ? `R${proj.funds}` : 'N/A'}</p>
                   <p><strong>Funds Spent:</strong> {spentValid ? `R${proj.funds_spent}` : 'N/A'}</p>
 
@@ -68,7 +64,7 @@ const Reports = () => {
                     <meter
                       value={proj.funds_spent}
                       max={proj.funds}
-                      style={{ width: "100%", height: "1rem" }}
+                      className="project-card-meter"
                     >
                       {Math.round((proj.funds_spent / proj.funds) * 100)}%
                     </meter>
