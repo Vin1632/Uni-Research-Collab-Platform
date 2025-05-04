@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import { FaImage } from "react-icons/fa"; 
 import { get_each_project_data } from "../services/proposal_service";
+import '../styles/proposal_details.css';
+
 export default function ProjectDetails() {
   const location = useLocation();
   const project_id = location.state?.project_id;
@@ -15,6 +17,9 @@ export default function ProjectDetails() {
           const project_data = await get_each_project_data(project_id);
           setProjectData(project_data[0]);
           
+        }
+        else{
+          console.log("Project_ID Doesnt Exist for the project");
         }
       } catch (err) {
         console.error("Failed to fetch Projects", err);
@@ -45,7 +50,7 @@ function ProposalCard({ proposal }) {
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
 
   return (
-    <article className="project-details-card">
+    <main className="proposal-main">
       {isImageValid ? (
         <img
           src={proposal.link_image}
@@ -54,23 +59,29 @@ function ProposalCard({ proposal }) {
             setImgError(true);
           }}
           alt={proposal.title}
-          className="proposal-image"
+          className="proposal-data-image"
         />
       ) : (
         <div className="proposal-image fallback-icon">
           <FaImage size={48} color="#aaa" />
         </div>
       )}
-      <h3 className="proposal-title">{proposal.title}</h3>
-      <p className="proposal-summary">{proposal.requirements}</p>
-      <p >{proposal.funding_source}</p>
-      <p >{proposal.funds}</p>
-      <p >{proposal.funds_spent}</p>
-      <p>{proposal.start_date}</p>
-      <p >{proposal.end_date}</p>
-      <button> message</button>
-      <button> invite </button>
-    </article>
+
+      <div className="proposal-info">
+        <h3 className="proposal-title">{proposal.title}</h3>
+        <p className="proposal-summary">{proposal.requirements}</p>
+        <p><strong>Funding Source:</strong> {proposal.funding_source}</p>
+        <p><strong>Funds:</strong> {proposal.funds}</p>
+        <p><strong>Funds Spent:</strong> {proposal.funds_spent}</p>
+        <p><strong>Start Date:</strong> {proposal.start_date}</p>
+        <p><strong>End Date:</strong> {proposal.end_date}</p>
+        <div className="proposal-buttons">
+          <button className="btn-message">Message</button>
+          <button className="btn-invite">Invite</button>
+        </div>
+      </div>
+    </main>
   );
 }
+
 
