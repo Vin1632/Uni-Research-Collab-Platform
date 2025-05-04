@@ -7,7 +7,7 @@
   --accent: #8bc34a;
 }
 
-/* General Page Styling */
+
 .reports-page {
   padding: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -17,7 +17,7 @@
   flex-direction: column;
 }
 
-/* Header Styling */
+
 .dashboard-banner {
   background-color: #003e7e;
   color: #fff;
@@ -66,7 +66,7 @@
   background-color: #005f8d;
 }
 
-/* Loading and Error States */
+
 .reports-loading,
 .reports-empty {
   text-align: center;
@@ -81,7 +81,7 @@
   font-weight: bold;
 }
 
-/* Empty State Link */
+
 .create-proposal-link {
   display: inline-block;
   margin-top: 10px;
@@ -98,7 +98,7 @@
   background-color: #005f8d;
 }
 
-/* Project List Styling */
+
 .dashboard-container {
   display: flex;
   flex-wrap: wrap;
@@ -109,7 +109,7 @@
   padding: 10px;
 }
 
-/* Project Card Styling */
+
 .proposal-card {
   flex: 0 0 30%;
   max-width: 30%;
