@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useUserAuth } from "../context/UserAuthContext";
-import "../styles/Dashboard.css"; // Reuse Dashboard.css for consistent styling
+import "../styles/Dashboard.css";
+import "../styles/Reports.css";
 
 const Reports = () => {
   const { user } = useUserAuth();
-  const [userData, setUserData] = useState(null);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserDataAndProjects = async () => {
@@ -16,7 +17,6 @@ const Reports = () => {
         const res = await fetch(`/users/user-by-email/${encodeURIComponent(user.email)}`);
         if (!res.ok) throw new Error("Failed to fetch user data");
         const data = await res.json();
-        setUserData(data);
 
         const projectRes = await fetch(`/projects/user-projects/${data.user_id}`);
         if (!projectRes.ok) throw new Error("Failed to fetch user projects");
@@ -24,6 +24,7 @@ const Reports = () => {
         setProjects(projectData);
       } catch (error) {
         console.error("Failed to load reports:", error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -32,45 +33,84 @@ const Reports = () => {
     fetchUserDataAndProjects();
   }, [user?.email]);
 
+  const exportToCSV = () => {
+    if (projects.length === 0) return;
+
+    const csvRows = [];
+    const headers = ["Project Title", "Description", "Start Date", "End Date", "Funds Allocated", "Funds Spent"];
+    csvRows.push(headers.join(","));
+
+    projects.forEach((proj) => {
+      const row = [
+        proj.title,
+        proj.description,
+        new Date(proj.start_date).toLocaleDateString(),
+        new Date(proj.end_date).toLocaleDateString(),
+        proj.funds !== null ? `R${proj.funds}` : "N/A",
+        proj.funds_spent !== null ? `R${proj.funds_spent}` : "N/A",
+      ];
+      csvRows.push(row.join(","));
+    });
+
+    const csvContent = `data:text/csv;charset=utf-8,${csvRows.join("\n")}`;
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "project_reports.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <main className="dashboard-wrapper">
-      <header className="dashboard-banner">
-        <h1 className="dashboard-title">Reports</h1>
+      <header className="dashboard-banner" role="banner">
+        <h1 className="dashboard-title" aria-label="Reports Page">Reports</h1>
+        <nav>
+          <ul>
+            <li>
+              <button onClick={exportToCSV} className="export-button" aria-label="Export Reports">
+                Export to CSV
+              </button>
+            </li>
+          </ul>
+        </nav>
       </header>
 
       {loading ? (
-        <p className="reports-loading">Loading...</p>
+        <section role="status" aria-live="polite" className="reports-loading">
+          <p>Loading...</p>
+        </section>
+      ) : error ? (
+        <section role="alert" className="reports-error">
+          <p>Error: {error}</p>
+        </section>
       ) : projects.length === 0 ? (
-        <p className="reports-empty">No proposals found.</p>
+        <section role="region" aria-label="No Proposals Found" className="reports-empty">
+          <p>No proposals found. Start by creating a new project proposal!</p>
+          <a href="/create-proposal" className="create-proposal-link">Create Proposal</a>
+        </section>
       ) : (
-        <section className="dashboard-container">
+        <section className="dashboard-container" role="region" aria-label="Project Proposals">
           {projects.map((proj) => {
             const fundsValid = proj.funds !== null && proj.funds !== undefined;
             const spentValid = proj.funds_spent !== null && proj.funds_spent !== undefined;
+            const percentage = fundsValid && spentValid ? Math.round((proj.funds_spent / proj.funds) * 100) : 0;
 
             return (
-              <section key={proj.project_id} className="proposal-card">
+              <article key={proj.project_id} className="proposal-card">
                 <header>
-                  <h2 className="proposal-title">{proj.title}</h2>
+                  <h2>{proj.title}</h2>
                 </header>
-                <section className="proposal-details">
-                  <p><strong>Description:</strong> {proj.description}</p>
-                  <p><strong>Start:</strong> {new Date(proj.start_date).toLocaleDateString()}</p>
-                  <p><strong>End:</strong> {new Date(proj.end_date).toLocaleDateString()}</p>
-                  <p><strong>Funds Allocated:</strong> {fundsValid ? `R${proj.funds}` : 'N/A'}</p>
-                  <p><strong>Funds Spent:</strong> {spentValid ? `R${proj.funds_spent}` : 'N/A'}</p>
+                <p><strong>Description:</strong> {proj.description}</p>
+                <p><strong>Start:</strong> {new Date(proj.start_date).toLocaleDateString()}</p>
+                <p><strong>End:</strong> {new Date(proj.end_date).toLocaleDateString()}</p>
+                <p><strong>Funds Allocated:</strong> {fundsValid ? `R${proj.funds}` : "N/A"}</p>
+                <p><strong>Funds Spent:</strong> {spentValid ? `R${proj.funds_spent}` : "N/A"}</p>
 
-                  {fundsValid && spentValid && proj.funds > 0 && (
-                    <meter
-                      value={proj.funds_spent}
-                      max={proj.funds}
-                      className="project-card-meter"
-                    >
-                      {Math.round((proj.funds_spent / proj.funds) * 100)}%
-                    </meter>
-                  )}
-                </section>
-              </section>
+                <progress id={`progressBar-${proj.project_id}`} value={percentage} max="100"></progress>
+                <p id={`progressText-${proj.project_id}`}>{percentage}%</p>
+              </article>
             );
           })}
         </section>
