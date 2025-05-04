@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
-import '../styles/Dashboard.css';
 import { FaImage } from "react-icons/fa"; 
-
 import { get_each_project_data } from "../services/proposal_service";
 export default function ProjectDetails() {
-  //use the location to get the variable passed
   const location = useLocation();
   const project_id = location.state?.project_id;
 
@@ -14,11 +11,10 @@ export default function ProjectDetails() {
   useEffect(() => {
     const fetchProjectdata = async () => {
       try {
-        if (project_id) { // Only fetch if project_id is available
+        if (project_id) { 
           const project_data = await get_each_project_data(project_id);
-          console.log("data --> Projects--",project_data[0].link_image)
           setProjectData(project_data[0]);
-
+          
         }
       } catch (err) {
         console.error("Failed to fetch Projects", err);
@@ -70,8 +66,8 @@ function ProposalCard({ proposal }) {
       <p >{proposal.funding_source}</p>
       <p >{proposal.funds}</p>
       <p >{proposal.funds_spent}</p>
-      <p>{proposal.start_start}</p>
-      <p >{proposal.end_start}</p>
+      <p>{proposal.start_date}</p>
+      <p >{proposal.end_date}</p>
       <button> message</button>
       <button> invite </button>
     </article>

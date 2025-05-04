@@ -136,7 +136,7 @@ export async function get_image_url(image) {
         'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          //console.log(`Upload is ${progress.toFixed(2)}% done`);
+          console.log(`Upload is ${progress.toFixed(2)}% done`);
         },
         (error) => {
           console.error("Upload error:", error);
