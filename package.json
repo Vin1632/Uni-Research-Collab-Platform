@@ -53,4 +53,9 @@
     "url": "https://github.com/Vin1632/Uni-Research-Collab-Platform/issues"
   },
   "homepage": "https://github.com/Vin1632/Uni-Research-Collab-Platform#readme"
+  ,
+  "engines":
+  {
+    "node": "20.x"
+  }
 }
