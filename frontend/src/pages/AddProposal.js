@@ -12,6 +12,9 @@ const AddProposals = () => {
   const {logOut,  user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
+  //proposal information initially null  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [senderEmail, setSenderEmail] = useState(user?.email || '');
+  const [recipientEmail, setRecipientEmail] = useState('');
 
   //logging Out
   const handleLogout = async () => {
@@ -23,9 +26,7 @@ const AddProposals = () => {
     }
   };
 
-  //proposal information initially null  const [showInviteModal, setShowInviteModal] = useState(false);
-  const [senderEmail, setSenderEmail] = useState(user?.email || '');
-  const [recipientEmail, setRecipientEmail] = useState('');
+
 
 
   const [proposal, setProposal] = useState({
