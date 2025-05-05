@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require('../db');
 require('dotenv').config();
 
-// POST route to send invite
+// POST route to send an invite
 router.post('/send-invite', async (req, res) => {
   const { toEmail, fromUser, projectTitle } = req.body;
 
