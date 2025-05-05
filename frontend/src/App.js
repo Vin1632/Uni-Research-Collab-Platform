@@ -13,6 +13,8 @@ import AddProposals  from "./pages/AddProposal";
 import Recommendations from "./pages/recommendations";
 import ProjectDetails from './pages/project_details.js';
 import ProjectDetailsUser from './pages/project_details_user.js';
+import NotificationsPage from './components/NotificationsPage';
+
 
 
 function App() {
@@ -22,7 +24,7 @@ function App() {
         <Col>
           <UserAuthContextProvider>
             <Routes>
-             <Route element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
+             <Route element={<ProtectedRoute><ProtectedLayout /></ProtectedRoute>}>
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/milestones" element={<Milestones />} />
@@ -33,6 +35,7 @@ function App() {
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
               <Route path="/project_details" element={<ProjectDetails />} />
               <Route path="/project_details_user" element={<ProjectDetailsUser />} />
+              <Route path="/notificationspage" element={<NotificationsPage />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>

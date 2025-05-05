@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require("path");
+const notificationsRoute = require('./Routes/notifications');
 dotenv.config();
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use('/users', Users);
 app.use('/projects', project_routes);
 app.use('/milestone', milestone_tracking_routes);
+app.use('/api/notifications', notificationsRoute);
 
 
 // All other routes should return the index.html page
