@@ -62,7 +62,7 @@ export async function insert_projectData(project_id, title, requirements, link_i
             project_id: project_id,
             title : title,
             requirements: requirements,
-            funding: funding,
+            funds: funding,
             link_image: link_image,
             funding_source : funding_source
           }),

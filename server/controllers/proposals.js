@@ -11,10 +11,10 @@ async function insert_proposals(user_id, title, description, link_image) {
     
 }
 
-async function insert_projectData(project_id, title, requirements, link_image, funding, funding_source) {
+async function insert_projectData(project_id, title, requirements, link_image, funds, funding_source) {
     try {
-        const result = await pool.query("INSERT INTO ProjectData(project_id, title, requirements, link_image, funding, funding_source) VALUES (?, ?, ?, ?, ?, ?)", 
-            [project_id,title, requirements, link_image, funding, funding_source ]);
+        const result = await pool.query("INSERT INTO ProjectData(project_id, title, requirements, link_image, funds, funding_source) VALUES (?, ?, ?, ?, ?, ?)", 
+            [project_id,title, requirements, link_image, funds, funding_source ]);
         return result;
 
     } catch (error) {

@@ -41,8 +41,8 @@ router.post('/project', async (req, res) => {
 //insert project data
 router.post('/projectdata', async (req, res) => {
     try {
-        const {project_id, title, requirements, link_image, funding, funding_source} = req.body;
-        const data = await insert_projectData(project_id, title, requirements, link_image, funding, funding_source);
+        const {project_id, title, requirements, link_image, funds, funding_source} = req.body;
+        const data = await insert_projectData(project_id, title, requirements, link_image, funds, funding_source);
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json({message : "Failed to post project data"});
