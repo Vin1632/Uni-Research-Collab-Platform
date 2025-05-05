@@ -37,7 +37,7 @@ export default function ProjectDetails() {
         <ProposalCard
             key={ProjectData.project_id}
             proposal={ProjectData}
-           // onClick={() => navigate(`/proposal/${proposal.project_id}`, {state : {project_id : proposal.project_id}})}
+           
           />
       </section>
     </main>
@@ -71,8 +71,8 @@ function ProposalCard({ proposal }) {
         <h3 className="proposal-title">{proposal.title}</h3>
         <p className="proposal-summary">{proposal.requirements}</p>
         <p><strong>Funding Source:</strong> {proposal.funding_source}</p>
-        <p><strong>Funds:</strong> {proposal.funds}</p>
-        <p><strong>Funds Spent:</strong> {proposal.funds_spent}</p>
+        <p><strong>Funds: R</strong> {proposal.funds}</p>
+        <p><strong>Funds Spent: R</strong> {proposal.funds_spent}</p>
         <p><strong>Start Date:</strong> {proposal.start_date}</p>
         <p><strong>End Date:</strong> {proposal.end_date}</p>
         <div className="proposal-buttons">

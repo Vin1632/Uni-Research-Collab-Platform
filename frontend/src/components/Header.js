@@ -54,8 +54,6 @@ const Header = ({ onUser_IdLoaded }) => {
         <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
           <li onClick={() => navigate("/home")}>Home</li>
           <li onClick={() => navigate("/profile")}>Profile</li>
-          <li onClick={() => navigate("/funding")}>Funding</li>
-          <li onClick={() => navigate("/milestones")}>Milestone Tracking</li>
           <li onClick={handleLogout}>Log Out</li>
         </menu>
       </nav>

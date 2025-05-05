@@ -17,6 +17,10 @@ export default function Dashboard() {
         if (user_id) { // Only fetch if user_id is available
           const project_dat = await get_project_data(user_id); 
           setProposal(project_dat[0]);
+          console.log("Hello");
+        }
+        else{
+          console.log("User-Id not here");
         }
       } catch (err) {
         console.error("Failed to fetch Projects", err);

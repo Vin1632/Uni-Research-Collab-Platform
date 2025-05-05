@@ -29,7 +29,7 @@ export default function Dashboard() {
 
         <section
           className="proposal-card"
-          onClick={() => navigate(`/proposal/`)}
+          onClick={() => navigate(`/milestones/`)}
           role="button"
           tabIndex={0}
           aria-label={`Reports`}
