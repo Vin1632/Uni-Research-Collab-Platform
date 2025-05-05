@@ -1,4 +1,4 @@
-// Routes/Invite_Routes.js
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
@@ -14,12 +14,6 @@ router.post('/send-invite', async (req, res) => {
   }
 
   try {
-    // Store invite in DB
-   // await db.execute(
-    //  'INSERT INTO Collaborators (collaborator_id, project_id, user_id, role) VALUES (?, ?, ?)',
-    //  [toEmail, projectTitle, fromUser, 'Researcher']
-    //);
-
   
     const transporter = nodemailer.createTransport({
       service: 'gmail',
