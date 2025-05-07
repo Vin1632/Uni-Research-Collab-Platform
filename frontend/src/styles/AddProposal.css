@@ -227,3 +227,11 @@ button:hover {
   justify-content: space-between;
 }
 
+/* Error message styling */
+.error {
+  color: #d9534f; /* Bootstrap 'danger' red */
+  font-size: 0.9rem;
+  margin-top: 4px;
+  display: block;
+}
+
