@@ -97,7 +97,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'Uni-Research-Collab'
+          app-name: 'my-research-hub-wits-uni'
           slot-name: 'Production'
           package: .
           
