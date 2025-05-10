@@ -12,9 +12,6 @@ const AddProposals = () => {
   const {logOut,  user } = useUserAuth();
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [senderEmail, setSenderEmail] = useState(user?.email || '');
-  const [recipientEmail, setRecipientEmail] = useState('');
-  const [showInviteModal, setShowInviteModal] = useState(false);
 
   //logging Out
   const handleLogout = async () => {
@@ -103,37 +100,37 @@ const AddProposals = () => {
   
 
   const handleInviteCollaborators = () => {
-    //alert("Invite Collaborators clicked!");
-    setShowInviteModal(true);
+    alert("Invite Collaborators clicked!");
+    //setShowInviteModal(true);
   };
 
-  const sendInvite = async () => {
-    try {
-      const response = await fetch('/api/send-invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          toEmail: recipientEmail,
-          fromUser: senderEmail,
-          projectTitle: proposal.title
-        }),
-      });
+  // const sendInvite = async () => {
+  //   try {
+  //     const response = await fetch('/api/send-invite', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         toEmail: recipientEmail,
+  //         fromUser: senderEmail,
+  //         projectTitle: proposal.title
+  //       }),
+  //     });
   
-      const result = await response.json();
-      if (response.ok) {
-        alert('Invitation sent!');
-      } else {
-        alert('Failed to send invite: ' + result.message);
-      }
+  //     const result = await response.json();
+  //     if (response.ok) {
+  //       alert('Invitation sent!');
+  //     } else {
+  //       alert('Failed to send invite: ' + result.message);
+  //     }
   
-      setShowInviteModal(false);
-      setRecipientEmail('');
-      setSenderEmail(user?.email || '');
-    } catch (error) {
-      console.error('Error sending invite:', error);
-      alert('Something went wrong.');
-    }
-  };
+  //     setShowInviteModal(false);
+  //     setRecipientEmail('');
+  //     setSenderEmail(user?.email || '');
+  //   } catch (error) {
+  //     console.error('Error sending invite:', error);
+  //     alert('Something went wrong.');
+  //   }
+  // };
   
 
   return (
@@ -302,31 +299,7 @@ const AddProposals = () => {
         </form>
       </section>
       
-      {showInviteModal && (
-  <div className="modal-overlay">
-    <div className="modal">
-      <h2>Invite a Collaborator</h2>
-      <input
-        type="email"
-        placeholder="Your email address"
-        value={senderEmail}
-        onChange={(e) => setSenderEmail(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="Collaborator's email address"
-        value={recipientEmail}
-        onChange={(e) => setRecipientEmail(e.target.value)}
-        required
-      />
-      <div className="modal-buttons">
-        <button onClick={sendInvite}>Send Invitation</button>
-        <button onClick={() => setShowInviteModal(false)}>Cancel</button>
-      </div>
-    </div>
-  </div>
-)}
+      
 
 
     </>
