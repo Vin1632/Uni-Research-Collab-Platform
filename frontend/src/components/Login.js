@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "react-bootstrap";
+import { Alert, Container, Row, Col } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
 
 import { get_Users } from "../services/login_service";
