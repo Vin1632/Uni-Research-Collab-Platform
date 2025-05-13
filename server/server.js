@@ -5,6 +5,12 @@ const dotenv = require('dotenv');
 const path = require("path");
 dotenv.config();
 
+//importing routes
+const Users = require('./Routes/Users_Routes');
+const project_routes = require('./Routes/Projects_Routes');
+const milestone_tracking_routes = require('./Routes/milestone_tracking_routes');
+const inviteRoutes = require('./Routes/Invite_Routes');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -18,6 +24,12 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+//Routes
+app.use('/users', Users);
+app.use('/projects', project_routes);
+app.use('/milestone', milestone_tracking_routes);
+app.use('/api', inviteRoutes);
 
 // All other routes should return the index.html page
 app.get('*', (req, res) => {
