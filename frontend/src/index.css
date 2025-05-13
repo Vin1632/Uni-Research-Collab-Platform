@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Ensure body and html take full width and height */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Body style to ensure no overflow and body stays full screen */
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  color: #003e7e;
+  min-height: 100vh;
+  /* Prevent centering content globally */
+  align-items: flex-start; /* Align content to the left instead of center */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Root element needs to stretch to fit content */
+#root {
+  width: 100%;
+  flex-grow: 1; /* Allow the React root to take full height */
+}
+
+/* Prevent centering of the entire content */
+#root > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+

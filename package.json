@@ -12,6 +12,7 @@
   "description": "This project aims to provide a web-based solution for managing community sports facilities, allowing users to book slots, report maintenance\r issues, and receive relevant notifications.",
   "main": "index.js",
   "dependencies": {
+    "react-scripts": "5.0.1",
     "ansi-regex": "^5.0.1",
     "ansi-styles": "^4.3.0",
     "chalk": "^4.1.2",

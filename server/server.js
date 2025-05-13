@@ -2,6 +2,7 @@ const Users = require('./Routes/Users_Routes');
 const project_routes = require('./Routes/Projects_Routes');
 const milestone_tracking_routes = require('./Routes/milestone_tracking_routes');
 const inviteRoutes = require('./Routes/Invite_Routes');
+const profileRoutes = require('./Routes/profile_route');
 
 const express = require('express');
 const cors = require('cors');
@@ -28,6 +29,8 @@ app.use('/users', Users);
 app.use('/projects', project_routes);
 app.use('/milestone', milestone_tracking_routes);
 app.use('/api', inviteRoutes);
+app.use('/profile', profileRoutes);
+
 
 
 
