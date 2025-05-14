@@ -110,7 +110,6 @@ const AddProposals = () => {
 
       if (result_1[0].project_id) {
         alert("Submitted Successfully!");
-        navigate('/home');
         await insert_projectData(
           result_1[0].project_id,
           proposal.title,
