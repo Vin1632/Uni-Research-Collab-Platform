@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import '../styles/AddProposal.css';
 import { useUserAuth } from "../context/UserAuthContext";
 import { proposal_service, insert_projectData, get_image_url } from "../services/proposal_service";
@@ -41,16 +41,16 @@ const AddProposals = () => {
     }
   };
 
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const errors = {};
-    if (!proposal.title.trim()) errors.title = "Title is required";
-    if (!proposal.summary.trim()) errors.summary = "Summary is required";
-    if (proposal.summary.length > 350) errors.summary = "Summary exceeds 350 characters";
-    if (!proposal.requirements.trim()) errors.requirements = "Requirements are required";
+    if (!proposal.title?.trim()) errors.title = "Title is required";
+    if (!proposal.summary?.trim()) errors.summary = "Summary is required";
+    if (proposal.summary?.length > 350) errors.summary = "Summary exceeds 350 characters";
+    if (!proposal.requirements?.trim()) errors.requirements = "Requirements are required";
     if (!proposal.fundingNeeded || proposal.fundingNeeded <= 0) errors.fundingNeeded = "Enter valid funding amount";
     if (!proposal.fundingSource) errors.fundingSource = "Select a funding source";
     if (
-      !proposal.completionStatus ||
+      proposal.completionStatus == null ||
       proposal.completionStatus < 0 ||
       proposal.completionStatus > 100
     ) {
@@ -65,7 +65,7 @@ const AddProposals = () => {
 
     setFormErrors(errors);
     setIsFormValid(Object.keys(errors).length === 0);
-  };
+  }, [proposal]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +84,7 @@ const AddProposals = () => {
 
   useEffect(() => {
     validateForm();
-  }, [proposal]);
+  }, [validateForm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
