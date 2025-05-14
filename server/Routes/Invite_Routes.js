@@ -24,7 +24,7 @@ router.post('/send-invite', async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.MAIL_USER,
+        user: fromUser,
         pass: process.env.MAIL_PASS,
       },
     });
@@ -33,7 +33,7 @@ router.post('/send-invite', async (req, res) => {
     const declineLink = `https://uni-research-collab-fffwfkcnbdd5b9ct.southafricanorth-01.azurewebsites.net/api/decline-invite?project=${encodeURIComponent(projectTitle)}&sender=${encodeURIComponent(fromUser)}&recipient=${encodeURIComponent(toEmail)}`;
 
     const mailOptions = {
-      from: `"RE:HUB" <${process.env.MAIL_USER}>`,
+      from: `"RE:HUB" <${fromUser}>`,
       replyTo: fromUser,
       to: toEmail,
       subject: `You're invited to collaborate on "${projectTitle}"`,
