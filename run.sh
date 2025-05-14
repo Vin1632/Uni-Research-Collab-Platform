@@ -1,5 +1,3 @@
 #!/bin/bash
-
-echo "[INFO]: Running the web application ..... "
+echp "[INFO]: Running the application"
 npm run prod
-
