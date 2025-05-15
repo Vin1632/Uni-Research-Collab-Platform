@@ -38,9 +38,10 @@ CREATE TABLE ProjectData (
     project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
     title VARCHAR(255),
     link_image TEXT,
-    data_type VARCHAR(50), 
+    requirements VARCHAR(255), 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     funds DOUBLE(13,4),
+    funding_source VARCHAR(255),
     funds_spent DOUBLE(13,4), 
     start_date DATE,
     end_date DATE
