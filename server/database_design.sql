@@ -1,6 +1,6 @@
 -- USERS
 CREATE TABLE Users (
-    user_id AUTO_INCREMENT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     role varchar(100),
