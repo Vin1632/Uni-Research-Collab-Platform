@@ -13,6 +13,7 @@ import AddProposals  from "./pages/AddProposal";
 import Recommendations from "./pages/recommendations";
 import ProjectDetails from './pages/project_details.js';
 import ProjectDetailsUser from './pages/project_details_user.js';
+import ReviewerDashboard from "./components/ReviewerDashboard.js";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               <Route path="/reviewer-signup" element={<ReviewerSignup />} />
               <Route path="/project_details" element={<ProjectDetails />} />
               <Route path="/project_details_user" element={<ProjectDetailsUser />} />
+              <Route path="/reviewer-dashboard" element={<ReviewerDashboard />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>
