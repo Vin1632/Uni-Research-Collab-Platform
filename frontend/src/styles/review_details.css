@@ -1,0 +1,100 @@
+.review-details-wrapper {
+  min-height: 100vh;
+  background: #ffe5d9;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+}
+
+.review-proposal-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+.review-proposal-image {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background: #f5f5f5;
+}
+
+.review-proposal-info {
+  width: 100%;
+}
+
+.review-proposal-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.review-proposal-summary {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.review-proposal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.review-btn-message,
+.review-btn-request-invite,
+.review-btn-donate {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.review-btn-message {
+  background: #0077cc;
+}
+.review-btn-message:hover {
+  background: #005fa3;
+}
+
+.review-btn-request-invite {
+  background: #f39c12;
+}
+.review-btn-request-invite:hover {
+  background: #d35400;
+}
+
+.review-btn-donate {
+  background: #27ae60;
+}
+.review-btn-donate:hover {
+  background: #219150;
+}
+
+.fallback-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
