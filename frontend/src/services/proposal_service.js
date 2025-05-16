@@ -86,7 +86,7 @@ export async function get_project_data(id) {
         
     } catch (error) {
         console.error("Failed to fetch", error);
-        throw new Error("Failed to get the project data");
+        throw new Error(`Failed to get the project data: ${error.message}`);
     
     }
 }
@@ -109,8 +109,8 @@ export async function get_each_project_data(id) {
       return await response.json();
       
   } catch (error) {
-      console.error("Failed to fetch", error);
-      throw new Error("Failed to get Projects Data");
+    console.error("Failed to fetch", error);
+    throw error;
   
   }
 }

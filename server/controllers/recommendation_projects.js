@@ -7,7 +7,7 @@ async function get_recom_proj(id) {
         return result;
     } catch (error) {
         console.error('Failed to get projects', error);
-        throw new Error(error);
+        throw error;
     }
 }
 
@@ -19,7 +19,7 @@ async function get_project_data(id) {
     return result.length ? result : [];
     } catch (error) {
         console.error("failed to Fetch ProjectData", error);
-        throw new Error(error);
+        throw error;
         
     }
     

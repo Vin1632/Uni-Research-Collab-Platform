@@ -28,8 +28,17 @@ jobs:
           cd frontend
           npm install
           npm run build --if-present
+          npm test -- --coverage --coverageReporters=cobertura
           cd ..
 
+      - name: npm install, testing the server coverage
+        run: |
+          cd server
+          npm install
+          npm test -- --coverage --coverageReporters=cobertura
+          cd ..
+
+          
       - name: Zip artifact for deployment
         run: zip -r release.zip . -x "*.git*" "node_modules/*" "frontend/node_modules/*"
 
@@ -38,6 +47,26 @@ jobs:
         with:
           name: node-app
           path: release.zip
+      
+      - name: Upload frontend coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Vin1632/Uni-Research-Collab-Platform
+          directory: frontend/coverage
+          files: cobertura-coverage.xml
+          flags: frontend
+          name: frontend-coverage
+      
+      - name: Upload server coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Vin1632/Uni-Research-Collab-Platform
+          directory: server/coverage
+          files: cobertura-coverage.xml
+          flags: server
+          name: server-coverage
 
   deploy:
     runs-on: ubuntu-latest

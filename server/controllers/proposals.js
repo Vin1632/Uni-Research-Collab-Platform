@@ -30,7 +30,7 @@ async function insert_projectData(project_id, title, requirements, link_image, f
 
     } catch (error) {
         console.error("Failed To insert into Projectdata", error);
-        throw new Error(error);
+        throw error;
     }
 }
 

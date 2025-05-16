@@ -7,18 +7,6 @@ import { getStorage } from "firebase/storage"; //Storing files inside firebase
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-//Your web app's Firebase configuration ---- Uni-Collab-Platform
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDwJ8KhcJu4RoNI9X1NB1-JvBTvrPSDL4A",
-//   authDomain: "uni-research-collab.firebaseapp.com",
-//   projectId: "uni-research-collab",
-//   storageBucket: "uni-research-collab.firebasestorage.app",
-//   messagingSenderId: "342563407789",
-//   appId: "1:342563407789:web:1f2e8400332ed09a104324"
-// };
-
-// Your web app's Firebase configuration
-
 const firebaseConfig = {
   apiKey: "AIzaSyCVsaQBbAuCKrwENI-8KX18YK6sv_AspAk",
   authDomain: "test-1be72.firebaseapp.com",

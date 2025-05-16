@@ -43,7 +43,7 @@ export default function Milestones() {
   );
 }
 
-function ProposalCard({ proposal, onClick }) {
+export function ProposalCard({ proposal, onClick }) {
   const [imgError, setImgError] = useState(false);
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;

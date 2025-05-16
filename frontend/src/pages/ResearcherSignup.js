@@ -1,16 +1,73 @@
-import React, { useState } from "react";
-import { Form, Button, Alert, Badge } from "react-bootstrap";
-import { useNavigate, useLocation } from "react-router-dom";
-import { login_service } from "../services/login_service"
-import '../styles/ResearchersignUp.css';
-const ResearcherSignup = () => {
+import React, { useState, useRef } from "react";
+import "../styles/ReviewerSignUp.css";
+import { useNavigate } from "react-router-dom";
+import { login_service } from "../services/login_service";
+import { useUserAuth } from "../context/UserAuthContext";
+
+const ResearchInterests = ({
+  interests,
+  onAdd,
+  onRemove,
+  error,
+  inputValue,
+  onInputChange,
+  onKeyDown,
+  inputRef
+}) => (
+  <section className="input-row full-width">
+    <label>
+      Research Interests
+      <section className="input-row">
+        <input
+          type="text"
+          name="interestInput"
+          value={inputValue}
+          onChange={onInputChange}
+          onKeyDown={onKeyDown}
+          ref={inputRef}
+          placeholder="Add an interest"
+          aria-label="Add a research interest"
+        />
+        <button
+          className="add-btn"
+          onClick={(e) => {
+            e.preventDefault();
+            onAdd();
+          }}
+          aria-label="Add interest"
+        >
+          Add
+        </button>
+      </section>
+
+      <section className="badge-container">
+        {interests.length === 0 ? (
+          <span className="placeholder-text">No interests added yet.</span>
+        ) : (
+          interests.map((interest, idx) => (
+            <span
+              key={idx}
+              className="interest-badge"
+              onClick={() => onRemove(interest)}
+              aria-label={`Remove interest ${interest}`}
+            >
+              {interest} ✕
+            </span>
+          ))
+        )}
+        {error && <span className="error-text">{error}</span>}
+      </section>
+    </label>
+  </section>
+);
+
+const ReviewerSignup = () => {
   const [form, setForm] = useState({
     fullName: "",
     institution: "",
     careerField: "",
     qualifications: "",
-    careerPath: "",
-    researchInterestInput: "",
+    interestInput: "",
     researchInterests: [],
   });
 
@@ -18,77 +75,95 @@ const ResearcherSignup = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const location = useLocation();
-  const email = location.state?.email;
   const navigate = useNavigate();
+  const { user } = useUserAuth();
+  const interestInputRef = useRef();
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.fullName.trim()) {
-      newErrors.fullName = "Full name is required.";
-    } else if (!/^[a-zA-Z\s-]+$/.test(form.fullName)) {
-      newErrors.fullName = "Full name must only contain letters, spaces, or hyphens.";
+    const fullNameTrimmed = form.fullName.trim();
+    if (!/^[a-zA-Z\s]+$/.test(fullNameTrimmed)) {
+      newErrors.fullName = "Full name must only contain letters.";
     }
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
     if (!form.careerField.trim()) newErrors.careerField = "Career field is required.";
-    if (!form.qualifications.trim()) newErrors.qualifications = "Qualifications are required.";
-    if (form.qualifications.length < 10) {
+    if (!form.qualifications.trim()) {
+      newErrors.qualifications = "Qualifications are required.";
+    } else if (form.qualifications.length < 10) {
       newErrors.qualifications = "Qualifications must be at least 10 characters long.";
     }
-    if (!form.careerPath.trim()) newErrors.careerPath = "Career path is required.";
     if (form.researchInterests.length === 0) {
-      newErrors.researchInterests = "At least one research interest is required.";
+      newErrors.researchInterests = "At least one interest is required.";
     }
     return newErrors;
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
-  const handleAddInterest = (e) => {
-    e.preventDefault();
-    const trimmed = form.researchInterestInput.trim();
-    if (!trimmed) {
-      setErrors({ ...errors, researchInterests: "Research interest cannot be empty." });
+  const handleAddInterest = () => {
+    const trimmed = form.interestInput.trim();
+    if (!trimmed) return;
+    if (
+      form.researchInterests.some(
+        (i) => i.toLowerCase() === trimmed.toLowerCase()
+      )
+    ) {
+      setErrors((prev) => ({
+        ...prev,
+        researchInterests: "This interest is already added.",
+      }));
       return;
     }
-    if (form.researchInterests.includes(trimmed)) {
-      setErrors({ ...errors, researchInterests: "This interest is already added." });
-      return;
-    }
-    setForm({
-      ...form,
-      researchInterests: [...form.researchInterests, trimmed],
-      researchInterestInput: "",
-    });
-    setErrors({ ...errors, researchInterests: null }); 
+
+    setForm((prev) => ({
+      ...prev,
+      researchInterests: [...prev.researchInterests, trimmed],
+      interestInput: "",
+    }));
+    setErrors((prev) => ({ ...prev, researchInterests: null }));
+
+    // Refocus the input
+    interestInputRef.current?.focus();
   };
 
   const handleRemoveInterest = (tag) => {
-    setForm({
-      ...form,
-      researchInterests: form.researchInterests.filter((t) => t !== tag),
-    });
+    setForm((prev) => ({
+      ...prev,
+      researchInterests: prev.researchInterests.filter((t) => t !== tag),
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     setErrors(validationErrors);
+    const email = user?.email;
 
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitting(true);
       try {
-        console.log("Submitting:", form);
-        setSubmitStatus({ success: true, message: "Submitted successfully!" });
-        setTimeout(() => {
-          navigate("/home", { state: { role: "researcher" }}); //Navigate to the home
-        }, 2000);
-        login_service(form.fullName, email, "researcher", form.institution, form.qualifications, JSON.stringify(form.researchInterests));
+        console.log("Submitting reviewer form:", form);
+        await login_service(
+          form.fullName,
+          email,
+          "reviewer",
+          form.institution,
+          JSON.stringify(form.researchInterests)
+        );
+        setSubmitStatus({
+          success: true,
+          message: "Submitted successfully!",
+        });
+        navigate("/recommendations");
       } catch (error) {
-        console.error("Submission error:", error);
-        setSubmitStatus({ success: false, message: "Failed to submit. Please try again." });
+        setSubmitStatus({
+          success: false,
+          message: "Failed to submit. Please try again.",
+        });
       } finally {
         setIsSubmitting(false);
       }
@@ -96,142 +171,112 @@ const ResearcherSignup = () => {
   };
 
   return (
-    <section
-      className="form-container"
-      
-    >
-      <Form onSubmit={handleSubmit}>
-        <h3>Researcher Details</h3>
+    <section className="form-wrapper">
+      <form onSubmit={handleSubmit} className="reviewer-form">
+        <fieldset disabled={isSubmitting}>
+          <h3>Reviewer Details</h3>
 
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            name="fullName"
-            placeholder="Full Name"
-            value={form.fullName}
-            onChange={handleChange}
-            isInvalid={!!errors.fullName}
-          />
-          <Form.Control.Feedback type="invalid" className="text-danger">
-            {errors.fullName}
-          </Form.Control.Feedback>
-        </Form.Group>
+          <section className="input-row">
+            <section className="input-col">
+              <label>
+                Full Name
+                <input
+                  type="text"
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={handleChange}
+                  aria-label="Full Name"
+                />
+                {errors.fullName && (
+                  <span className="error-text">{errors.fullName}</span>
+                )}
+              </label>
+            </section>
 
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            name="institution"
-            placeholder="Institution Name"
-            value={form.institution}
-            onChange={handleChange}
-            isInvalid={!!errors.institution}
-          />
-          <Form.Control.Feedback type="invalid" className="text-danger">
-            {errors.institution}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            name="careerField"
-            placeholder="Career Field"
-            value={form.careerField}
-            onChange={handleChange}
-            isInvalid={!!errors.careerField}
-          />
-          <Form.Control.Feedback type="invalid" className="text-danger">
-            {errors.careerField}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            name="qualifications"
-            placeholder="Qualifications"
-            value={form.qualifications}
-            onChange={handleChange}
-            isInvalid={!!errors.qualifications}
-          />
-          <Form.Control.Feedback type="invalid" className="text-danger">
-            {errors.qualifications}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            name="careerPath"
-            placeholder="Career Path"
-            value={form.careerPath}
-            onChange={handleChange}
-            isInvalid={!!errors.careerPath}
-          />
-          <Form.Control.Feedback type="invalid" className="text-danger">
-            {errors.careerPath}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Control
-            className="box"
-            type="text"
-            placeholder="Add Research Interest"
-            value={form.researchInterestInput}
-            onChange={(e) =>
-              setForm({ ...form, researchInterestInput: e.target.value })
-            }
-          />
-          <Button className="btn mt-2" onClick={handleAddInterest}>
-            Add Interest
-          </Button>
-        </Form.Group>
-
-        {form.researchInterests.length === 0 ? (
-          <Form.Text className="text-muted">No interests added yet.</Form.Text>
-        ) : (
-          <section className="interests-container mt-3">
-            {form.researchInterests.map((interest, idx) => (
-              <Badge key={idx} bg="info" className="m-1 p-2">
-                {interest}{" "}
-                <span
-                  style={{ cursor: "pointer", color: "red", fontWeight: "bold" }}
-                  onClick={() => handleRemoveInterest(interest)}
-                >
-                  ✕
-                </span>
-              </Badge>
-            ))}
+            <section className="input-col">
+              <label>
+                Institution Name
+                <input
+                  type="text"
+                  name="institution"
+                  value={form.institution}
+                  onChange={handleChange}
+                  aria-label="Institution Name"
+                />
+                {errors.institution && (
+                  <span className="error-text">{errors.institution}</span>
+                )}
+              </label>
+            </section>
           </section>
-        )}
 
-        {errors.researchInterests && (
-          <Form.Text className="text-danger">
-            {errors.researchInterests}
-          </Form.Text>
-        )}
+          <section className="input-row">
+            <section className="input-col">
+              <label>
+                Career Field
+                <input
+                  type="text"
+                  name="careerField"
+                  value={form.careerField}
+                  onChange={handleChange}
+                  aria-label="Career Field"
+                />
+                {errors.careerField && (
+                  <span className="error-text">{errors.careerField}</span>
+                )}
+              </label>
+            </section>
 
-        <Button type="submit" className="btn mt-3" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </Button>
+            <section className="input-col">
+              <label>
+                Qualifications
+                <input
+                  type="text"
+                  name="qualifications"
+                  value={form.qualifications}
+                  onChange={handleChange}
+                  aria-label="Qualifications"
+                />
+                {errors.qualifications && (
+                  <span className="error-text">{errors.qualifications}</span>
+                )}
+              </label>
+            </section>
+          </section>
 
-        {submitStatus && (
-          <Alert
-            variant={submitStatus.success ? "success" : "danger"}
-            className="mt-3"
-          >
-            {submitStatus.message}
-          </Alert>
-        )}
-      </Form>
+          <ResearchInterests
+            interests={form.researchInterests}
+            onAdd={handleAddInterest}
+            onRemove={handleRemoveInterest}
+            error={errors.researchInterests}
+            inputValue={form.interestInput}
+            onInputChange={handleChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleAddInterest();
+              }
+            }}
+            inputRef={interestInputRef}
+          />
+
+          <button type="submit" aria-label="Submit">
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+
+          {submitStatus && (
+            <section
+              className={`alert ${
+                submitStatus.success ? "alert-success" : "alert-danger"
+              }`}
+            >
+              {submitStatus.message}
+            </section>
+          )}
+        </fieldset>
+      </form>
     </section>
   );
 };
 
-export default ResearcherSignup;
+export default ReviewerSignup;
