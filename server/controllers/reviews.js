@@ -58,7 +58,8 @@ async function get_reviewer_projects(reviewer_id) {
       p.project_id,
       pd.title,
       pd.requirements AS description,
-      pd.link_image
+      pd.link_image,
+      ri.Donated_Amt
     FROM ReviewerInteractions ri
     JOIN Projects p ON ri.project_id = p.project_id
     JOIN ProjectData pd ON p.project_id = pd.project_id

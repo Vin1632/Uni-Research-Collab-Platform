@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { get_my_reviews } from "../services/review_services";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function MyReviews() {
   const { user } = useUserAuth();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchReviews() {
@@ -38,6 +40,10 @@ export default function MyReviews() {
     fetchReviews();
   }, [user]);
 
+  function handleCardClick(project_id) {
+    navigate("/review-details-user", { state: { project_id } });
+  }
+
   return (
     <main className="reviewer-dashboard-wrapper">
       <Header />
@@ -48,7 +54,17 @@ export default function MyReviews() {
           <p>You haven't reviewed any projects yet.</p>
         ) : (
           reviews.map((proj) => (
-            <section key={proj.project_id} className="reviewer-card">
+            <section
+              key={proj.project_id}
+              className="reviewer-card"
+              tabIndex={0}
+              style={{ cursor: "pointer" }}
+              onClick={() => handleCardClick(proj.project_id)}
+              onKeyDown={e => {
+                if (e.key === "Enter" || e.key === " ") handleCardClick(proj.project_id);
+              }}
+              aria-label={`View details for ${proj.title}`}
+            >
               {proj.link_image ? (
                 <img
                   src={proj.link_image}
