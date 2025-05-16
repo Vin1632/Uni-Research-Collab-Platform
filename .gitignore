@@ -27,7 +27,7 @@ yarn-error.log*
 #build and temp files
 dist/
 build/
-/frontend/build/
+frontend/build
 out/
 coverage/
 .temp/
