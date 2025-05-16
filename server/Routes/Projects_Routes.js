@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
 const {insert_proposals, insert_projectData} = require('../controllers/proposals');
-const { get_active_projects } = require('../controllers/reviews');
+const { get_active_projects, donate_to_project } = require('../controllers/reviews');
 const { pool } = require('../db');
 
 //get all Projects Data
@@ -61,6 +61,23 @@ router.get('/active-projects', async (req, res) => {
   } catch (error) {
     console.error('Error fetching active projects:', error);
     res.status(500).json({ message: 'Failed to fetch active projects' });
+  }
+});
+
+//insert into the ReviewerInteractions table
+//update the funds_spent in the ProjectData table
+
+router.post('/donate', async (req, res) => {
+  try {
+    const { reviewer_id, project_id, donated_amt } = req.body;
+    if (!reviewer_id || !project_id || !donated_amt) {
+      return res.status(400).json({ message: "Missing required fields." });
+    }
+    const result = await donate_to_project({ reviewer_id, project_id, donated_amt });
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Donation error:', error);
+    res.status(500).json({ message: 'Failed to process donation.' });
   }
 });
 

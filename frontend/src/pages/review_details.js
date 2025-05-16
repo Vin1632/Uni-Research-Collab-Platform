@@ -4,6 +4,9 @@ import Header from "../components/Header";
 import { FaImage } from "react-icons/fa";
 import { get_each_project_data } from "../services/proposal_service";
 import '../styles/review_details.css';
+import { useUserAuth } from "../context/UserAuthContext";
+import { donate_to_project } from "../services/review_services";
+import { get_Users } from "../services/login_service";
 
 export default function ReviewDetails() {
   const location = useLocation();
@@ -41,10 +44,12 @@ export default function ReviewDetails() {
 }
 
 function ReviewProposalCard({ proposal }) {
+  const { user } = useUserAuth();
   const [imgError, setImgError] = useState(false);
   const [showDonateField, setShowDonateField] = useState(false);
   const [donateAmount, setDonateAmount] = useState('');
   const [showDonateConfirm, setShowDonateConfirm] = useState(false);
+  const [donateLoading, setDonateLoading] = useState(false);
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
 
@@ -75,12 +80,29 @@ function ReviewProposalCard({ proposal }) {
     }
   }
 
-  function handleConfirmDonate() {
-    // Here you would call your donate API or logic
-    alert(`Thank you for donating R${donateAmount}!`);
-    setShowDonateField(false);
-    setShowDonateConfirm(false);
-    setDonateAmount('');
+  async function handleConfirmDonate() {
+    setDonateLoading(true);
+    try {
+      const email = user?.email;
+      if (!email) throw new Error("User not logged in");
+
+      const result = await get_Users(email);
+      const reviewer_id = result[0]?.user_id;
+      if (!reviewer_id) throw new Error("User ID not found");
+
+      const project_id = proposal.project_id;
+      const donated_amt = Number(donateAmount);
+
+      const donateResult = await donate_to_project({ reviewer_id, project_id, donated_amt });
+      alert(donateResult.message || `Thank you for donating R${donateAmount}!`);
+    } catch (error) {
+      alert(error.message || "Failed to process donation. Please try again.");
+    } finally {
+      setDonateLoading(false);
+      setShowDonateField(false);
+      setShowDonateConfirm(false);
+      setDonateAmount('');
+    }
   }
 
   function handleCancelDonate() {

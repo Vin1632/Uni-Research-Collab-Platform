@@ -1,4 +1,5 @@
 
+// get all the projects that haven't reached their end_date
 export async function get_active_projects() {
   try {
     const response = await fetch('/projects/active-projects', {
@@ -18,4 +19,17 @@ export async function get_active_projects() {
     console.error("Failed to fetch active projects", error);
     throw error;
   }
+}
+
+// post donation to a project
+export async function donate_to_project({ reviewer_id, project_id, donated_amt }) {
+  const response = await fetch('/projects/donate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reviewer_id, project_id, donated_amt }),
+  });
+  if (!response.ok) {
+    throw new Error('Donation failed');
+  }
+  return await response.json();
 }

@@ -25,6 +25,34 @@ async function get_active_projects() {
   return results;
 }
 
+async function donate_to_project({ reviewer_id, project_id, donated_amt }) {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    // Insert into ReviewerInteractions
+    await conn.query(
+      `INSERT INTO ReviewerInteractions (reviewer_id, project_id, Donated_Amt) VALUES (?, ?, ?)`,
+      [reviewer_id, project_id, donated_amt]
+    );
+
+    // Update ProjectData.funds_spent
+    await conn.query(
+      `UPDATE ProjectData SET funds = IFNULL(funds, 0) + ? WHERE project_id = ?`,
+      [donated_amt, project_id]
+    );
+
+    await conn.commit();
+    return { success: true, message: "Donation recorded successfully." };
+  } catch (error) {
+    await conn.rollback();
+    throw error;
+  } finally {
+    conn.release();
+  }
+}
+
 module.exports = {
   get_active_projects,
+  donate_to_project,
 };
