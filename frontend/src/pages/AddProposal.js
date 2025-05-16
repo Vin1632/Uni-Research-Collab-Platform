@@ -267,7 +267,7 @@ const AddProposals = () => {
         <div className="modal-overlay">
           <div className="modal">
             <h2>Invite a Collaborator</h2>
-            <input type="email" placeholder="Your email address" value={senderEmail} onChange={(e) => setSenderEmail(e.target.value)} required />
+           <input type="email" value={senderEmail} readOnly/>
             <input type="email" placeholder="Collaborator's email address" value={recipientEmail} onChange={(e) => setRecipientEmail(e.target.value)} required />
             <div className="modal-buttons">
               <button onClick={sendInvite}>Send Invitation</button>

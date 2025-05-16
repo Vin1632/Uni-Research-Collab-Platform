@@ -15,7 +15,7 @@ router.post('/send-invite', async (req, res) => {
   try {
     
     await handleInvite(req, res); 
-
+      
     // Email process
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -37,7 +37,7 @@ router.post('/send-invite', async (req, res) => {
       `
     };
 
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions); 
     res.status(200).json({ message: 'Invite sent and collaborator added successfully' });
 
   } catch (error) {
