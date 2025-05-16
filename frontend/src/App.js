@@ -16,6 +16,7 @@ import ProjectDetailsUser from './pages/project_details_user.js';
 import ReviewerDashboard from "./components/ReviewerDashboard.js";
 import Review from "./pages/review.js";
 import ReviewDetails from "./pages/review_details.js";
+import MyReviews from "./pages/my_reviews.js";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
               <Route path="/reviewer-dashboard" element={<ReviewerDashboard />} />
               <Route path="/review" element={<Review />} />
               <Route path="/review/:project_id" element={<ReviewDetails />} />
+              <Route path="/my-reviews" element={<MyReviews />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>

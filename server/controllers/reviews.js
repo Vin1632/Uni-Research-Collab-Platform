@@ -51,8 +51,26 @@ async function donate_to_project({ reviewer_id, project_id, donated_amt }) {
     conn.release();
   }
 }
+ // get all the projects that a reviewer has interacted with
+async function get_reviewer_projects(reviewer_id) {
+  const query = `
+    SELECT 
+      p.project_id,
+      pd.title,
+      pd.requirements AS description,
+      pd.link_image
+    FROM ReviewerInteractions ri
+    JOIN Projects p ON ri.project_id = p.project_id
+    JOIN ProjectData pd ON p.project_id = pd.project_id
+    WHERE ri.reviewer_id = ?
+    ORDER BY ri.donated_at DESC
+  `;
+  const [results] = await pool.query(query, [reviewer_id]);
+  return results;
+}
 
 module.exports = {
   get_active_projects,
   donate_to_project,
+  get_reviewer_projects, 
 };

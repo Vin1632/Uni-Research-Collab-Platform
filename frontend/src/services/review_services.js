@@ -1,4 +1,3 @@
-
 // get all the projects that haven't reached their end_date
 export async function get_active_projects() {
   try {
@@ -30,6 +29,18 @@ export async function donate_to_project({ reviewer_id, project_id, donated_amt }
   });
   if (!response.ok) {
     throw new Error('Donation failed');
+  }
+  return await response.json();
+}
+
+// Get all projects reviewed by the current reviewer
+export async function get_my_reviews(reviewer_id) {
+  const response = await fetch(`/projects/my-reviews/${reviewer_id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch my reviews');
   }
   return await response.json();
 }

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
 const {insert_proposals, insert_projectData} = require('../controllers/proposals');
-const { get_active_projects, donate_to_project } = require('../controllers/reviews');
+const { get_active_projects, donate_to_project, get_reviewer_projects } = require('../controllers/reviews');
 const { pool } = require('../db');
 
 //get all Projects Data
@@ -78,6 +78,17 @@ router.post('/donate', async (req, res) => {
   } catch (error) {
     console.error('Donation error:', error);
     res.status(500).json({ message: 'Failed to process donation.' });
+  }
+});
+
+// Get all projects reviewed by a specific reviewer
+router.get('/my-reviews/:reviewer_id', async (req, res) => {
+  try {
+    const reviewer_id = req.params.reviewer_id;
+    const results = await get_reviewer_projects(reviewer_id);
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch reviewed projects" });
   }
 });
 
