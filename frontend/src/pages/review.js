@@ -58,7 +58,7 @@ function ProjectCard({ project, onClick }) {
 
   return (
     <article 
-      className={`reviewer-project-card${endingSoon ? ' ending-soon' : ''}`} 
+      className={`reviewer-card${endingSoon ? ' ending-soon' : ''}`} 
       onClick={onClick}
       role="button"
       tabIndex={0}
@@ -76,10 +76,10 @@ function ProjectCard({ project, onClick }) {
           <FaImage size={48} color="#aaa" />
         </figure>
       )}
-      <section className="reviewer-project-details">
+      <section className="reviewer-card-details">
         <header>
-          <h3 className="reviewer-project-title">{project.title}</h3>
-          <p className="reviewer-project-summary">{project.description || project.requirements}</p>
+          <h3 className="reviewer-card-title">{project.title}</h3>
+          <p className="reviewer-card-summary">{project.description || project.requirements}</p>
         </header>
         <ul className="reviewer-project-meta" style={{listStyle: "none", padding: 0, margin: 0}}>
           <li><strong>By:</strong> {project.creator_name || "Unknown"}</li>
