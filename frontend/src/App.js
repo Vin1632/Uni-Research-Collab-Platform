@@ -14,6 +14,7 @@ import Recommendations from "./pages/recommendations";
 import ProjectDetails from './pages/project_details.js';
 import ProjectDetailsUser from './pages/project_details_user.js';
 import ReviewerDashboard from "./components/ReviewerDashboard.js";
+import Review from "./pages/review.js";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               <Route path="/project_details" element={<ProjectDetails />} />
               <Route path="/project_details_user" element={<ProjectDetailsUser />} />
               <Route path="/reviewer-dashboard" element={<ReviewerDashboard />} />
+              <Route path="/review" element={<Review />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>

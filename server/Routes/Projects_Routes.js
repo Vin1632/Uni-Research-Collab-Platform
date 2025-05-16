@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
 const {insert_proposals, insert_projectData} = require('../controllers/proposals');
+const { get_active_projects } = require('../controllers/reviews');
+const { pool } = require('../db');
 
 //get all Projects Data
 router.get('/recom-projects/:id', async (req, res) => {
@@ -49,6 +51,17 @@ router.post('/projectdata', async (req, res) => {
     } catch (error) {
         res.status(500).json({message : "Failed to post project data"});
     }
+});
+
+//get all projects that haven't reached their end_date
+router.get('/active-projects', async (req, res) => {
+  try {
+    const results = await get_active_projects();
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching active projects:', error);
+    res.status(500).json({ message: 'Failed to fetch active projects' });
+  }
 });
 
 module.exports = router;

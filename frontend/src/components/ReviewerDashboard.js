@@ -16,7 +16,7 @@ export default function ReviewerDashboard() {
       <section className="reviewer-dashboard-container">
         <section
           className="reviewer-card"
-          onClick={() => navigate(`/review-projects`)}
+          onClick={() => navigate(`/review`)}
           role="button"
           tabIndex={0}
           aria-label={`Review Projects`}
