@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use('/users', Users);
 app.use('/projects', project_routes);
 app.use('/milestone', milestone_tracking_routes);
-app.use('/api/notifications', notificationsRoute);
+app.use('/notifications', notificationsRoute);
 
 
 // All other routes should return the index.html page

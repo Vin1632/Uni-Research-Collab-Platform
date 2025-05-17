@@ -13,7 +13,7 @@ import AddProposals  from "./pages/AddProposal";
 import Recommendations from "./pages/recommendations";
 import ProjectDetails from './pages/project_details.js';
 import ProjectDetailsUser from './pages/project_details_user.js';
-import NotificationsPage from './components/NotificationsPage';
+import NotificationsPage from './pages/NotificationsPage.js';
 
 
 
