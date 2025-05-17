@@ -57,12 +57,11 @@ const Header = ({ onUser_IdLoaded }) => {
           {
             navigate("/admin");
           }
-          else if (Role === "Researcher")
+          else if (Role === "researcher")
           {
             navigate("/home");
           }
           else
-
           {
             navigate("/reviewer-dashboard");
           }
