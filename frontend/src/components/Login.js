@@ -22,6 +22,7 @@ const Login = () => {
       
       const data = await get_Users(userEmail);
       if (data.length > 0 && data[0].email === userEmail) {
+        localStorage.setItem('userId', data[0].user_id); //lelo's changes
         navigate("/home");
       } else {
         navigate("/choose-role", { state: { email: userEmail } });

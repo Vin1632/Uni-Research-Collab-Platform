@@ -54,6 +54,7 @@ const Header = ({ onUser_IdLoaded }) => {
         <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
           <li onClick={() => navigate("/home")}>Home</li>
           <li onClick={() => navigate("/profile")}>Profile</li>
+          <li onClick={() => navigate("/profile")}>Profile</li>
           <li onClick={handleLogout}>Log Out</li>
         </menu>
       </nav>
@@ -69,10 +70,8 @@ const Header = ({ onUser_IdLoaded }) => {
           className="dashboard-icon"
           title="Notifications"
           style={{ cursor: 'pointer' }}
-           onClick={() => {
-           console.log("Navigating to notifications");
-            navigate('/notificationspage');
-            }}
+          onClick={() => navigate("/notificationspage")
+            }
          
         />
       </aside>

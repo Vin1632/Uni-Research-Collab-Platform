@@ -24,7 +24,7 @@ function App() {
         <Col>
           <UserAuthContextProvider>
             <Routes>
-             <Route element={<ProtectedRoute><ProtectedLayout /></ProtectedRoute>}>
+             <Route element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/milestones" element={<Milestones />} />

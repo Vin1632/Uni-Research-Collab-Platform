@@ -1,25 +1,82 @@
 const pool = require('../db');
 
-async function get_notifs(id) {
-    try {
-        const result = await pool.query( `
-      SELECT 
-        u1.email AS sender_email,
-        u2.email AS collaborator_email,
-        p.project_name,
+async function get_notifs(userId) {
+  try {
+    const sql = `
+      SELECT
+        sender.email AS sender_email,
+        invitee.email AS collaborator_email,
+        p.title AS project_title,
+        c.project_id,
         c.invitation,
         c.added_at
       FROM Collaborators c
-      JOIN Users u1 ON u1.user_id = c.user_id
-      JOIN Users u2 ON u2.user_id = c.collaborator_id
-      JOIN Projects p ON p.project_id = c.project_id
+      JOIN Users sender ON sender.user_id = c.user_id
+      JOIN Users invitee ON invitee.user_id = c.collaborator_id 
+      LEFT JOIN Projects p ON p.project_id = c.project_id
+      WHERE c.collaborator_id = ?              
       ORDER BY c.added_at DESC
-    `, [id]);
-        return result;
-    } catch (error) {
-        console.error('Failed to get projects', error);
-        throw new Error(error);
-    }
+    `;
+
+    const [rows] = await pool.query(sql, [userId]);
+    return rows;     
+  } catch (err) {
+    console.error('Failed to get notifications:', err);
+    throw err;        
+  }
 }
 
-module.exports = {get_notifs};
+async function get_project_by_id(projectId) {
+  try {
+    const sql =  `
+      SELECT 
+        pd.*, 
+        p.description
+      FROM ProjectData pd
+      LEFT JOIN Projects p ON p.project_id = pd.project_id
+      WHERE pd.project_id = ?
+    `
+  ;
+    const [rows] = await pool.query(sql, [projectId]);
+
+    if (rows.length === 0) throw new Error("Project not found");
+    return rows[0];
+  } catch (err) {
+    console.error('Error fetching project:', err);
+    throw err;
+  }
+}
+
+async function respond_to_invitation(collaboratorId, projectId, action) {
+  try {
+    if (!['accept', 'decline'].includes(action)) {
+      throw new Error('Invalid action');
+    }
+
+    const sql = `
+      UPDATE Collaborators 
+      SET invitation = ?
+      WHERE collaborator_id = ? AND project_id = ?
+    `;
+
+    const newStatus = action === 'accept' ? 'accepted' : 'declined';
+    const [result] = await pool.query(sql, [newStatus, collaboratorId, projectId]);
+
+    if (result.affectedRows === 0) {
+      throw new Error('No matching invitation found');
+    }
+
+    return { message: `Invitation ${newStatus}` };
+  } catch (err) {
+    console.error('Error responding to invitation:', err);
+    throw err;
+  }
+}
+
+module.exports = {
+  get_notifs,
+  get_project_by_id,
+  respond_to_invitation
+};
+
+module.exports = { get_notifs, get_project_by_id, respond_to_invitation };
