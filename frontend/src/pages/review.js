@@ -9,7 +9,7 @@ export default function Review() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
+  const [setUserId] = useState(null);
 
   useEffect(() => {
     const fetchProjects = async () => {

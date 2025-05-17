@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import { FaSearch, FaClipboardCheck, FaLightbulb } from "react-icons/fa";
-import { get_recom_projects } from "../services/recom_services";
 import '../styles/ReviewerDashboard.css';
 
 export default function ReviewerDashboard() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState(null);
+  const [setUserId] = useState(null);
 
   return (
     <main className="reviewer-dashboard-wrapper">

@@ -49,7 +49,7 @@ function ReviewProposalCard({ proposal }) {
   const [showDonateField, setShowDonateField] = useState(false);
   const [donateAmount, setDonateAmount] = useState('');
   const [showDonateConfirm, setShowDonateConfirm] = useState(false);
-  const [donateLoading, setDonateLoading] = useState(false);
+  const [setDonateLoading] = useState(false);
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
 
