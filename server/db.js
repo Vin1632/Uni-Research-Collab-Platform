@@ -15,6 +15,7 @@ const pool = mysql.createPool({
     ssl: {
         rejectUnauthorized: true 
     }
+
 });
 
 module.exports = pool;

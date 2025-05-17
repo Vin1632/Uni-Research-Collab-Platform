@@ -72,9 +72,9 @@ const ReviewerSignup = () => {
     if (!form.fullName.trim()) newErrors.fullName = "Full name is required.";
     if (!/^[a-zA-Z\s]+$/.test(form.fullName)) newErrors.fullName = "Full name must only contain letters.";
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
-    if (!form.careerField.trim()) newErrors.careerField = "Career field is required.";
+    if (!/^[a-zA-Z\s]+$/.test(form.institution)) newErrors.institution = "institution must only contain letters.";
     if (!form.qualifications.trim()) newErrors.qualifications = "Qualifications are required.";
-    if (form.qualifications.length < 10) newErrors.qualifications = "Qualifications must be at least 10 characters long.";
+   // if (form.qualifications.length < 10) newErrors.qualifications = "Qualifications must be at least 10 characters long.";
     if (form.researchInterests.length === 0) newErrors.researchInterests = "At least one interest is required.";
     return newErrors;
   };
@@ -86,6 +86,13 @@ const ReviewerSignup = () => {
   const handleAddInterest = () => {
     const trimmed = form.interestInput.trim();
     if (!trimmed) return;
+  
+    // Validate: only letters and spaces
+    if (!/^[a-zA-Z\s]+$/.test(trimmed)) {
+      setErrors({ ...errors, researchInterests: "Interests must only contain letters and spaces." });
+      return;
+    }
+  
     if (form.researchInterests.includes(trimmed)) {
       setErrors({ ...errors, researchInterests: "This interest is already added." });
       return;
@@ -95,9 +102,8 @@ const ReviewerSignup = () => {
       researchInterests: [...form.researchInterests, trimmed],
       interestInput: "",
     });
-    setErrors({ ...errors, researchInterests: null }); // Clear error
+    setErrors({ ...errors, researchInterests: null });
   };
-
   const handleRemoveInterest = (tag) => {
     setForm({
       ...form,
@@ -115,8 +121,8 @@ const ReviewerSignup = () => {
       try {
         console.log("Submitting reviewer form:", form);
         setSubmitStatus({ success: true, message: "Submitted successfully!" });
-        navigate("/recommendations");
-        await login_service(form.fullName, email, "reviewer", form.institution, JSON.stringify(form.researchInterests));
+        navigate("/reviewer-dashboard");
+        await login_service(form.fullName, email, "reviewer", form.institution, form.qualifications, JSON.stringify(form.researchInterests));
       } catch (error) {
         setSubmitStatus({ success: false, message: "Failed to submit. Please try again." });
       } finally {
@@ -161,30 +167,47 @@ const ReviewerSignup = () => {
         </section>
 
         <section className="input-row">
-          <section className="input-col">
-            <label>
-              Career Field
-              <input
-                type="text"
-                name="careerField"
-                value={form.careerField}
-                onChange={handleChange}
-                aria-label="Career Field"
-              />
-              {errors.careerField && <span className="error-text">{errors.careerField}</span>}
-            </label>
-          </section>
+          
 
           <section className="input-col">
             <label>
               Qualifications
-              <input
-                type="text"
+              <select
                 name="qualifications"
                 value={form.qualifications}
                 onChange={handleChange}
                 aria-label="Qualifications"
-              />
+              >
+                <option value="">-- Select a Degree --</option>
+
+                <optgroup label="Bachelor's Degrees">
+                  <option value="BA">BA – Bachelor of Arts</option>
+                  <option value="BSc">BS – Bachelor of Science</option>
+                  <option value="BBA">BBA – Bachelor of Business Administration</option>
+                  <option value="BFA">BFA – Bachelor of Fine Arts</option>
+                  <option value="BEd">BEd – Bachelor of Education</option>
+                  <option value="BEng">BEng – Bachelor of Engineering</option>
+                </optgroup>
+
+                <optgroup label="Graduate Degrees">
+                  <option value="MA">MA – Master of Arts</option>
+                  <option value="MSc">MS – Master of Science</option>
+                  <option value="MBA">MBA – Master of Business Administration</option>
+                  <option value="MEd">MEd – Master of Education</option>
+                  <option value="MFA">MFA – Master of Fine Arts</option>
+                  <option value="MEng">MEng – Master of Engineering</option>
+                </optgroup>
+
+                <optgroup label="Doctoral & Professional Degrees">
+                  <option value="PhD">PhD – Doctor of Philosophy</option>
+                  <option value="EdD">EdD – Doctor of Education</option>
+                  <option value="MD">MD – Doctor of Medicine</option>
+                  <option value="JD">JD – Juris Doctor (Law)</option>
+                  <option value="DVM">DVM – Doctor of Veterinary Medicine</option>
+                  <option value="PharmD">PharmD – Doctor of Pharmacy</option>
+                </optgroup>
+              </select>
+
               {errors.qualifications && <span className="error-text">{errors.qualifications}</span>}
             </label>
           </section>

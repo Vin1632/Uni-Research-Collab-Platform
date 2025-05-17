@@ -42,7 +42,7 @@ async function delete_flag(flag_id) {
 }
 async function delete_project(project_id) {
     try {
-      const result = await pool.query("DELETE FROM projects WHERE project_id = ?", [project_id]);
+      const result = await pool.query(`DELETE p, pd FROM projects p JOIN projectdata pd ON pd.project_id = p.project_id WHERE p.project_id = ? `, [project_id]);
       return result;
     } catch (error) {
       console.error("Failed to delete project", error);

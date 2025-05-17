@@ -40,8 +40,6 @@ export default function ReviewDetailsUser() {
           const reviewer_id = userData[0]?.user_id;
           if (reviewer_id) {
             const reviews = await get_my_reviews(reviewer_id);
-            // for debugging, remove later
-            console.log("reviews for this reviewer:", reviews);
             // Sum donations
             const total = reviews
               .filter(r => String(r.project_id) === String(project_id))

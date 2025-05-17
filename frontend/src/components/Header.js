@@ -52,7 +52,21 @@ const Header = ({ onUser_IdLoaded }) => {
       <nav className="menu-container">
         <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
         <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
-          <li onClick={() => navigate("/home")}>Home</li>
+        <li onClick={() => {
+          if (Role === "Admin")
+          {
+            navigate("/admin");
+          }
+          else if (Role === "Researcher")
+          {
+            navigate("/home");
+          }
+          else
+
+          {
+            navigate("/reviewer-dashboard");
+          }
+        }}>Home</li>
           <li onClick={() => navigate("/profile")}>Profile</li>
           <li onClick={handleLogout}>Log Out</li>
         </menu>

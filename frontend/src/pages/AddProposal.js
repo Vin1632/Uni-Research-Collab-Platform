@@ -47,7 +47,7 @@ const AddProposals = () => {
     if (!proposal.summary?.trim()) errors.summary = "Summary is required";
     if (proposal.summary?.length > 350) errors.summary = "Summary exceeds 350 characters";
     if (!proposal.requirements?.trim()) errors.requirements = "Requirements are required";
-    if (!proposal.fundingNeeded || proposal.fundingNeeded <= 0) errors.fundingNeeded = "Enter valid funding amount";
+    if (!proposal.fundingNeeded || proposal.fundingNeeded < 0) errors.fundingNeeded = "Enter valid funding amount";
     if (!proposal.fundingSource) errors.fundingSource = "Select a funding source";
     if (
       proposal.completionStatus == null ||
