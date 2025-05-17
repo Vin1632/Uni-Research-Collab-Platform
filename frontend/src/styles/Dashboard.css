@@ -7,6 +7,7 @@
   flex-direction: column;
   background-color: #dbf3f8;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem; /* Uniform base font */
 }
 
 .dashboard-banner {
@@ -26,7 +27,7 @@
 }
 
 .menu-icon {
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* Reduced for subtlety */
   cursor: pointer;
   color: #003e7e;
 }
@@ -34,20 +35,19 @@
 .menu-dropdown {
   display: none;
   position: absolute;
-  top: 45px;
+  top: 2.5rem;
   left: 0;
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 10px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 100;
-  font-size: 1rem;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  font-size: 0.95rem;
 }
 
 .menu-dropdown li {
   list-style: none;
-  padding: 10px 20px;
+  padding: 0.5rem 1.2rem;
   cursor: pointer;
   color: #003e7e;
 }
@@ -61,11 +61,12 @@
 }
 
 .dashboard-logo {
-  height: 55px;
-  border-radius: 10px;
+  height: 45px; /* Slightly smaller for elegance */
+  border-radius: 8px;
 }
 
 .dashboard-title {
+  font-size: clamp(1.2rem, 2vw, 1.4rem); /* Responsive */
   color: #0077b6;
   flex-grow: 1;
   text-align: center;
@@ -73,8 +74,8 @@
 
 .icon-group {
   display: flex;
-  gap: 20px;
-  font-size: 1.4rem;
+  gap: 1rem;
+  font-size: 1.25rem;
   color: #0077b6;
 }
 
@@ -86,8 +87,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 30px 10px;
-  position: relative;
+  margin: 1.5rem 2rem 1rem;
 }
 
 .filter-container {
@@ -95,7 +95,7 @@
 }
 
 .filter-icon {
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   color: #0077b6;
   cursor: pointer;
 }
@@ -104,19 +104,19 @@
   display: none;
   position: absolute;
   right: 0;
-  top: 35px;
+  top: 2.5rem;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 8px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   z-index: 2;
 }
 
 .filter-dropdown li {
   list-style: none;
-  padding: 8px 16px;
-  font-size: 18px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
   cursor: pointer;
   color: #003e7e;
 }
@@ -130,7 +130,7 @@
 }
 
 .add-icon {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #0077b6;
   background: none;
   border: none;
@@ -145,57 +145,37 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 30px;
-  gap: 20px;
+  padding: 2rem;
+  gap: 1.5rem;
   background-color: #dbf3f8;
 }
 
 .proposal-card {
-  width: 300px;
-  cursor: pointer;
+  width: 280px;
   border: 1px solid #cce4f6;
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 1rem;
   text-align: center;
-  background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
-  transition: transform 0.2s ease;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 91, 161, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .proposal-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 91, 161, 0.18);
 }
 
 .proposal-image {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.proposal-title {
-  margin-top: 1rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #003e7e;
-}
-
-.proposal-summary {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 0.5rem;
-}
-
-
-.proposal-image {
-  width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   border-radius: 8px;
 }
 
 .fallback-icon {
   width: 100%;
-  height: 200px;
+  height: 180px;
   background-color: #f2f2f2;
   display: flex;
   align-items: center;
@@ -203,3 +183,67 @@
   border-radius: 8px;
 }
 
+.proposal-title {
+  margin-top: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #003e7e;
+}
+
+.proposal-summary {
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.flag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #fff;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  padding: 0.4rem 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.flag-btn:hover {
+  background-color: #ffe6e6;
+  color: #a11b1b;
+  border-color: #a11b1b;
+}
+
+.flag-btn:disabled {
+  background-color: #fdf3f3;
+  color: #999;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.flag-modal {
+  position: absolute;
+  background-color: #fff3f3;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.flag-button {
+  background-color: #f87171;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
