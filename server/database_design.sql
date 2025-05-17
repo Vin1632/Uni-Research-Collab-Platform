@@ -59,3 +59,13 @@ CREATE TABLE ProjectTags (
     tag_id INT REFERENCES Tags(tag_id) ON DELETE CASCADE,
     PRIMARY KEY (project_id, tag_id)
 );
+
+-- REVIEWS
+CREATE TABLE ReviewerInteractions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reviewer_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
+    project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
+    Donated_Amt DOUBLE(13, 4) NOT NULL,
+    donated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

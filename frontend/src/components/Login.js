@@ -20,13 +20,22 @@ const Login = () => {
       const userEmail = user.user.email;
       
       const data = await get_Users(userEmail);
-      if (data.length > 0 && data[0].email === userEmail) {
-        navigate("/home");
-      } else {
-        navigate("/choose-role", { state: { email: userEmail } });
+    
+      if (data.length > 0) {
         
+        
+        if (data[0].role === 'researcher') {
+          navigate("/home");
+        } else if (data[0].role === 'reviewer') {
+          navigate("/reviewer-dashboard");
+        } else {
+          
+          navigate("/choose-role", { state: { email: userEmail } });
+        }
+      } else {
+       
+        navigate("/choose-role", { state: { email: userEmail } });
       }
-  
     } catch (error) {
       console.error("Google Sign-In Error:", error.message);
       setError(error.message);
