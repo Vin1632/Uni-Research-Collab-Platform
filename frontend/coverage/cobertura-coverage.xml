@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="173" lines-covered="154" line-rate="0.8901" branches-valid="65" branches-covered="53" branch-rate="0.8153" timestamp="1747377717479" complexity="0" version="0.1">
+<coverage lines-valid="177" lines-covered="158" line-rate="0.8926000000000001" branches-valid="67" branches-covered="55" branch-rate="0.8208" timestamp="1747471815097" complexity="0" version="0.1">
   <sources>
     <source>/home/vin/Desktop/Practice/Projects/SDP PROJECT/Projects 3/Uni-Research-Collab-Platform/frontend</source>
   </sources>
@@ -19,7 +19,7 @@
         </class>
       </classes>
     </package>
-    <package name="src.components" line-rate="0.9558" branch-rate="0.9047">
+    <package name="src.components" line-rate="0.9582999999999999" branch-rate="0.9129999999999999">
       <classes>
         <class name="Header.js" filename="src/components/Header.js" line-rate="0.9259000000000001" branch-rate="0.75">
           <methods>
@@ -132,35 +132,39 @@
         </class>
         <class name="Login.js" filename="src/components/Login.js" line-rate="1" branch-rate="1">
           <methods>
-            <method name="(anonymous_0)" hits="6" signature="()V">
+            <method name="(anonymous_0)" hits="8" signature="()V">
               <lines>
-                <line number="10" hits="6"/>
+                <line number="10" hits="8"/>
               </lines>
             </method>
-            <method name="(anonymous_1)" hits="3" signature="()V">
+            <method name="(anonymous_1)" hits="5" signature="()V">
               <lines>
-                <line number="15" hits="3"/>
+                <line number="15" hits="5"/>
               </lines>
             </method>
           </methods>
           <lines>
             <line number="10" hits="1" branch="false"/>
-            <line number="11" hits="6" branch="false"/>
-            <line number="12" hits="6" branch="false"/>
-            <line number="13" hits="6" branch="false"/>
-            <line number="15" hits="6" branch="false"/>
-            <line number="16" hits="3" branch="false"/>
-            <line number="17" hits="3" branch="false"/>
-            <line number="18" hits="3" branch="false"/>
-            <line number="19" hits="3" branch="false"/>
-            <line number="20" hits="2" branch="false"/>
-            <line number="22" hits="2" branch="false"/>
-            <line number="23" hits="2" branch="true" condition-coverage="100% (4/4)"/>
-            <line number="24" hits="1" branch="false"/>
-            <line number="26" hits="1" branch="false"/>
-            <line number="31" hits="1" branch="false"/>
-            <line number="32" hits="1" branch="false"/>
-            <line number="36" hits="6" branch="false"/>
+            <line number="11" hits="8" branch="false"/>
+            <line number="12" hits="8" branch="false"/>
+            <line number="13" hits="8" branch="false"/>
+            <line number="15" hits="8" branch="false"/>
+            <line number="16" hits="5" branch="false"/>
+            <line number="17" hits="5" branch="false"/>
+            <line number="18" hits="5" branch="false"/>
+            <line number="19" hits="5" branch="false"/>
+            <line number="20" hits="4" branch="false"/>
+            <line number="22" hits="4" branch="false"/>
+            <line number="24" hits="4" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="27" hits="3" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="28" hits="1" branch="false"/>
+            <line number="29" hits="2" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="30" hits="1" branch="false"/>
+            <line number="33" hits="1" branch="false"/>
+            <line number="37" hits="1" branch="false"/>
+            <line number="40" hits="1" branch="false"/>
+            <line number="41" hits="1" branch="false"/>
+            <line number="45" hits="8" branch="false"/>
           </lines>
         </class>
         <class name="Milestones.js" filename="src/components/Milestones.js" line-rate="0.9473" branch-rate="1">

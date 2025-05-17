@@ -5,7 +5,6 @@ import { useUserAuth } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { get_Users } from "../../services/login_service";
 
-// Mock dependencies
 jest.mock("../../context/UserAuthContext");
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
@@ -19,9 +18,7 @@ describe("Login component", () => {
   beforeEach(() => {
     useUserAuth.mockReturnValue({ googleSignIn: mockGoogleSignIn });
     useNavigate.mockReturnValue(mockNavigate);
-    get_Users.mockClear();
-    mockGoogleSignIn.mockClear();
-    mockNavigate.mockClear();
+    jest.clearAllMocks();
   });
 
   test("renders Login title and Google button", () => {
@@ -30,14 +27,14 @@ describe("Login component", () => {
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
-  test("successful sign-in with existing user navigates to /home", async () => {
+  test("successful sign-in with existing researcher navigates to /home", async () => {
     mockGoogleSignIn.mockResolvedValue({
       user: { email: "test@example.com" },
     });
-    get_Users.mockResolvedValue([{ email: "test@example.com" }]);
+
+    get_Users.mockResolvedValue([{ email: "test@example.com", role: "researcher" }]);
 
     render(<Login />);
-
     fireEvent.click(screen.getByRole("button"));
 
     await waitFor(() => {
@@ -46,14 +43,48 @@ describe("Login component", () => {
     });
   });
 
-  test("successful sign-in with new user navigates to /choose-role with email state", async () => {
+  test("successful sign-in with existing reviewer navigates to /reviewer-dashboard", async () => {
+    mockGoogleSignIn.mockResolvedValue({
+      user: { email: "reviewer@example.com" },
+    });
+
+    get_Users.mockResolvedValue([{ email: "reviewer@example.com", role: "reviewer" }]);
+
+    render(<Login />);
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(get_Users).toHaveBeenCalledWith("reviewer@example.com");
+      expect(mockNavigate).toHaveBeenCalledWith("/reviewer-dashboard");
+    });
+  });
+
+  test("successful sign-in with user missing role navigates to /choose-role", async () => {
+    mockGoogleSignIn.mockResolvedValue({
+      user: { email: "norole@example.com" },
+    });
+
+    get_Users.mockResolvedValue([{ email: "norole@example.com" }]); // No role
+
+    render(<Login />);
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(get_Users).toHaveBeenCalledWith("norole@example.com");
+      expect(mockNavigate).toHaveBeenCalledWith("/choose-role", {
+        state: { email: "norole@example.com" },
+      });
+    });
+  });
+
+  test("successful sign-in with new user navigates to /choose-role", async () => {
     mockGoogleSignIn.mockResolvedValue({
       user: { email: "newuser@example.com" },
     });
+
     get_Users.mockResolvedValue([]); // No user found
 
     render(<Login />);
-
     fireEvent.click(screen.getByRole("button"));
 
     await waitFor(() => {
@@ -68,7 +99,6 @@ describe("Login component", () => {
     mockGoogleSignIn.mockRejectedValue(new Error("Sign-in failed"));
 
     render(<Login />);
-
     fireEvent.click(screen.getByRole("button"));
 
     const alert = await screen.findByRole("alert");
