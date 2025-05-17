@@ -17,7 +17,6 @@ export default function Dashboard() {
         if (user_id) { // Only fetch if user_id is available
           const project_dat = await get_project_data(user_id); 
           setProposal(project_dat[0]);
-          console.log("Hello");
         }
         else{
           console.log("User-Id not here");
@@ -39,7 +38,7 @@ export default function Dashboard() {
           <ProposalCard
             key={proposal.project_id}
             proposal={proposal}
-            onClick={() => navigate(`/project_details/`, {state : {project_id : proposal.project_id}})}
+            onClick={() => navigate(`/project_details/`, {state : {project_id : proposal.project_id, user_id: user_id}})}
           />
         ))}
       </section>

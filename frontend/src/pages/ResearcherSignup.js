@@ -86,7 +86,6 @@ const ReviewerSignup = () => {
       newErrors.fullName = "Full name must only contain letters.";
     }
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
-    if (!form.careerField.trim()) newErrors.careerField = "Career field is required.";
     if (!form.qualifications.trim()) {
       newErrors.qualifications = "Qualifications are required.";
     } else if (form.qualifications.length < 10) {
@@ -152,6 +151,7 @@ const ReviewerSignup = () => {
           email,
           "reviewer",
           form.institution,
+          form.qualifications,
           JSON.stringify(form.researchInterests)
         );
         setSubmitStatus({
@@ -174,7 +174,7 @@ const ReviewerSignup = () => {
     <section className="form-wrapper">
       <form onSubmit={handleSubmit} className="reviewer-form">
         <fieldset disabled={isSubmitting}>
-          <h3>Reviewer Details</h3>
+          <h3>Researcher Details</h3>
 
           <section className="input-row">
             <section className="input-col">
@@ -211,32 +211,46 @@ const ReviewerSignup = () => {
           </section>
 
           <section className="input-row">
-            <section className="input-col">
-              <label>
-                Career Field
-                <input
-                  type="text"
-                  name="careerField"
-                  value={form.careerField}
-                  onChange={handleChange}
-                  aria-label="Career Field"
-                />
-                {errors.careerField && (
-                  <span className="error-text">{errors.careerField}</span>
-                )}
-              </label>
-            </section>
+            
 
             <section className="input-col">
               <label>
                 Qualifications
-                <input
-                  type="text"
-                  name="qualifications"
-                  value={form.qualifications}
-                  onChange={handleChange}
-                  aria-label="Qualifications"
-                />
+                <select
+                name="qualifications"
+                value={form.qualifications}
+                onChange={handleChange}
+                aria-label="Qualifications"
+              >
+                <option value="">-- Select a Degree --</option>
+
+                <optgroup label="Bachelor's Degrees">
+                  <option value="BA">BA – Bachelor of Arts</option>
+                  <option value="BS">BS – Bachelor of Science</option>
+                  <option value="BBA">BBA – Bachelor of Business Administration</option>
+                  <option value="BFA">BFA – Bachelor of Fine Arts</option>
+                  <option value="BEd">BEd – Bachelor of Education</option>
+                  <option value="BEng">BEng – Bachelor of Engineering</option>
+                </optgroup>
+
+                <optgroup label="Graduate Degrees">
+                  <option value="MA">MA – Master of Arts</option>
+                  <option value="MS">MS – Master of Science</option>
+                  <option value="MBA">MBA – Master of Business Administration</option>
+                  <option value="MEd">MEd – Master of Education</option>
+                  <option value="MFA">MFA – Master of Fine Arts</option>
+                  <option value="MEng">MEng – Master of Engineering</option>
+                </optgroup>
+
+                <optgroup label="Doctoral & Professional Degrees">
+                  <option value="PhD">PhD – Doctor of Philosophy</option>
+                  <option value="EdD">EdD – Doctor of Education</option>
+                  <option value="MD">MD – Doctor of Medicine</option>
+                  <option value="JD">JD – Juris Doctor (Law)</option>
+                  <option value="DVM">DVM – Doctor of Veterinary Medicine</option>
+                  <option value="PharmD">PharmD – Doctor of Pharmacy</option>
+                </optgroup>
+              </select>
                 {errors.qualifications && (
                   <span className="error-text">{errors.qualifications}</span>
                 )}

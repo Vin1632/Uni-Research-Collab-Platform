@@ -18,6 +18,7 @@ import Review from "./pages/review.js";
 import ReviewDetails from "./pages/review_details.js";
 import MyReviews from "./pages/my_reviews.js";
 import ReviewDetailsUser from "./pages/review_details_user.js"; 
+import AdminDashboard from "./admin_wrapper/AdminDashboard";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
               <Route path="/my-reviews" element={<MyReviews />} />
               <Route path="/review-details-user" element={<ReviewDetailsUser />} />
 
+              <Route path="/admin/*" element={<AdminDashboard />} />
             </Route>
             <Route path="/" element={<Login />} />
             </Routes>

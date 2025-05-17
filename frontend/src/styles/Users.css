@@ -1,0 +1,59 @@
+.users-page {
+    padding: 2rem;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fbfc;
+    min-height: 100vh;
+  }
+  
+  .users-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .users-controls input,
+  .users-controls select {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 250px;
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 62, 126, 0.05);
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+  }
+  
+  .users-table th {
+    background-color: #f0f7fc;
+    color: #003e7e;
+    font-weight: 600;
+  }
+  
+  .users-table tr:hover {
+    background-color: #f5fbff;
+  }
+  
+  .interests-cell {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
