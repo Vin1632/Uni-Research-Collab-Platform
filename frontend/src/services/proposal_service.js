@@ -156,5 +156,25 @@ export async function get_image_url(image) {
     return "";
   }
 }
+export async function flag_project(project_id, user_id, reason, description) {
+  try {
+    const response = await fetch('/projects/flag-project', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ project_id, flagged_by_user_id: user_id, reason, description })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || errorData.error || 'Failed to flag project');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Flagging project failed:", error);
+    throw error;
+  }
+}
+
 
 

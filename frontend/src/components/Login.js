@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert, Container, Row, Col } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
+import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
 
 import { get_Users } from "../services/login_service";
@@ -18,6 +19,8 @@ const Login = () => {
     try {
       const user = await googleSignIn();
       const userEmail = user.user.email;
+      localStorage.setItem("user", JSON.stringify({ email: userEmail }));
+
       
       const data = await get_Users(userEmail);
     

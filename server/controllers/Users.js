@@ -31,8 +31,23 @@ async function get_User_By_Email(emailObj) {
     throw error;
   }
 }
+const db = require("../db");
+
+const get_all_users = async () => {
+  try {
+    const [rows] = await db.query("SELECT * FROM users ORDER BY created_at DESC");
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  get_all_users
+};
+
 
 module.exports = {
   insert_Users,
-  get_User_By_Email
+  get_User_By_Email, get_all_users
 };
