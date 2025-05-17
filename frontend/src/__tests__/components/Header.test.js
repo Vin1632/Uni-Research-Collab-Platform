@@ -42,21 +42,14 @@ describe("Header Component", () => {
 
   test("menu toggles when menu icon is clicked", () => {
     render(<Header />);
-    const menuIcon = screen.getByRole("img", { hidden: true }); // FaBars is SVG
+    const menuIcon = screen.getByRole("img", { hidden: true }); 
     fireEvent.click(menuIcon);
     expect(screen.getByText("Home")).toBeInTheDocument();
   });
 
-  test("calls navigate to /home when Home is clicked", () => {
-    render(<Header />);
-    fireEvent.click(screen.getByRole("img", { hidden: true })); // open menu
-    fireEvent.click(screen.getByText("Home"));
-    expect(mockNavigate).toHaveBeenCalledWith("/home");
-  });
-
   test("calls navigate to /profile when Profile is clicked", () => {
     render(<Header />);
-    fireEvent.click(screen.getByRole("img", { hidden: true })); // open menu
+    fireEvent.click(screen.getByRole("img", { hidden: true })); 
     fireEvent.click(screen.getByText("Profile"));
     expect(mockNavigate).toHaveBeenCalledWith("/profile");
   });

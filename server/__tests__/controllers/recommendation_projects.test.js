@@ -22,7 +22,7 @@ describe('get_recom_proj', () => {
     const result = await get_recom_proj(1);
 
     expect(pool.query).toHaveBeenCalledWith(
-      expect.stringContaining('SELECT * FROM projects WHERE user_id  != ?'),
+      expect.stringContaining('SELECT * FROM projects p WHERE p.user_id != ? AND p.end_date > CURRENT_DATE AND NOT EXISTS ( SELECT 1 FROM flagged_projects fp WHERE fp.project_id = p.project_id )'),
       [1]
     );
     expect(result).toEqual(mockProjects);
