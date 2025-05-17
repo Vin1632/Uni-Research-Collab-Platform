@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { FaPencilAlt, FaUserCircle } from "react-icons/fa";
 import { get_profile_data, update_profile_data } from "../services/profileService";
-import Header from "../components/Header"; // Adjust path if needed
+import Header from "../components/Header"; 
 import "../styles/profile.css";
 
 const Profile = () => {

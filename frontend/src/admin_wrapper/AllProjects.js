@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdminHeader from "../components/AdminHeader";
 import "../styles/Dashboard.css";
 
-import { FaImage, FaFlag } from "react-icons/fa"; // ✅ Added FaFlag icon
+import { FaImage, FaFlag } from "react-icons/fa"; 
 import { get_project_data } from "../services/proposal_service";
 import { flag_project } from "../services/proposal_service";
 

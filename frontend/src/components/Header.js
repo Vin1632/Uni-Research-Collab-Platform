@@ -65,7 +65,7 @@ const Header = ({ onUser_IdLoaded }) => {
 
       <aside className="icon-group">
         <FaEnvelope className="dashboard-icon" title="Messages" />
-        <FaBell className="dashboard-icon" title="Notifications" />
+        <FaBell className="dashboard-icon" title="Notifications"  />
       </aside>
     </header>
   );

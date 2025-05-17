@@ -1,8 +1,7 @@
-const API_BASE_URL = "http://localhost:5000"; // Replace with your backend base URL
 
 export async function get_profile_data(email) {
   try {
-    const response = await fetch(`${API_BASE_URL}/profile?email=${encodeURIComponent(email)}`, {
+    const response = await fetch(`/profiles/profile?email=${encodeURIComponent(email)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -23,9 +22,8 @@ export async function get_profile_data(email) {
 
 export async function update_profile_data(profile) {
   try {
-    console.log("Sending profile update:", profile); // Debugging line
 
-    const response = await fetch(`${API_BASE_URL}/profile`, {
+    const response = await fetch(`/profiles/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

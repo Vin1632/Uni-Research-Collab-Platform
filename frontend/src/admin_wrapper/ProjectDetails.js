@@ -83,11 +83,9 @@ export default function ProjectDetails({ projectId, onClose, onDeleted }) {
       <h2>{project.title}</h2>
       <p><strong>Description:</strong> {project.description}</p>
 
-      {/* Add any additional project fields here */}
       {project.author_name && <p><strong>Author:</strong> {project.author_name}</p>}
       {project.created_at && <p><strong>Created At:</strong> {new Date(project.created_at).toLocaleString()}</p>}
       {project.updated_at && <p><strong>Updated At:</strong> {new Date(project.updated_at).toLocaleString()}</p>}
-      {/* add more as needed */}
 
       <button onClick={handleDeleteProject} disabled={deleting} style={{ marginRight: "1rem" }}>
         {deleting ? "Deleting Project..." : "Delete Project"}

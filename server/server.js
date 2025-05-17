@@ -24,18 +24,16 @@ app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello, This is the new World!' });
 });
 
-// ✅ Mount backend API routes **before** static frontend
+//Routes
 app.use('/users', Users);
 app.use('/projects', project_routes);
 app.use('/milestone', milestone_tracking_routes);
 app.use('/api', inviteRoutes);
-app.use('/profile', profileRoutes);
+app.use('/profiles', profileRoutes);
 app.use('/admin', adminRoutes);
 
-// ✅ Serve static frontend
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-// ✅ Wildcard route AFTER everything else
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });

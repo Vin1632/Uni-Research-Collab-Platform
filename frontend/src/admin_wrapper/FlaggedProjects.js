@@ -131,7 +131,7 @@ export default function FlaggedProjects() {
             disabled={deletingId === flag_id}
             className="flag-delete-button"
           >
-            {deletingId === flag_id ? "Deleting..." : "Unflag / Delete"}
+            {deletingId === flag_id ? "Deleting..." : "Unflag"}
           </button>
         </div>
       ))}

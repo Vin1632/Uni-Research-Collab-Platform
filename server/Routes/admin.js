@@ -62,7 +62,7 @@ router.get("/projects/:projectId", async (req, res) => {
   }
 });
 
-// ✅ NEW: GET all users
+// GET all users
 router.get('/users', async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM users");

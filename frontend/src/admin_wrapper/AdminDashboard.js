@@ -4,7 +4,7 @@ import FlaggedProjects from "./FlaggedProjects";
 import AllProjects from "./AllProjects";
 import Users from "./Users";
 import "../styles/Admin.css";
-import logo from "../images/transparent-logo.png"; // adjust path as needed
+import logo from "../images/transparent-logo.png"; 
 
 export default function AdminDashboard() {
   return (

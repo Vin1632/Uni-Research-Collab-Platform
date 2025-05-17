@@ -1,5 +1,3 @@
-// src/admin_wrapper/admin_service.js
-
 // Get all flagged projects for admin
 export async function get_flagged_projects() {
   try {
@@ -8,9 +6,9 @@ export async function get_flagged_projects() {
       headers: { "Content-Type": "application/json" },
     });
 
-    const text = await response.text(); // Read raw text for debugging
+    const text = await response.text(); 
     try {
-      const data = JSON.parse(text); // Try parsing as JSON
+      const data = JSON.parse(text); 
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch flagged projects");
@@ -92,7 +90,7 @@ export async function get_all_users() {
       headers: { "Content-Type": "application/json" },
     });
 
-    const text = await response.text(); // for debugging raw responses
+    const text = await response.text(); 
     try {
       const data = JSON.parse(text);
 

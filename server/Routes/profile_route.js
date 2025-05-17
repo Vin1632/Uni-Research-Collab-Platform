@@ -3,7 +3,7 @@ const router = express.Router();
 const { getProfile, updateProfile } = require('../controllers/profile_controller');
 
 // GET profile by email (query param)
-router.get('/', async (req, res) => {
+router.get('/profile', async (req, res) => {
   const email = req.query.email;
   if (!email) return res.status(400).json({ message: 'Email is required' });
 
@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 // PUT profile update
-router.put('/', async (req, res) => {
-  console.log("Received PUT body:", req.body); // 🔍 DEBUG LINE
+router.put('/profile', async (req, res) => {
 
   const { email, name, institution, qualification, interests } = req.body;
 
