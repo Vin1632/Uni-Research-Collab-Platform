@@ -49,7 +49,8 @@ function ReviewProposalCard({ proposal }) {
   const [showDonateField, setShowDonateField] = useState(false);
   const [donateAmount, setDonateAmount] = useState('');
   const [showDonateConfirm, setShowDonateConfirm] = useState(false);
-  const [setDonateLoading] = useState(false);
+  const [donateLoading, setDonateLoading] = useState(false);
+
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
 
@@ -174,8 +175,13 @@ function ReviewProposalCard({ proposal }) {
                 Are you sure you want to donate <strong>R{donateAmount}</strong> to this project?
               </p>
               <section className="donate-confirm-buttons">
-                <button className="donate-confirm-btn" onClick={handleConfirmDonate} type="button">
-                  Yes, Donate
+              <button
+                  className="donate-confirm-btn"
+                  onClick={handleConfirmDonate}
+                  type="button"
+                  disabled={donateLoading}
+                >
+                  {donateLoading ? "Processing..." : "Yes, Donate"}
                 </button>
                 <button className="donate-cancel-btn" onClick={handleCancelDonate} type="button">
                   Cancel
