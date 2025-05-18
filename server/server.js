@@ -28,7 +28,7 @@ app.get('/api/hello', (req, res) => {
 app.use('/users', Users);
 app.use('/projects', project_routes);
 app.use('/milestone', milestone_tracking_routes);
-app.use('/api', inviteRoutes);
+app.use('/invite', inviteRoutes);
 app.use('/profiles', profileRoutes);
 app.use('/admin', adminRoutes);
 

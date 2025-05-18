@@ -53,7 +53,7 @@ const Header = ({ onUser_IdLoaded }) => {
         <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
         <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
         <li onClick={() => {
-          if (Role === "Admin")
+          if (Role === "admin")
           {
             navigate("/admin");
           }

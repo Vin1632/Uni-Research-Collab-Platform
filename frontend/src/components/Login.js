@@ -31,7 +31,12 @@ const Login = () => {
           navigate("/home");
         } else if (data[0].role === 'reviewer') {
           navigate("/reviewer-dashboard");
-        } else {
+        } 
+        else if(data[0].role === 'admin')
+        {
+          navigate("/admin");
+        }
+        else {
           
           navigate("/choose-role", { state: { email: userEmail } });
         }

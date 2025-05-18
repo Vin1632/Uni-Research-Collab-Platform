@@ -3,7 +3,10 @@ import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import { FaImage, FaFlag } from "react-icons/fa"; 
 import { get_each_project_data, flag_project } from "../services/proposal_service";
+import { invite_collaboration, email_using_project_id } from "../services/invite_collab_services";
 import '../styles/proposal_details.css';
+import { useUserAuth } from "../context/UserAuthContext";
+
 
 export default function ProjectDetails() {
   const location = useLocation();
@@ -39,19 +42,21 @@ export default function ProjectDetails() {
             key={ProjectData.project_id}
             proposal={ProjectData}
             user_id={user_id}
+            project_id={project_id}
           />
       </section>
     </main>
   );
 }
 
-function ProposalCard({ proposal, user_id }) {
+function ProposalCard({ proposal, user_id, project_id }) {
   const [imgError, setImgError] = useState(false);
   const [showFlagModal, setShowFlagModal] = useState(false);
   const [flagReason, setFlagReason] = useState("");
   const [flagDesc, setFlagDesc] = useState("");
   const [flagged, setFlagged] = useState(false);
-
+  const { user } = useUserAuth();
+  const [sendingInvite, setSendingInvite] = useState(false);
   const handleFlag = async () => {
     if (!flagReason) return alert("Please select a reason.");
     try {
@@ -69,6 +74,25 @@ function ProposalCard({ proposal, user_id }) {
   };
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
+
+  const handleInvite = async () => {
+    setSendingInvite(true);
+    const recipient_email = await  email_using_project_id(project_id);
+    if(recipient_email.result)
+    {
+      const sent = await invite_collaboration(recipient_email.result, user.email ,proposal.title);
+      if(sent)
+      {
+        setSendingInvite(false);
+      }
+      alert("Invitation Sent");
+    }
+    else
+    {
+      console.error('Project ID not defined');
+    }
+    
+  };
 
   return (
     <main className="proposal-main">
@@ -145,7 +169,8 @@ function ProposalCard({ proposal, user_id }) {
 
         <div className="proposal-buttons">
           <button className="btn-message">Message</button>
-          <button className="btn-invite">Invite</button>
+          <button className="btn-invite" onClick={handleInvite}disabled={sendingInvite}>
+          {sendingInvite ? "Processing..." : "Request Invitaion"}</button>
         </div>
       </div>
     </main>

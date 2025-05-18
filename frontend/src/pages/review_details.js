@@ -7,7 +7,7 @@ import '../styles/review_details.css';
 import { useUserAuth } from "../context/UserAuthContext";
 import { donate_to_project } from "../services/review_services";
 import { get_Users } from "../services/login_service";
-
+import { invite_collaboration, email_using_project_id } from "../services/invite_collab_services";
 export default function ReviewDetails() {
   const location = useLocation();
   const project_id = location.state?.project_id;
@@ -50,6 +50,7 @@ function ReviewProposalCard({ proposal }) {
   const [donateAmount, setDonateAmount] = useState('');
   const [showDonateConfirm, setShowDonateConfirm] = useState(false);
   const [donateLoading, setDonateLoading] = useState(false);
+  const [sendingInvite, setSendingInvite] = useState(false);
 
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;
@@ -108,7 +109,26 @@ function ReviewProposalCard({ proposal }) {
 
   function handleCancelDonate() {
     setShowDonateConfirm(false);
-  }
+  };
+
+  const handleInvite = async () => {
+    setSendingInvite(true);
+    const recipient_email = await  email_using_project_id(proposal.project_id);
+    if(recipient_email.result)
+    {
+      const sent = await invite_collaboration(recipient_email.result, user.email ,proposal.title);
+      if(sent)
+      {
+        setSendingInvite(false);
+      }
+      alert("Invitation Sent");
+    }
+    else
+    {
+      console.error('Project ID not defined');
+    }
+    
+  };
 
   return (
     <main className="review-proposal-main">
@@ -138,7 +158,8 @@ function ReviewProposalCard({ proposal }) {
         <p><strong>End Date:</strong> {formatDate(proposal.end_date)}</p>
         <section className="review-proposal-buttons">
           <button className="review-btn-message">Message</button>
-          <button className="review-btn-request-invite">Request Invite</button>
+          <button className="review-btn-request-invite" onClick={handleInvite} disabled={sendingInvite}>
+          {sendingInvite ? "Processing..." : "Request Invitaion"}</button>
           <button
             className="review-btn-donate"
             onClick={handleDonateClick}
