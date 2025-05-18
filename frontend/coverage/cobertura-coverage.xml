@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="190" lines-covered="158" line-rate="0.8315" branches-valid="76" branches-covered="55" branch-rate="0.7236" timestamp="1747514017096" complexity="0" version="0.1">
+<coverage lines-valid="192" lines-covered="159" line-rate="0.8281000000000001" branches-valid="78" branches-covered="56" branch-rate="0.7179000000000001" timestamp="1747569848428" complexity="0" version="0.1">
   <sources>
     <source>/home/vin/Desktop/Practice/Projects/SDP PROJECT/Projects 3/Uni-Research-Collab-Platform/frontend</source>
   </sources>
@@ -19,7 +19,7 @@
         </class>
       </classes>
     </package>
-    <package name="src.components" line-rate="0.8961" branch-rate="0.7777">
+    <package name="src.components" line-rate="0.8859999999999999" branch-rate="0.7585999999999999">
       <classes>
         <class name="Header.js" filename="src/components/Header.js" line-rate="0.7741" branch-rate="0.5">
           <methods>
@@ -65,7 +65,7 @@
             </method>
             <method name="(anonymous_8)" hits="1" signature="()V">
               <lines>
-                <line number="70" hits="1"/>
+                <line number="69" hits="1"/>
               </lines>
             </method>
           </methods>
@@ -99,8 +99,8 @@
             <line number="58" hits="0" branch="false"/>
             <line number="60" hits="0" branch="true" condition-coverage="0% (0/2)"/>
             <line number="62" hits="0" branch="false"/>
-            <line number="67" hits="0" branch="false"/>
-            <line number="70" hits="1" branch="false"/>
+            <line number="66" hits="0" branch="false"/>
+            <line number="69" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="Home.js" filename="src/components/Home.js" line-rate="1" branch-rate="1">
@@ -134,7 +134,7 @@
             <line number="46" hits="1" branch="false"/>
           </lines>
         </class>
-        <class name="Login.js" filename="src/components/Login.js" line-rate="1" branch-rate="1">
+        <class name="Login.js" filename="src/components/Login.js" line-rate="0.9582999999999999" branch-rate="0.9">
           <methods>
             <method name="(anonymous_0)" hits="8" signature="()V">
               <lines>
@@ -165,11 +165,13 @@
             <line number="31" hits="1" branch="false"/>
             <line number="32" hits="2" branch="true" condition-coverage="100% (2/2)"/>
             <line number="33" hits="1" branch="false"/>
-            <line number="36" hits="1" branch="false"/>
-            <line number="40" hits="1" branch="false"/>
-            <line number="43" hits="1" branch="false"/>
-            <line number="44" hits="1" branch="false"/>
-            <line number="48" hits="8" branch="false"/>
+            <line number="35" hits="1" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="37" hits="0" branch="false"/>
+            <line number="41" hits="1" branch="false"/>
+            <line number="45" hits="1" branch="false"/>
+            <line number="48" hits="1" branch="false"/>
+            <line number="49" hits="1" branch="false"/>
+            <line number="53" hits="8" branch="false"/>
           </lines>
         </class>
         <class name="Milestones.js" filename="src/components/Milestones.js" line-rate="0.9473" branch-rate="1">
