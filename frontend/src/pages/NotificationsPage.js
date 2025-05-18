@@ -104,7 +104,7 @@ const NotificationsPage = () => {
             </div>
           )}
 
-         {note.invitation === 'pending' ? (
+         {note.invitation?.toLowerCase?.() === 'pending' ? (
                 <div className="invitation-actions">
                   <button
                     className="accept-btn"
