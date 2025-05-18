@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-const { handleInvite } = require('../controllers/inviteController'); 
+const {
+  handleAcceptInvite,
+  handleDeclineInvite
+} = require('../controllers/inviteController');
 
-// Route to send email invite and insert into database
+// Route to send email invite
 router.post('/send-invite', async (req, res) => {
   const { toEmail, fromUser, projectTitle } = req.body;
 
@@ -13,10 +16,6 @@ router.post('/send-invite', async (req, res) => {
   }
 
   try {
-    
-    await handleInvite(req, res); 
-      
-    // Email process
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -25,6 +24,9 @@ router.post('/send-invite', async (req, res) => {
       },
     });
 
+    const acceptLink = `https://uni-research-collab-wits.azurewebsites.net/api/accept-invite?project=${encodeURIComponent(projectTitle)}&sender=${encodeURIComponent(fromUser)}&recipient=${encodeURIComponent(toEmail)}`;
+    const declineLink = `https://uni-research-collab-wits.azurewebsites.net/api/decline-invite?project=${encodeURIComponent(projectTitle)}&sender=${encodeURIComponent(fromUser)}&recipient=${encodeURIComponent(toEmail)}`;
+
     const mailOptions = {
       from: `"RE:HUB" <${process.env.MAIL_USER}>`,
       replyTo: fromUser,
@@ -32,18 +34,24 @@ router.post('/send-invite', async (req, res) => {
       subject: `You're invited to collaborate on "${projectTitle}"`,
       html: `
         <p>${fromUser} has invited you to collaborate on a research project titled <strong>${projectTitle}</strong>.</p>
-        <p>Click the link below to view the project and start collaborating:</p>
-        <p><a href="https://uni-research-collab-wits.azurewebsites.net/">Go to RE:HUB</a></p>
+        <p>
+          <a href="${acceptLink}">Accept</a> |
+          <a href="${declineLink}">Decline</a>
+        </p>
       `
     };
 
-    await transporter.sendMail(mailOptions); 
-    res.status(200).json({ message: 'Invite sent and collaborator added successfully' });
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Invite sent successfully' });
 
   } catch (error) {
     console.error('Invite email error:', error);
     res.status(500).json({ message: 'Failed to send invite' });
   }
 });
+
+// Delegate DB logic to controller
+router.get('/accept-invite', handleAcceptInvite);
+router.get('/decline-invite', handleDeclineInvite);
 
 module.exports = router;
