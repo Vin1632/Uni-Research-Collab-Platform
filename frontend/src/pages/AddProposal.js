@@ -6,6 +6,7 @@ import { get_Users } from '../services/login_service';
 import { useNavigate } from "react-router-dom";
 import logo from '../images/logo.jpg';
 import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+import { invite_collaboration } from '../services/invite_collab_services';
 
 const AddProposals = () => {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ const AddProposals = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [pendingSubmit, setPendingSubmit] = useState(false); 
+  const [sendingInvite, setSendingInvite] = useState(false);
 
   const [proposal, setProposal] = useState({
     title: '',
@@ -86,12 +89,17 @@ const AddProposals = () => {
     validateForm();
   }, [validateForm]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!isFormValid) {
       alert("Please correct the errors in the form.");
       return;
     }
+    setShowInviteModal(true);
+    setPendingSubmit(true);
+  };
+
+  const completeSubmission = async () => {
     setLoading(true);
     try {
       const email = user?.email;
@@ -110,7 +118,6 @@ const AddProposals = () => {
 
       if (result_1[0].project_id) {
         alert("Submitted Successfully!");
-        navigate('/home');
         await insert_projectData(
           result_1[0].project_id,
           proposal.title,
@@ -121,47 +128,46 @@ const AddProposals = () => {
           proposal.start_date,
           proposal.end_date
         );
+        navigate('/home');
       }
     } catch (error) {
       console.error("Proposal submission failed:", error);
     } finally {
       setLoading(false);
+      setPendingSubmit(false);
     }
-  };
-
-  const handleInviteCollaborators = () => {
-    setShowInviteModal(true);
   };
 
   const sendInvite = async () => {
+    setSendingInvite(true);
     try {
-      const response = await fetch('/api/send-invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          toEmail: recipientEmail,
-          fromUser: senderEmail,
-          projectTitle: proposal.title
-        }),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert('Invitation sent!');
-      } else {
-        alert('Failed to send invite: ' + result.message);
-      }
-
-      setShowInviteModal(false);
-      setRecipientEmail('');
-      setSenderEmail(user?.email || '');
+      await invite_collaboration(recipientEmail, senderEmail, proposal.title);
     } catch (error) {
       console.error('Error sending invite:', error);
       alert('Something went wrong.');
+    } finally {
+      setSendingInvite(false);
+      setShowInviteModal(false);
+      setRecipientEmail('');
+      setSenderEmail(user?.email || '');
+  
+      if (pendingSubmit) {
+        completeSubmission();
+      }
+    }
+  };
+  
+
+  const cancelInvite = () => {
+    setShowInviteModal(false);
+    setRecipientEmail('');
+    setSenderEmail(user?.email || '');
+
+    if (pendingSubmit) {
+      completeSubmission();
     }
   };
 
-  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -257,9 +263,6 @@ const AddProposals = () => {
 
           <section className="button-group">
             <button type="submit" disabled={!isFormValid}>Submit Proposal</button>
-            <button type="button" className="invite-button" onClick={handleInviteCollaborators}>
-              Invite Collaborators
-            </button>
           </section>
         </form>
       </section>
@@ -271,8 +274,12 @@ const AddProposals = () => {
             <input type="email" placeholder="Your email address" value={senderEmail} onChange={(e) => setSenderEmail(e.target.value)} required />
             <input type="email" placeholder="Collaborator's email address" value={recipientEmail} onChange={(e) => setRecipientEmail(e.target.value)} required />
             <div className="modal-buttons">
-              <button onClick={sendInvite}>Send Invitation</button>
-              <button onClick={() => setShowInviteModal(false)}>Cancel</button>
+              <button onClick={sendInvite} disabled={sendingInvite}>
+                {sendingInvite ? "Processing..." : "Send Invitation"}
+              </button>
+              <button onClick={cancelInvite} disabled={sendingInvite}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>
