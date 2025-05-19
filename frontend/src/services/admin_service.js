@@ -15,9 +15,9 @@ export async function get_flagged_projects() {
       }
 
       return data;
-    } catch (jsonErr) {
+    } catch (error) {
       console.error("Expected JSON but got:", text);
-      throw new Error("Server did not return valid JSON");
+      throw error;
     }
   } catch (error) {
     console.error("Error fetching flagged projects:", error);
@@ -42,9 +42,9 @@ export async function delete_flag(flag_id) {
       }
 
       return data;
-    } catch (jsonErr) {
+    } catch (error) {
       console.error("Expected JSON but got:", text);
-      throw new Error("Server did not return valid JSON");
+      throw error;
     }
   } catch (error) {
     console.error("Error deleting flag:", error);
@@ -99,9 +99,9 @@ export async function get_all_users() {
       }
 
       return data;
-    } catch (jsonErr) {
+    } catch (error) {
       console.error("Expected JSON but got:", text);
-      throw new Error("Server did not return valid JSON");
+      throw error;
     }
   } catch (error) {
     console.error("Error fetching users:", error);

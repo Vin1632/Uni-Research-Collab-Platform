@@ -3,7 +3,6 @@ const router = express.Router();
 const { get_recom_proj, get_project_data } = require('../controllers/recommendation_projects');
 const {insert_proposals, insert_projectData} = require('../controllers/proposals');
 const { get_active_projects, donate_to_project, get_reviewer_projects } = require('../controllers/reviews');
-const { pool } = require('../db');
 const { flag_project, get_flagged_projects, delete_flag } = require('../controllers/flagged_projects');
 
 //get all Projects Data

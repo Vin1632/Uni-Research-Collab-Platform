@@ -4,16 +4,15 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-import fetch, { Request, Response, Headers } from 'node-fetch';
+import fetchMock from 'jest-fetch-mock';
+fetchMock.enableMocks();
 
+// Optional: Polyfill for TextEncoder/TextDecoder in Jest environments
 import { TextEncoder, TextDecoder } from 'util';
 
-global.fetch = fetch;
-global.Request = Request;
-global.Response = Response;
-global.Headers = Headers;
-
-// Polyfill for TextEncoder/TextDecoder if missing
-
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+if (typeof global.TextEncoder === 'undefined') {
+  global.TextEncoder = TextEncoder;
+}
+if (typeof global.TextDecoder === 'undefined') {
+  global.TextDecoder = TextDecoder;
+}

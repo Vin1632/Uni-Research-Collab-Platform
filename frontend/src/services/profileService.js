@@ -16,7 +16,7 @@ export async function get_profile_data(email) {
     return await response.json();
   } catch (error) {
     console.error("Error fetching profile:", error);
-    throw new Error("Failed to get profile data");
+    throw error;
   }
 }
 
@@ -39,6 +39,6 @@ export async function update_profile_data(profile) {
     return await response.json();
   } catch (error) {
     console.error("Error updating profile:", error);
-    throw new Error("Failed to update profile");
+    throw error;
   }
 }
