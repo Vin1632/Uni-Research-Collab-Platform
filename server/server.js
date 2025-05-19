@@ -11,6 +11,7 @@ const milestone_tracking_routes = require('./Routes/milestone_tracking_routes');
 const inviteRoutes = require('./Routes/Invite_Routes');
 const profileRoutes = require('./Routes/profile_route');
 const adminRoutes = require('./Routes/admin');
+const notifications = require('./Routes/notifications');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +32,7 @@ app.use('/milestone', milestone_tracking_routes);
 app.use('/invite', inviteRoutes);
 app.use('/profiles', profileRoutes);
 app.use('/admin', adminRoutes);
+app.use('/notifications', notifications);
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
