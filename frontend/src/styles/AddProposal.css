@@ -83,13 +83,15 @@
 
 /* Proposal Form */
 .proposal-form {
-  max-width: 800px;
-  margin: 2rem auto;
+  width: 100%;
+  margin: 0;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
   border-radius: 8px;
+  box-sizing: border-box;
 }
+
 
 .proposal-form h1 {
   text-align: center;
