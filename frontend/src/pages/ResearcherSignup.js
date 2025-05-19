@@ -88,9 +88,10 @@ const ReviewerSignup = () => {
     if (!form.institution.trim()) newErrors.institution = "Institution is required.";
     if (!form.qualifications.trim()) {
       newErrors.qualifications = "Qualifications are required.";
-    } else if (form.qualifications.length < 10) {
-      newErrors.qualifications = "Qualifications must be at least 10 characters long.";
     }
+    //  else if (form.qualifications.length < 10) {
+    //   newErrors.qualifications = "Qualifications must be at least 10 characters long.";
+    // }
     if (form.researchInterests.length === 0) {
       newErrors.researchInterests = "At least one interest is required.";
     }
