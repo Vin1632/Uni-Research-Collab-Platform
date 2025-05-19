@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { get_my_reviews } from "../services/review_services";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
+import '../styles/Dashboard.css';
 
 export default function MyReviews() {
   const { user } = useUserAuth();
@@ -45,7 +46,7 @@ export default function MyReviews() {
   }
 
   return (
-    <main className="reviewer-dashboard-wrapper">
+    <main className="dashboard-wrapper">
       <Header />
       <section className="reviewer-dashboard-container">
         {loading ? (

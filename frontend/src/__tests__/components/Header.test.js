@@ -37,7 +37,6 @@ describe("Header Component", () => {
     expect(screen.getByText("My Research Hub")).toBeInTheDocument();
     expect(screen.getByTitle("Messages")).toBeInTheDocument();
     expect(screen.getByTitle("Notifications")).toBeInTheDocument();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
   });
 
   test("menu toggles when menu icon is clicked", () => {

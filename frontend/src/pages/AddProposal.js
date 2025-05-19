@@ -4,14 +4,15 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { proposal_service, insert_projectData, get_image_url } from "../services/proposal_service";
 import { get_Users } from '../services/login_service';
 import { useNavigate } from "react-router-dom";
-import logo from '../images/logo.jpg';
-import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
+// import logo from '../images/logo.jpg';
+// import { FaBars, FaEnvelope, FaBell } from "react-icons/fa";
 import { invite_collaboration } from '../services/invite_collab_services';
+import Header from '../components/Header';
 
 const AddProposals = () => {
   const navigate = useNavigate();
-  const { logOut, user } = useUserAuth();
-  const [showMenu, setShowMenu] = useState(false);
+  const {  user } = useUserAuth();
+  // const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
   const [senderEmail, setSenderEmail] = useState(user?.email || '');
   const [recipientEmail, setRecipientEmail] = useState('');
@@ -35,14 +36,14 @@ const AddProposals = () => {
 
   const fundingSources = ['Government Grant', 'Private Sector', 'University Fund', 'Crowdfunding'];
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await logOut();
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //   }
+  // };
 
   const validateForm = useCallback(() => {
     const errors = {};
@@ -171,28 +172,8 @@ const AddProposals = () => {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <>
-      <header className="dashboard-banner">
-        <nav className="menu-container">
-          <FaBars className="menu-icon" onClick={() => setShowMenu(prev => !prev)} />
-          <menu className={`menu-dropdown ${showMenu ? 'show' : ''}`}>
-            <li onClick={() => navigate("/home")}>Home</li>
-            <li onClick={() => navigate("/profile")}>Profile</li>
-            <li onClick={handleLogout}>Log Out</li>
-          </menu>
-        </nav>
-
-        <div className="logo-title">
-          <img src={logo} alt="RE:HUB Logo" className="dashboard-logo" />
-          <h1 className="dashboard-title">My Research Hub</h1>
-        </div>
-
-        <aside className="icon-group">
-          <FaEnvelope className="dashboard-icon" title="Messages" />
-          <FaBell className="dashboard-icon" title="Notifications" />
-        </aside>
-      </header>
-
+    <main className="dashboard-wrapper">
+      <Header />
       <section className="proposal-form">
         <h1>Enter Proposal Details</h1>
         <form onSubmit={handleSubmit}>
@@ -284,7 +265,7 @@ const AddProposals = () => {
           </div>
         </div>
       )}
-    </>
+    </main>
   );
 };
 

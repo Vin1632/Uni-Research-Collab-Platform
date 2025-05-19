@@ -13,6 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import '../styles/proposal_details.css';
+import '../styles/Dashboard.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

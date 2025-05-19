@@ -27,8 +27,12 @@ function ProjectDetails({ projectId, onClose, onDeleted }) {
 
     try {
       setDeleting(true);
-      await delete_project(projectId);
-      onDeleted();
+      const delete_pro = await delete_project(projectId);
+      if(delete_pro)
+      {
+        onDeleted();
+      }
+      
     } catch (e) {
       alert(e.message || "Failed to delete project");
     } finally {

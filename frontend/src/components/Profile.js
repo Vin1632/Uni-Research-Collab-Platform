@@ -1,33 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { FaPencilAlt, FaUserCircle } from "react-icons/fa";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Form, Button } from "react-bootstrap";
+import { FaPencilAlt, FaCheckCircle, FaExclamationCircle, FaUserCircle } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import debounce from "lodash.debounce";
+import "react-toastify/dist/ReactToastify.css";
 import { get_profile_data, update_profile_data } from "../services/profileService";
-import Header from "../components/Header"; 
+import Header from "./Header";
 import "../styles/profile.css";
+import '../styles/Dashboard.css';
 
 const Profile = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const email = user?.email;
+
   const [form, setForm] = useState({
     name: "",
     institution: "",
     qualification: "",
     interests: ""
   });
-  const [message, setMessage] = useState(null);
-  const [editMode, setEditMode] = useState({
-    name: false,
-    institution: false,
-    qualification: false,
-    interests: false
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    institution: "",
-    qualification: "",
-    interests: ""
-  });
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const email = user?.email;
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [editMode, setEditMode] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [shakingField, setShakingField] = useState(null);
+
+  const inputRefs = {
+    name: useRef(null),
+    institution: useRef(null),
+    qualification: useRef(null),
+    interests: useRef(null)
+  };
 
   useEffect(() => {
     if (!email) return;
@@ -40,104 +44,142 @@ const Profile = () => {
           interests: data.interests || ""
         });
       })
-      .catch(err => console.error("Failed to fetch profile:", err));
+      .catch(console.error);
   }, [email]);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const validateField = (field, value) => {
+    if (field === "name") {
+      if (!value || value.trim().length < 3) return "Name must be at least 3 characters.";
+    } else if (field === "institution") {
+      if (!value || value.trim() === "") return "Institution is required.";
+    } else if (field === "qualification") {
+      if (!value || value.trim() === "") return "Qualification is required.";
+    } else if (field === "interests") {
+      if (!value || value.trim().length < 5) return "Interests must be at least 5 characters.";
+    }
+    return "";
   };
 
-  const validateForm = () => {
-    const newErrors = { name: "", institution: "", qualification: "", interests: "" };
-
-    if (!form.name || form.name.length < 3) {
-      newErrors.name = "Name must be at least 3 characters.";
+  const validateForm = useCallback((formData) => {
+    const newErrors = {};
+    for (const key in formData) {
+      newErrors[key] = validateField(key, formData[key]);
     }
-    if (!form.institution) {
-      newErrors.institution = "Institution is required.";
-    }
-    if (!form.qualification) {
-      newErrors.qualification = "Qualification is required.";
-    }
-    if (!form.interests || form.interests.length < 5) {
-      newErrors.interests = "Interests must be at least 5 characters.";
-    }
-
     setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== "");
+    return !Object.values(newErrors).some(e => e);
+  }, []);
+  // eslint-disable-next-line
+  const debouncedSave = useCallback(
+    debounce(async (formData) => {
+      if (!email) return;
+      if (!validateForm(formData)) return;
+
+      setSaving(true);
+      try {
+        const res = await update_profile_data({ ...formData, email });
+        toast.success(res.message || "Profile autosaved!");
+      } catch {
+        toast.error("Autosave failed.");
+      } finally {
+        setSaving(false);
+      }
+    }, 1200),
+    [email, validateForm]
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    setTouched(prev => ({ ...prev, [name]: true }));
+
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
+
+    debouncedSave({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email) {
-      setMessage("Email is required.");
-      return;
-    }
-
-    if (!validateForm()) {
-      setMessage("Please correct the errors in the form.");
-      return;
-    }
-
-    update_profile_data({ ...form, email })
-      .then((data) => setMessage(data.message))
-      .catch(() => setMessage("Error updating profile."));
+  const toggleEditMode = () => {
+    setEditMode(prev => !prev);
+    setTouched({});
+    if (!editMode) validateForm(form);
   };
 
-  const handleEdit = (field) => {
-    setEditMode({ ...editMode, [field]: true });
-  };
-
-  const handleSave = (e) => {
-    e.preventDefault();
-    setEditMode({
-      name: false,
-      institution: false,
-      qualification: false,
-      interests: false
-    });
-    handleSubmit(e);
+  const handlePencilClick = (field) => {
+    setShakingField(field);
+    setTimeout(() => {
+      inputRefs[field].current?.focus();
+    }, 100);
+    setTimeout(() => setShakingField(null), 600);
   };
 
   return (
-    <>
+    <main className="dashboard-wrapper">
       <Header />
-      <section className="form-container" style={{ width: "100%", maxWidth: "700px", margin: "0 auto", padding: "30px" }}>
+      <section className="profile-form-container">
         <div className="text-center mb-4">
           <FaUserCircle size={100} color="#c6e3ff" />
-          <h3 className="edit-profile" color="#c6e3ff" >Edit Profile</h3>
-        </div>
-        <Form onSubmit={handleSave}>
-          {["name", "institution", "qualification", "interests"].map((field) => (
-            <Form.Group key={field} className="mb-3">
-              <Form.Label>
-                {field.charAt(0).toUpperCase() + field.slice(1)}
-                <FaPencilAlt
-                  style={{ cursor: "pointer", marginLeft: "10px" }}
-                  onClick={() => handleEdit(field)}
-                />
-              </Form.Label>
-              <Form.Control
-                as={field === "interests" ? "textarea" : "input"}
-                type="text"
-                name={field}
-                value={form[field]}
-                onChange={handleChange}
-                disabled={!editMode[field]}
-                isInvalid={!!errors[field]}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors[field]}
-              </Form.Control.Feedback>
-            </Form.Group>
-          ))}
-          <Button className="mt-3" type="submit" disabled={!Object.values(editMode).includes(true)}>
-            Save Changes
+          <h3 className="profile-edit-title">
+            {editMode ? "Edit Profile" : "Profile Summary"}
+          </h3>
+          <Button variant={editMode ? "secondary" : "primary"} onClick={toggleEditMode}>
+            {editMode ? "View Profile" : "Edit Profile"}
           </Button>
-          {message && <Alert className="mt-3">{message}</Alert>}
+        </div>
+
+        <Form>
+          {["name", "institution", "qualification", "interests"].map((field) => {
+            const isError = errors[field];
+            const isTouched = touched[field];
+            const isValid = isTouched && !isError;
+            const shakeClass = shakingField === field ? "shake shake-icon" : "";
+            return (
+              <Form.Group key={field} className="mb-3 position-relative">
+                <Form.Label className={`profile-form-label ${shakeClass}`}>
+                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                  <FaPencilAlt
+                    onClick={() => handlePencilClick(field)}
+                    className={shakeClass}
+                    style={{ cursor: "pointer", marginLeft: 8 }}
+                    title={`Edit ${field}`}
+                  />
+                </Form.Label>
+                <Form.Control
+                  ref={inputRefs[field]}
+                  as={field === "interests" ? "textarea" : "input"}
+                  type="text"
+                  name={field}
+                  value={form[field]}
+                  onChange={handleChange}
+                  disabled={!editMode}
+                  className={`profile-input ${shakingField === field ? "profile-input-focus" : ""}`}
+                  isInvalid={isTouched && !!isError}
+                  isValid={isValid}
+                  rows={field === "interests" ? 3 : undefined}
+                />
+                <Form.Control.Feedback type="invalid">{errors[field]}</Form.Control.Feedback>
+                {isValid && <FaCheckCircle style={{ position: "absolute", right: 12, top: 38, color: "#28a745" }} />}
+                {isTouched && isError && <FaExclamationCircle style={{ position: "absolute", right: 12, top: 38, color: "#dc3545" }} />}
+              </Form.Group>
+            );
+          })}
+          {editMode && (
+            <Button type="submit" disabled className="profile-submit-btn">
+              {saving ? "Saving..." : "All changes are autosaved"}
+            </Button>
+          )}
         </Form>
       </section>
-    </>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+    </main>
   );
 };
 

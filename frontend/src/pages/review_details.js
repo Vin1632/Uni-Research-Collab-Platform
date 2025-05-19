@@ -8,6 +8,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { donate_to_project } from "../services/review_services";
 import { get_Users } from "../services/login_service";
 import { invite_collaboration, email_using_project_id } from "../services/invite_collab_services";
+import '../styles/Dashboard.css';
 export default function ReviewDetails() {
   const location = useLocation();
   const project_id = location.state?.project_id;
@@ -31,7 +32,7 @@ export default function ReviewDetails() {
   }, [project_id]);
 
   return (
-    <main className="review-details-wrapper">
+    <main className="dashboard-wrapper">
       <Header />
       <section className="review-details-container">
         <ReviewProposalCard

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { FaImage, FaCalendarAlt } from "react-icons/fa";
 import { get_active_projects } from "../services/review_services";
 import '../styles/ReviewerDashboard.css';
+import '../styles/Dashboard.css';
 
 export default function Review() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Review() {
   }, []);
 
   return (
-    <main className="reviewer-dashboard-wrapper">
+    <main className="dashboard-wrapper">
       <Header onUser_IdLoaded={setUserId} />
       
       <section className="reviewer-dashboard-container">

@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import { FaSearch, FaClipboardCheck, FaLightbulb } from "react-icons/fa";
 import '../styles/ReviewerDashboard.css';
+import '../styles/Dashboard.css';
 
 export default function ReviewerDashboard() {
   const navigate = useNavigate();
   const [setUserId] = useState(null);
 
   return (
-    <main className="reviewer-dashboard-wrapper">
+    <main className="dashboard-wrapper">
       <Header onUser_IdLoaded={setUserId} />
 
       <section className="reviewer-dashboard-container">

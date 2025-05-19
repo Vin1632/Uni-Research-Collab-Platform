@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Users.css";
-import { get_all_users } from "../services/admin_service"; // Adjust the path if needed
+import { get_all_users } from "../services/admin_service";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

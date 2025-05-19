@@ -1,28 +1,55 @@
 import React, { useEffect, useState } from "react";
 import '../styles/notifications.css';
+import '../styles/Dashboard.css';
+import Header from "../components/Header";
+import { useUserAuth } from "../context/UserAuthContext";
+import { get_Users } from "../services/login_service";
 
 const NotificationsPage = () => {
   const [notifications, setNotifications] = useState([]);
   const [expandedIdx, setExpandedIdx] = useState(null); 
   const [projectDetails, setProjectDetails] = useState({});
+  const {user } = useUserAuth(); 
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");  // get logged-in user's ID
-
-    if (!userId) {
-      console.error("User ID not found in localStorage");
-      return;
-    }
-
-    fetch(`/notifications/notification?userId=${userId}`)
-      .then(res => res.json())
-      .then(data => setNotifications(data))
-      .catch(err => console.error('Failed to load notifications', err));
-  }, []);
+    const loadingNotifications = async () => {
+      const userEmail = user?.email;
+      if (!userEmail) return;
+  
+      try {
+        const users = await get_Users(userEmail);
+        if (!users?.length) {
+          console.warn("No users found for email:", userEmail);
+          return;
+        }
+  
+        const userId = users[0]?.user_id;
+        if (!userId) {
+          console.error("User ID not found in fetched user data");
+          return;
+        }
+  
+        const response = await fetch(`/notifications/notification?userId=${userId}`);
+        if (!response.ok) {
+          console.error("Failed to fetch notifications, status:", response.status);
+          return;
+        }
+  
+        const notificationsData = await response.json();
+        setNotifications(notificationsData);
+      } catch (error) {
+        console.error("Error loading notifications:", error);
+      }
+    };
+  
+    loadingNotifications();
+  }, [user]);
+  
+  
 
   const toggleDetails = async (idx, projectId) => {
     if (expandedIdx === idx) {
-      setExpandedIdx(null); // Collapse if clicked again
+      setExpandedIdx(null); 
     } else {
       if (!projectDetails[projectId]) {
         try {
@@ -38,7 +65,19 @@ const NotificationsPage = () => {
   };
 
     const handleInvitationResponse = async (projectId, action) => {
-    const userId = localStorage.getItem("userId");
+      const userEmail = user?.email;
+      const users = await get_Users(userEmail);
+        if (!users?.length) {
+          console.warn("No users found for email:", userEmail);
+          return;
+        }
+  
+        const userId = users[0]?.user_id;
+        if (!userId) {
+          console.error("User ID not found in fetched user data");
+          return;
+        }
+
     try {
       const res = await fetch(`/notifications/respond`, {
         method: "POST",
@@ -69,8 +108,9 @@ const NotificationsPage = () => {
   };
 
   return (
-  <main>
-  <h2>  Your Invitations</h2>
+  
+  <main className="dashboard-wrapper">
+  <Header />
   {notifications.length === 0 ? (
     <p>No notifications found.</p>
   ) : (

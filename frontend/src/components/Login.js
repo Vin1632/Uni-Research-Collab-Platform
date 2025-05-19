@@ -21,12 +21,10 @@ const Login = () => {
       const userEmail = user.user.email;
       localStorage.setItem("user", JSON.stringify({ email: userEmail }));
 
-      
       const data = await get_Users(userEmail);
     
       if (data.length > 0) {
-        
-        
+
         if (data[0].role === 'researcher') {
           navigate("/home");
         } else if (data[0].role === 'reviewer') {
