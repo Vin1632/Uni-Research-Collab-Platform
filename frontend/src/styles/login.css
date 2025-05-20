@@ -101,58 +101,6 @@ body {
   text-decoration: underline;
 }
 
-.btn {
-  width: 100%; 
-  height: 45px;
-  background: #fff;
-  border: none;
-  outline: none;
-  border-radius: 40px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  font-weight: 600;
-  margin-bottom: 15px; 
-}
-
-/*.g-btn {
-  width: 100%;
-  height: 45px;
-  background: #fff;
-  border: none;
-  outline: none;
-  border-radius: 40px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  font-weight: 600;
-  margin-top: 30px; 
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.g-btn > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  
-}
-
-.g-btn > div > svg {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}*/
-
 .register-link {
   font-size: 14.5px;
   text-align: center;
@@ -175,13 +123,6 @@ body {
   .wrapper {
     width: 90%;
     padding: 20px;
-    justify-content: center;
-  }
-
-  .g-btn {
-    width: 90%;
-    display: block;
-    margin: 20px auto;
     justify-content: center;
   }
 }

@@ -243,7 +243,7 @@ const AddProposals = () => {
           )}
 
           <section className="button-group">
-            <button type="submit" disabled={!isFormValid}>Submit Proposal</button>
+            <button  className="submit-propodal-button"type="submit" disabled={!isFormValid}>Submit Proposal</button>
           </section>
         </form>
       </section>

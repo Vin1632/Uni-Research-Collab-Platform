@@ -83,15 +83,15 @@
 
 /* Proposal Form */
 .proposal-form {
-  width: 100%;
-  margin: 0;
-  padding: 20px;
+  width: 90vw;               
+  max-width: 1200px;          
+  margin: 40px auto;          
+  padding: 40px;
   background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 91, 161, 0.15);
-  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 91, 161, 0.2);
+  border-radius: 10px;
   box-sizing: border-box;
 }
-
 
 .proposal-form h1 {
   text-align: center;
@@ -101,7 +101,8 @@
 
 fieldset {
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 label {
@@ -134,15 +135,22 @@ textarea {
   margin-top: 20px;
 }
 
-button {
+
+/* Center only the Submit Proposal button */
+.submit-propodal-button {
+  display: block;
+  margin: 30px auto 0 auto;
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 30px;
   font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  min-width: 100px;
+  text-align: center;
 }
+
 
 .invite-button {
   background-color: #28a745;
