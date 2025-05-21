@@ -77,7 +77,7 @@ const Header = ({ onUser_IdLoaded }) => {
       </div>
 
       <aside className="icon-group">
-        <FaEnvelope className="dashboard-icon" title="Messages" />
+        <FaEnvelope className="dashboard-icon" title="Messages" onClick={() => navigate("/ChatApp")} />
         <FaBell className="dashboard-icon" title="Notifications"  />
       </aside>
     </header>
