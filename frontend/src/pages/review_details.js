@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { FaImage } from "react-icons/fa";
 import { get_each_project_data } from "../services/proposal_service";
@@ -12,7 +12,6 @@ import '../styles/Dashboard.css';
 export default function ReviewDetails() {
   const location = useLocation();
   const project_id = location.state?.project_id;
-
   const [projectData, setProjectData] = useState([]);
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -52,6 +51,7 @@ function ReviewProposalCard({ proposal }) {
   const [showDonateConfirm, setShowDonateConfirm] = useState(false);
   const [donateLoading, setDonateLoading] = useState(false);
   const [sendingInvite, setSendingInvite] = useState(false);
+  const navigate = useNavigate();
 
 
   const isImageValid = proposal.link_image && proposal.link_image.trim() !== "" && !imgError;

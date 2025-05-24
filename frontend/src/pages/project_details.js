@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { FaImage, FaFlag } from "react-icons/fa"; 
 import { get_each_project_data, flag_project } from "../services/proposal_service";
@@ -57,6 +57,7 @@ function ProposalCard({ proposal, user_id, project_id }) {
   const [flagged, setFlagged] = useState(false);
   const { user } = useUserAuth();
   const [sendingInvite, setSendingInvite] = useState(false);
+  const navigate = useNavigate();
   const handleFlag = async () => {
     if (!flagReason) return alert("Please select a reason.");
     try {
