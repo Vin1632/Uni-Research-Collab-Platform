@@ -14,15 +14,8 @@ export const AppWrapper = ({ children, isAuth, setIsAuth, setIsInChat, isInChat 
   };
 
   return (
-    <div className="App">
-      {!isInChat && (
-        <div className="app-header">
-          <h1>Chat page</h1>
-        </div>
-      )}
-
+   
       <div className="app-container">{children}</div>
       
-    </div>
   );
 };

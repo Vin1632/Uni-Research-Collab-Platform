@@ -10,6 +10,7 @@
     "concurrently": "^9.1.2"
   },
   "dependencies": {
+    "react-responsive": "^10.0.1",
     "universal-cookie": "^8.0.1"
   }
 }
