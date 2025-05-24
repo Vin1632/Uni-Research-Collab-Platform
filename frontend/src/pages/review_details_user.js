@@ -140,6 +140,32 @@ function ReviewedProjectCard({ proposal, myDonation }) {
     return `${day}/${month}/${year}`;
   }
 
+  function exportToCSV() {
+    const csvRows = [
+      ['Title', proposal.title],
+      ['Funding Source', proposal.funding_source],
+      ['Funds', funds.toFixed(2)],
+      ['Funds Spent', spent.toFixed(2)],
+      ['Funds Available', available.toFixed(2)],
+      ['Start Date', formatDate(proposal.start_date)],
+      ['End Date', formatDate(proposal.end_date)],
+      ['Status', status],
+      ['Progress', `${progress.toFixed(1)}%`],
+    ];
+
+    const csvContent =
+      'data:text/csv;charset=utf-8,' +
+      csvRows.map(e => e.join(',')).join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${proposal.title || "project"}_details.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <main className="proposal-main" style={{ background: "#f9fafb", border: "1px solid #e0e0e0" }}>
       {isImageValid ? (
@@ -195,17 +221,22 @@ function ReviewedProjectCard({ proposal, myDonation }) {
           </p>
         </section>
         <section style={{ display: "flex", gap: "30px", alignItems: "center", marginTop: "30px", justifyContent: "center" }}>
-          <section style={{ maxWidth: "220px" }}>
+          <section style={{ maxWidth: "120px" }}>
             <Pie data={data} />
             <p style={{ textAlign: "center", marginTop: "10px" }}>Time Progress</p>
           </section>
-          <section style={{ maxWidth: "220px", transform: "rotate(-5deg)" }}>
+          <section style={{ maxWidth: "120px", transform: "rotate(-5deg)" }}>
             <Doughnut data={financialData} />
             <p style={{ textAlign: "center", marginTop: "10px" }}>
               {hasOverdraft ? "Overdraft Detected" : "Financial Overview"}
             </p>
           </section>
         </section>
+        <div style={{ textAlign: "center", marginTop: "30px" }}>
+          <button onClick={exportToCSV} className="export-csv-button">
+            Export to CSV
+          </button>
+        </div>
       </section>
     </main>
   );

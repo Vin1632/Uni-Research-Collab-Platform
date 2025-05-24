@@ -11,7 +11,7 @@ export default function AdminDashboard() {
     <div className="admin-dashboard">
       <aside className="admin-sidebar">
         <div className="sidebar-header">
-          <h2>Admin</h2>
+          <h2 className="asmin-menu">Admin</h2>
           <img src={logo} alt="Logo" className="sidebar-logo" />
         </div>
 

@@ -75,3 +75,17 @@
     background-color: #218838;
   }
   
+  .export-csv-button {
+    padding: 10px 20px;
+    background-color: #36A2EB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .export-csv-button:hover {
+    background-color: #2b8ac6;
+  }
+  

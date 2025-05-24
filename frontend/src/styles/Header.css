@@ -71,14 +71,18 @@
     gap: 0.8rem;
     padding: 0.8rem 0.5rem;
     cursor: pointer;
-    color: #003e7e;
+    color: #111011;
     font-size: 1rem;
     border-radius: 6px;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: 0.2s ease, transform 0.2s ease;
     animation: header-slideFadeIn 0.4s ease forwards;
     opacity: 0;
   }
   
+  .Menu-header
+  {
+    background-color: white;
+  }
   .header-sidebar.open .header-sidebar-menu li:nth-child(1) {
     animation-delay: 0.1s;
   }
@@ -90,10 +94,7 @@
   }
   
   .header-sidebar-menu li:hover {
-    background-color: #eaf4ff;
-    color: #003e7e;
-    transform: translateX(5px);
-    animation: header-popHover 0.3s ease-in-out;
+    background-color: rgb(199, 204, 204);
   }
   
   /* Sidebar header */

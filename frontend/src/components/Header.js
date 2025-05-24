@@ -77,7 +77,7 @@ const Header = ({ onUser_IdLoaded }) => {
             className="header-close-icon"
             onClick={() => setSidebarOpen(false)}
           />
-          <h2>Menu</h2>
+          <h2 className="Menu-header">Menu</h2>
         </div>
         <ul className="header-sidebar-menu">
           <li

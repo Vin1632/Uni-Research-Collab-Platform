@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminHeader from "../components/AdminHeader";
+import AdminHeader from "./AdminHeader";
 import "../styles/Dashboard.css";
 
 import { FaImage, FaFlag } from "react-icons/fa"; 
