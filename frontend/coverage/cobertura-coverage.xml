@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="368" lines-covered="322" line-rate="0.875" branches-valid="195" branches-covered="147" branch-rate="0.7537999999999999" timestamp="1747654045276" complexity="0" version="0.1">
+<coverage lines-valid="385" lines-covered="324" line-rate="0.8415" branches-valid="197" branches-covered="147" branch-rate="0.7461" timestamp="1748122513381" complexity="0" version="0.1">
   <sources>
     <source>/home/vin/Desktop/Practice/Projects/SDP PROJECT/Projects 3/Uni-Research-Collab-Platform/frontend</source>
   </sources>
@@ -15,13 +15,14 @@
             <line number="22" hits="3" branch="false"/>
             <line number="23" hits="3" branch="false"/>
             <line number="24" hits="3" branch="false"/>
+            <line number="25" hits="3" branch="false"/>
           </lines>
         </class>
       </classes>
     </package>
-    <package name="src.components" line-rate="0.8598" branch-rate="0.7745000000000001">
+    <package name="src.components" line-rate="0.8543999999999999" branch-rate="0.7745000000000001">
       <classes>
-        <class name="Header.js" filename="src/components/Header.js" line-rate="0.6585" branch-rate="0.4375">
+        <class name="Header.js" filename="src/components/Header.js" line-rate="0.6428" branch-rate="0.4375">
           <methods>
             <method name="(anonymous_0)" hits="21" signature="()V">
               <lines>
@@ -55,30 +56,35 @@
             </method>
             <method name="(anonymous_6)" hits="0" signature="()V">
               <lines>
-                <line number="70" hits="0"/>
+                <line number="69" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_7)" hits="0" signature="()V">
               <lines>
-                <line number="78" hits="0"/>
+                <line number="70" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_8)" hits="0" signature="()V">
               <lines>
-                <line number="84" hits="0"/>
+                <line number="78" hits="0"/>
               </lines>
             </method>
-            <method name="(anonymous_9)" hits="1" signature="()V">
+            <method name="(anonymous_9)" hits="0" signature="()V">
               <lines>
-                <line number="106" hits="1"/>
+                <line number="84" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_10)" hits="1" signature="()V">
               <lines>
+                <line number="106" hits="1"/>
+              </lines>
+            </method>
+            <method name="(anonymous_11)" hits="1" signature="()V">
+              <lines>
                 <line number="114" hits="1"/>
               </lines>
             </method>
-            <method name="(anonymous_11)" hits="0" signature="()V">
+            <method name="(anonymous_12)" hits="0" signature="()V">
               <lines>
                 <line number="126" hits="0"/>
               </lines>
@@ -110,6 +116,7 @@
             <line number="53" hits="2" branch="false"/>
             <line number="57" hits="21" branch="false"/>
             <line number="62" hits="0" branch="false"/>
+            <line number="69" hits="0" branch="false"/>
             <line number="70" hits="0" branch="false"/>
             <line number="78" hits="0" branch="false"/>
             <line number="85" hits="0" branch="true" condition-coverage="0% (0/2)"/>
@@ -451,72 +458,87 @@
         </class>
       </classes>
     </package>
-    <package name="src.context" line-rate="0.0666" branch-rate="1">
+    <package name="src.context" line-rate="0.0666" branch-rate="0">
       <classes>
-        <class name="UserAuthContext.js" filename="src/context/UserAuthContext.js" line-rate="0.0666" branch-rate="1">
+        <class name="UserAuthContext.js" filename="src/context/UserAuthContext.js" line-rate="0.0666" branch-rate="0">
           <methods>
             <method name="UserAuthContextProvider" hits="0" signature="()V">
               <lines>
-                <line number="14" hits="0"/>
+                <line number="16" hits="0"/>
               </lines>
             </method>
-            <method name="logIn" hits="0" signature="()V">
+            <method name="(anonymous_1)" hits="0" signature="()V">
               <lines>
-                <line number="18" hits="0"/>
+                <line number="20" hits="0"/>
               </lines>
             </method>
-            <method name="signUp" hits="0" signature="()V">
-              <lines>
-                <line number="21" hits="0"/>
-              </lines>
-            </method>
-            <method name="logOut" hits="0" signature="()V">
+            <method name="(anonymous_2)" hits="0" signature="()V">
               <lines>
                 <line number="24" hits="0"/>
               </lines>
             </method>
-            <method name="googleSignIn" hits="0" signature="()V">
+            <method name="(anonymous_3)" hits="0" signature="()V">
               <lines>
-                <line number="27" hits="0"/>
+                <line number="28" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_4)" hits="0" signature="()V">
+              <lines>
+                <line number="35" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_5)" hits="0" signature="()V">
               <lines>
-                <line number="32" hits="0"/>
+                <line number="48" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_6)" hits="0" signature="()V">
               <lines>
-                <line number="33" hits="0"/>
+                <line number="49" hits="0"/>
               </lines>
             </method>
             <method name="(anonymous_7)" hits="0" signature="()V">
               <lines>
-                <line number="37" hits="0"/>
+                <line number="57" hits="0"/>
               </lines>
             </method>
             <method name="useUserAuth" hits="0" signature="()V">
               <lines>
-                <line number="59" hits="0"/>
+                <line number="79" hits="0"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="12" hits="2" branch="false"/>
-            <line number="15" hits="0" branch="false"/>
-            <line number="16" hits="0" branch="false"/>
-            <line number="19" hits="0" branch="false"/>
-            <line number="22" hits="0" branch="false"/>
+            <line number="13" hits="2" branch="false"/>
+            <line number="14" hits="2" branch="false"/>
+            <line number="17" hits="0" branch="false"/>
+            <line number="18" hits="0" branch="false"/>
+            <line number="20" hits="0" branch="false"/>
+            <line number="21" hits="0" branch="false"/>
+            <line number="24" hits="0" branch="false"/>
             <line number="25" hits="0" branch="false"/>
             <line number="28" hits="0" branch="false"/>
             <line number="29" hits="0" branch="false"/>
+            <line number="30" hits="0" branch="false"/>
+            <line number="31" hits="0" branch="false"/>
             <line number="32" hits="0" branch="false"/>
-            <line number="33" hits="0" branch="false"/>
-            <line number="34" hits="0" branch="false"/>
+            <line number="35" hits="0" branch="false"/>
+            <line number="36" hits="0" branch="false"/>
             <line number="37" hits="0" branch="false"/>
-            <line number="38" hits="0" branch="false"/>
+            <line number="39" hits="0" branch="false"/>
+            <line number="40" hits="0" branch="false"/>
+            <line number="41" hits="0" branch="false"/>
             <line number="42" hits="0" branch="false"/>
+            <line number="44" hits="0" branch="false"/>
+            <line number="48" hits="0" branch="false"/>
+            <line number="49" hits="0" branch="false"/>
+            <line number="50" hits="0" branch="true" condition-coverage="0% (0/2)"/>
+            <line number="51" hits="0" branch="false"/>
+            <line number="52" hits="0" branch="false"/>
+            <line number="53" hits="0" branch="false"/>
+            <line number="57" hits="0" branch="false"/>
             <line number="60" hits="0" branch="false"/>
+            <line number="80" hits="0" branch="false"/>
           </lines>
         </class>
       </classes>
