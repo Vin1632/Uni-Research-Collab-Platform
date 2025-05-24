@@ -66,7 +66,7 @@ const Header = ({ onUser_IdLoaded }) => {
           <h1 className="header-title">My Research Hub</h1>
         </div>
         <aside className="header-icon-group">
-          <FaEnvelope className="header-dashboard-icon" title="Messages" />
+          <FaEnvelope className="header-dashboard-icon" title="Messages" onClick={() => navigate("/ChatApp")}/>
           <FaBell className="header-dashboard-icon" title="Notifications" onClick={() => navigate("/notificationspage")} />
         </aside>
       </header>

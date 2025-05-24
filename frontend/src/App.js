@@ -20,6 +20,7 @@ import MyReviews from "./pages/my_reviews.js";
 import ReviewDetailsUser from "./pages/review_details_user.js"; 
 import AdminDashboard from "./admin_wrapper/AdminDashboard";
 import NotificationPage from "./pages/NotificationsPage.js";
+import ChatApp from "./components/ChatApp.js";
 
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
               <Route path="/review/:project_id" element={<ReviewDetails />} />
               <Route path="/my-reviews" element={<MyReviews />} />
               <Route path="/review-details-user" element={<ReviewDetailsUser />} />
-              <Route path="/notificationspage" element={<NotificationPage/>}/>
+              <Route path="/notificationspage" element={<NotificationPage/>}/> 
+              <Route path="/ChatApp" element={<ChatApp />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
             </Route>
             <Route path="/" element={<Login />} />

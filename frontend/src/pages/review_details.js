@@ -158,7 +158,7 @@ function ReviewProposalCard({ proposal }) {
         <p><strong>Start Date:</strong> {formatDate(proposal.start_date)}</p>
         <p><strong>End Date:</strong> {formatDate(proposal.end_date)}</p>
         <section className="review-proposal-buttons">
-          <button className="review-btn-message">Message</button>
+          <button className="review-btn-message" onClick={() => navigate("/ChatApp")} >Message</button>
           <button className="review-btn-request-invite" onClick={handleInvite} disabled={sendingInvite}>
           {sendingInvite ? "Processing..." : "Request Invitaion"}</button>
           <button

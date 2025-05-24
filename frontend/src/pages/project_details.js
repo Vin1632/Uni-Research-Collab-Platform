@@ -168,7 +168,7 @@ function ProposalCard({ proposal, user_id, project_id }) {
         
 
         <div className="proposal-buttons">
-          <button className="btn-message">Message</button>
+          <button className="btn-message" onClick={() => navigate("/ChatApp")} >Message</button>
           <button className="btn-invite" onClick={handleInvite}disabled={sendingInvite}>
           {sendingInvite ? "Processing..." : "Request Invitaion"}</button>
         </div>

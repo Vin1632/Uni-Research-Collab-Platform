@@ -1,0 +1,104 @@
+import React, { useState, useEffect } from "react";
+import { db, auth } from "../firebase";
+import {
+  collection,
+  addDoc,
+  where,
+  serverTimestamp,
+  onSnapshot,
+  query,
+  orderBy,
+} from "firebase/firestore";
+
+import "../styles/Chat.css";
+
+export const Chat = ({ room }) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const messagesRef = collection(db, "messages");
+
+  // Assign consistent color per user
+  const getUserColor = (username) => {
+    const colors = [
+      "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
+      "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe"
+    ];
+    let hash = 0;
+    for (let i = 0; i < username.length; i++) {
+      hash = username.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
+  };
+
+  useEffect(() => {
+    const queryMessages = query(
+      messagesRef,
+      where("room", "==", room),
+      orderBy("createdAt")
+    );
+
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
+      const msgs = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setMessages(msgs);
+    });
+
+    return () => unsubscribe();
+  }, [room, messagesRef]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (newMessage.trim() === "") return;
+
+    await addDoc(messagesRef, {
+      text: newMessage,
+      createdAt: serverTimestamp(),
+      user: auth.currentUser.displayName,
+      room,
+    });
+
+    setNewMessage("");
+  };
+
+  return (
+    <div className="chat-app">
+      <div className="header">
+        <h1>Welcome to: {room.toUpperCase()}</h1>
+      </div>
+
+      <div className="messages">
+        {messages.map((message) => (
+          <div key={message.id} className="message">
+            <span
+              className="user"
+              style={{
+                color: getUserColor(message.user),
+                fontWeight: "bold",
+                marginRight: "6px",
+              }}
+            >
+              {message.user}:
+            </span>
+            {message.text}
+          </div>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit} className="new-message-form">
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(event) => setNewMessage(event.target.value)}
+          className="new-message-input"
+          placeholder="Type your message here..."
+        />
+        <button type="submit" className="send-button">
+          Send
+        </button>
+      </form>
+    </div>
+  );
+};
