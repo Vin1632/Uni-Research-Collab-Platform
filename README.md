@@ -32,22 +32,36 @@ Doesn't Have MFA, so you can test the page for Admin when Marking
 ## NB---Setup when using Linux(OS)
 
 ### Clone the repo
-``` git clone  https://github.com/Vin1632/Uni-Research-Collab-Platform.git ```
+``` 
+git clone  https://github.com/Vin1632/Uni-Research-Collab-Platform.git 
+
+```
 
 ### Grant executable Permission for script files
-```chmod +x *.sh ```
+```
+chmod +x *.sh 
+```
 
 ### Execute the script file for installing dependencies
-``` ./set_up.sh ```
+```
+ ./set_up.sh 
+ 
+```
 
 ### Run the web application locally (Prod)
 
-``` ./run.sh ```
+``` 
+./run.sh 
+
+```
 
 ## NB---Set-Up when using Windows
 
 ### Clone the repo
-``` git clone  https://github.com/Vin1632/Uni-Research-Collab-Platform.git ```
+```
+ git clone  https://github.com/Vin1632/Uni-Research-Collab-Platform.git
+ 
+ ```
 
 ### Execute the command to install dependencies
 Execute the following commands one after the other or copy and paste in the powershell command
@@ -64,4 +78,7 @@ cd ../
 ### Run the web application locally (Prod)
 After installing the dependencies, execute the command in the root directory to run the application locally
 
-``` npm run prod ```
+```
+npm run prod 
+
+```
