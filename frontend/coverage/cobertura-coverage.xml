@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="385" lines-covered="324" line-rate="0.8415" branches-valid="197" branches-covered="147" branch-rate="0.7461" timestamp="1748122513381" complexity="0" version="0.1">
+<coverage lines-valid="385" lines-covered="324" line-rate="0.8415" branches-valid="197" branches-covered="147" branch-rate="0.7461" timestamp="1748152822701" complexity="0" version="0.1">
   <sources>
     <source>/home/vin/Desktop/Practice/Projects/SDP PROJECT/Projects 3/Uni-Research-Collab-Platform/frontend</source>
   </sources>
