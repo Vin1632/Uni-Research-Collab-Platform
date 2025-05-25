@@ -1,0 +1,40 @@
+.room-input-form {
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.room-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.room-input:focus {
+  border-color: #4a6fa5;
+}
+
+.room-add-button {
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.room-add-button:hover {
+  background-color: #3a5a8f;
+}
+
+.room-add-button:active {
+  transform: scale(0.95);
+}
