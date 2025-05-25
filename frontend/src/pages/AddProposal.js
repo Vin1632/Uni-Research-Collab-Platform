@@ -142,6 +142,9 @@ const AddProposals = () => {
   const sendInvite = async () => {
     setSendingInvite(true);
     try {
+      if (pendingSubmit) {
+        await completeSubmission();
+      }
       await invite_collaboration(recipientEmail, senderEmail, proposal.title);
     } catch (error) {
       console.error('Error sending invite:', error);
@@ -152,9 +155,7 @@ const AddProposals = () => {
       setRecipientEmail('');
       setSenderEmail(user?.email || '');
   
-      if (pendingSubmit) {
-        completeSubmission();
-      }
+      
     }
   };
   
