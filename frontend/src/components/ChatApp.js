@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChatLayout } from "./ChatLayout";
 import { Auth } from "./ChatAuth";
 import { AppWrapper } from "./AppWrapper";
