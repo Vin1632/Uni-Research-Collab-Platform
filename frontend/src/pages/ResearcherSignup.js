@@ -89,9 +89,7 @@ const ReviewerSignup = () => {
     if (!form.qualifications.trim()) {
       newErrors.qualifications = "Qualifications are required.";
     }
-    //  else if (form.qualifications.length < 10) {
-    //   newErrors.qualifications = "Qualifications must be at least 10 characters long.";
-    // }
+
     if (form.researchInterests.length === 0) {
       newErrors.researchInterests = "At least one interest is required.";
     }
@@ -150,7 +148,7 @@ const ReviewerSignup = () => {
         await login_service(
           form.fullName,
           email,
-          "reviewer",
+          "researcher",
           form.institution,
           form.qualifications,
           JSON.stringify(form.researchInterests)
@@ -159,7 +157,7 @@ const ReviewerSignup = () => {
           success: true,
           message: "Submitted successfully!",
         });
-        navigate("/recommendations");
+        navigate("/home");
       } catch (error) {
         setSubmitStatus({
           success: false,
