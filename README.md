@@ -24,12 +24,12 @@ To sign-in as an admin, use the following details,
     Email: vin.thabs@gmai.com
     Password: [Vin_Thabs]
 ```
-the reason being that there is not path to sign-in as an admin since an admin has all the rights/permission to 
+The reason being that there is not path to sign-in as an admin since an admin has all the rights/permission to 
 change alot of the settings, So it was a built-in user.
 
-Doesn't Have MFA, so you can test the page for Admin when Marking
+Doesn't have MFA, so you can test the page for Admin when Marking
 
-## NB---Setup when using Linux(OS)
+## NB - Setup when using Linux(OS)
 
 ### Clone the repo
 ``` 
@@ -55,7 +55,7 @@ chmod +x *.sh
 
 ```
 
-## NB---Set-Up when using Windows
+## NB - Set-Up when using Windows
 
 ### Clone the repo
 ```
