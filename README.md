@@ -40,12 +40,14 @@ Click [here](https://uni-research-collab-wits.azurewebsites.net/)
 
 ### Execute the command to install dependencies
 Execute the following commands one after the other or copy and paste in the powershell command
-``` npm i 
-    cd frontend/
-    npm i
-    cd ../server
-    npm i
-    cd ../
+``` 
+npm i 
+cd frontend/
+npm i
+cd ../server
+npm i
+cd ../
+
  ```
 
 ### Run the web application locally (Prod)
